@@ -2,8 +2,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 // import viteLogo from '/vite.svg';
 import './App.css';
-import SurveyPage from './pages/SurveyPage';
-import HomePage from './pages/Home';
+import SurveyPage from './pages/survey/SurveyPage';
+import HomePage from './pages/home/Home';
+import CreateSurvey from './pages/createsurvey/CreateSurvey';
+import Login from './pages/login/Login';
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -13,6 +15,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/survey" element={<SurveyPage />} />
+          <Route path="/create" element={<CreateSurvey />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/" element={<HomePage />} />
         </Routes>
 
