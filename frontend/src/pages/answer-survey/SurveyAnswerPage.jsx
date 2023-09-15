@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Question from './Question';
 
 const SurveyAnswerPage = () => {

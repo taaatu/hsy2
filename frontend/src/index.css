@@ -78,3 +78,13 @@ button:focus-visible {
   background-color: #E4F0F0;
   padding: 1em;
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+/* 
+label {
+  display: flex;
+  flex-direction: column;
+} */
