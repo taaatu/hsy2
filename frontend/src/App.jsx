@@ -1,25 +1,34 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import SurveyAnswerPage from './pages/answer-survey/SurveyAnswerPage';
-import HomePage from './pages/home/Home';
-import CreateSurvey from './pages/createsurvey/CreateSurvey';
-import Login from './pages/login/Login';
-import SurveysPage from './pages/surveys/SurveysPage';
-import PreviewPage from './pages/preview/PreviewPage';
-import EditSurveyPage from './pages/edit-survey/EditSurveyPage';
+import ProtectedRoutes from './ProtectedRoutes';
+import {
+  CreateSurvey,
+  EditSurveyPage,
+  HomePage,
+  Login,
+  PreviewPage,
+  PropertiesPage,
+  SurveyAnswerPage,
+  SurveysPage,
+  UserResultsPage,
+} from './pages';
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/survey" element={<SurveyAnswerPage />} />
-          <Route path="/create" element={<CreateSurvey />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/surveys" element={<SurveysPage />} />
-          <Route path="/preview" element={<PreviewPage />} />
-          <Route path="/survey/edit" element={<EditSurveyPage />} />
           <Route path="/" element={<HomePage />} />
+          <Route path="/survey" element={<SurveyAnswerPage />} />
+          <Route path="/user-results" element={<UserResultsPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/create" element={<CreateSurvey />} />
+            <Route path="/surveys" element={<SurveysPage />} />
+            <Route path="/survey/edit" element={<EditSurveyPage />} />
+            <Route path="/properties" element={<PropertiesPage />} />
+            <Route path="/preview" element={<PreviewPage />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>

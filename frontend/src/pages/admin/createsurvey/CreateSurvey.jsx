@@ -5,7 +5,8 @@ import {
   SURVEY_END_TIME,
   SURVEY_START_TIME,
   SURVEY_TITLE,
-} from '../../variables/PropertyNames';
+} from '../../../variables/PropertyNames';
+import styles from './CreateSurvey.module.css';
 
 const CreateSurvey = () => {
   // let nextId = 1;

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import styles from './CreateSurvey.module.css';
 
 // Component for adding questions to survey
 const AddQuestion = ({ setQuestions, questions, question }) => {
@@ -28,26 +29,35 @@ const AddQuestion = ({ setQuestions, questions, question }) => {
         onChange={(e) => handleInputChange(e, 'text')}
       />
       <div className="column">
-        <input
-          type="text"
-          placeholder="Vastaus 1"
-          required
-          onChange={(e) => handleInputChange(e, 'answer1')}
-        />
-        <input
-          type="text"
-          placeholder="Vastaus 2"
-          required
-          onChange={(e) => handleInputChange(e, 'answer2')}
-        />
-        <input
-          type="text"
-          placeholder="Vastaus 3"
-          required
-          onChange={(e) => handleInputChange(e, 'answer3')}
-        />
+        <div className="center-align">
+          <span className={styles.dot}>&#183;</span>
+          <input
+            type="text"
+            placeholder="Vastaus 1"
+            required
+            onChange={(e) => handleInputChange(e, 'answer1')}
+          />
+        </div>
+        <div className="center-align">
+          <span className={styles.dot}>&#183;</span>
+          <input
+            type="text"
+            placeholder="Vastaus 2"
+            required
+            onChange={(e) => handleInputChange(e, 'answer2')}
+          />
+        </div>
+        <div className="center-align">
+          <span className={styles.dot}>&#183;</span>
+          <input
+            type="text"
+            placeholder="Vastaus 3"
+            required
+            onChange={(e) => handleInputChange(e, 'answer3')}
+          />
+        </div>
         Painotus
-        <div>
+        <div className={styles.selectWeight}>
           {[1, 2, 3, 4, 5].map((weight) => (
             <div key={weight}>
               {weight}
@@ -64,10 +74,10 @@ const AddQuestion = ({ setQuestions, questions, question }) => {
           <input type="radio" name="question" value={1} required checked /> 3
           <input type="radio" name="question" value={1} required /> 4
           <input type="radio" name="question" value={1} required /> 5 */}
-          <button style={{ backgroundColor: 'red' }} onClick={removeQuestion}>
-            Poista
-          </button>
         </div>
+        <button style={{ backgroundColor: 'red' }} onClick={removeQuestion}>
+          Poista
+        </button>
       </div>
     </div>
   );
