@@ -26,7 +26,7 @@ const AddQuestion = ({ setQuestions, questions, question }) => {
         type="text"
         placeholder="Kysymys"
         required
-        onChange={(e) => handleInputChange(e, 'text')}
+        onChange={(e) => handleInputChange(e, 'question')}
       />
       <div className="column">
         <div className="center-align">
@@ -37,6 +37,7 @@ const AddQuestion = ({ setQuestions, questions, question }) => {
             required
             onChange={(e) => handleInputChange(e, 'answer1')}
           />
+          +1
         </div>
         <div className="center-align">
           <span className={styles.dot}>&#183;</span>
@@ -46,6 +47,7 @@ const AddQuestion = ({ setQuestions, questions, question }) => {
             required
             onChange={(e) => handleInputChange(e, 'answer2')}
           />
+          +0,5
         </div>
         <div className="center-align">
           <span className={styles.dot}>&#183;</span>
@@ -55,6 +57,7 @@ const AddQuestion = ({ setQuestions, questions, question }) => {
             required
             onChange={(e) => handleInputChange(e, 'answer3')}
           />
+          0
         </div>
         Painotus
         <div className={styles.selectWeight}>

@@ -12,6 +12,7 @@ import {
   SurveysPage,
   UserResultsPage,
 } from './pages';
+import { testSurvey } from './data/Survey';
 
 function App() {
   return (
@@ -19,7 +20,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/survey" element={<SurveyAnswerPage />} />
+          <Route
+            path="/survey"
+            element={<SurveyAnswerPage survey={testSurvey} />}
+          />
           <Route path="/user-results" element={<UserResultsPage />} />
           <Route path="/login" element={<Login />} />
           <Route element={<ProtectedRoutes />}>

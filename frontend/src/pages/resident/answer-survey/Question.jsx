@@ -7,39 +7,39 @@ const Question = ({ question }) => {
   return (
     <>
       <div className="column">
-        <h4>{question}</h4>
+        <h4>{question.question}</h4>
         <div>
           <input
             type="radio"
-            name={question}
+            name={question.Question}
             value={1}
             onChange={() => setAnswer(1)}
             checked={answer === 1}
             required
           />{' '}
-          Vastaus 1
+          {question.answer1}
         </div>
         <div>
           <input
             type="radio"
-            name={question}
+            name={question.Question}
             value={2}
             onChange={() => setAnswer(2)}
             checked={answer === 2}
             required
           />{' '}
-          Vastaus 2
+          {question.answer2}
         </div>
         <div>
           <input
             type="radio"
-            name={question}
+            name={question.Question}
             value={3}
             onChange={() => setAnswer(3)}
             checked={answer === 3}
             required
           />{' '}
-          Vastaus 3
+          {question.answer3}
         </div>
       </div>
       <h4>vastaus {answer}</h4>
@@ -48,7 +48,7 @@ const Question = ({ question }) => {
 };
 
 Question.propTypes = {
-  question: PropTypes.string.isRequired,
+  question: PropTypes.object.isRequired,
 };
 
 export default Question;
