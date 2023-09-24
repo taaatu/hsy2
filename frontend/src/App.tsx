@@ -31,7 +31,7 @@ function App() {
             <Route path="/surveys" element={<SurveysPage />} />
             <Route path="/survey/edit" element={<EditSurveyPage />} />
             <Route path="/properties" element={<PropertiesPage />} />
-            <Route path="/preview" element={<PreviewPage />} />
+            {/* <Route path="/preview" element={<PreviewPage />} /> */}
           </Route>
         </Routes>
       </BrowserRouter>

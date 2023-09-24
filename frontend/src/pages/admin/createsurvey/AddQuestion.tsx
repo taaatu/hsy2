@@ -1,14 +1,25 @@
 import PropTypes from 'prop-types';
 import styles from './CreateSurvey.module.css';
+import { Dispatch, SetStateAction } from 'react';
+import { ANSWER_1, ANSWER_2, ANSWER_3 } from '../../../variables/Constants';
+import { Question } from '../../../interfaces/Question';
 
+type Props = {
+  setQuestions: Dispatch<SetStateAction<any>>;
+  questions: Question[];
+  question: Partial<Question>;
+};
 // Component for adding questions to survey
-const AddQuestion = ({ setQuestions, questions, question }) => {
+const AddQuestion = ({ setQuestions, questions, question }: Props) => {
   const removeQuestion = () => {
     setQuestions(questions.filter((q) => q.id !== question.id));
   };
 
   // Save input fields value on change to questions array state
-  const handleInputChange = (e, objPropertyName) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    objPropertyName: string
+  ) => {
     const value = e.target.value;
     setQuestions(
       questions.map((q) => {
@@ -21,7 +32,7 @@ const AddQuestion = ({ setQuestions, questions, question }) => {
   };
   return (
     <div>
-      <h4>Kysymys {question.id}</h4>
+      {/* <h4>Kysymys {question.id}</h4> */}
       <input
         type="text"
         placeholder="Kysymys"
@@ -33,6 +44,7 @@ const AddQuestion = ({ setQuestions, questions, question }) => {
           <span className={styles.dot}>&#183;</span>
           <input
             type="text"
+            defaultValue={ANSWER_1}
             placeholder="Vastaus 1"
             required
             onChange={(e) => handleInputChange(e, 'answer1')}
@@ -43,6 +55,7 @@ const AddQuestion = ({ setQuestions, questions, question }) => {
           <span className={styles.dot}>&#183;</span>
           <input
             type="text"
+            defaultValue={ANSWER_2}
             placeholder="Vastaus 2"
             required
             onChange={(e) => handleInputChange(e, 'answer2')}
@@ -53,6 +66,7 @@ const AddQuestion = ({ setQuestions, questions, question }) => {
           <span className={styles.dot}>&#183;</span>
           <input
             type="text"
+            defaultValue={ANSWER_3}
             placeholder="Vastaus 3"
             required
             onChange={(e) => handleInputChange(e, 'answer3')}
