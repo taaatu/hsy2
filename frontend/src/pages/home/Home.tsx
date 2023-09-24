@@ -18,7 +18,7 @@ const HomePage = () => {
         <Link to="/create">Create Survey</Link>
         <Link to="/login">Login</Link>
         <Link to="/surveys">Surveys</Link>
-        <Link to="/preview">Preview</Link>
+        {/* <Link to="/preview">Preview</Link> */}
         <Link to="/properties">Properties</Link>
         <Link to="/user-results">User Results</Link>
       </div>
