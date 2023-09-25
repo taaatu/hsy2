@@ -1,6 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './Home.module.css';
 import { useState } from 'react';
+import { AppName } from '../../components/AppName';
+import { HsyLogo } from '../../components/HsyLogo';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -15,8 +17,7 @@ const HomePage = () => {
     <div style={{ padding: '2em' }}>
       <div className={styles.main}>
         <h1>Home page</h1>
-        <h1>HIMA</h1>
-        <h3>Hiilijalanjäljen Minimointi Asuinkiinteistöissä</h3>
+        <AppName />
         <h4>Pääsykoodi</h4>
         <form onSubmit={handleSubmit}>
           <input
@@ -27,6 +28,7 @@ const HomePage = () => {
           />
           <button>Siirry kyselyyn</button>
         </form>
+        <HsyLogo />
       </div>
 
       <Link to="/login">Kirjaudu/Login</Link>
