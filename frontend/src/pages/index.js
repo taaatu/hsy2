@@ -1,3 +1,5 @@
+import { AdminHome } from './admin/admin-home/AdminHome';
+import { CreateUser } from './admin/create-user/CreateUser';
 import CreateSurvey from './admin/createsurvey/CreateSurvey.tsx';
 import EditSurveyPage from './admin/edit-survey/EditSurveyPage';
 import PreviewPage from './admin/preview/PreviewPage';
@@ -18,4 +20,6 @@ export {
   PreviewPage,
   SurveysPage,
   CreateSurvey,
+  CreateUser,
+  AdminHome,
 };

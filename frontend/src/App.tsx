@@ -11,6 +11,8 @@ import {
   SurveyAnswerPage,
   SurveysPage,
   UserResultsPage,
+  CreateUser,
+  AdminHome,
 } from './pages';
 import { testSurvey } from './data/Survey';
 
@@ -31,6 +33,8 @@ function App() {
             <Route path="/surveys" element={<SurveysPage />} />
             <Route path="/survey/edit" element={<EditSurveyPage />} />
             <Route path="/properties" element={<PropertiesPage />} />
+            <Route path="/admin" element={<AdminHome />} />
+            <Route path="/admin/adduser" element={<CreateUser />} />
             {/* <Route path="/preview" element={<PreviewPage />} /> */}
           </Route>
         </Routes>
