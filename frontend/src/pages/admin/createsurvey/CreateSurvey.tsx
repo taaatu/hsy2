@@ -88,6 +88,7 @@ const CreateSurvey = () => {
             type="text"
             placeholder="Kyselyn nimi"
             required
+            defaultValue={title}
             onChange={(e) => setTitle(e.target.value)}
           />
         </label>
@@ -96,6 +97,7 @@ const CreateSurvey = () => {
           <textarea
             placeholder="Kuvaus"
             required
+            defaultValue={description}
             onChange={(e) => setDescription(e.target.value)}
           />
         </label>
@@ -105,6 +107,7 @@ const CreateSurvey = () => {
             type="date"
             placeholder="Alkaa"
             required
+            defaultValue={startTime}
             onChange={(e) => setStartTime(e.target.value)}
           />
         </label>
@@ -114,6 +117,7 @@ const CreateSurvey = () => {
             type="date"
             placeholder="Päättyy"
             required
+            defaultValue={endTime}
             onChange={(e) => setEndTime(e.target.value)}
           />
         </label>

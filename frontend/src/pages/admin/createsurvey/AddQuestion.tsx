@@ -37,6 +37,7 @@ const AddQuestion = ({ setQuestions, questions, question }: Props) => {
         type="text"
         placeholder="Kysymys"
         required
+        defaultValue={question.question}
         onChange={(e) => handleInputChange(e, 'question')}
       />
       <div className="column">
@@ -73,7 +74,7 @@ const AddQuestion = ({ setQuestions, questions, question }: Props) => {
           />
           0
         </div>
-        Painotus
+        {/* Painotus
         <div className={styles.selectWeight}>
           {[1, 2, 3, 4, 5].map((weight) => (
             <div key={weight}>
@@ -86,12 +87,13 @@ const AddQuestion = ({ setQuestions, questions, question }: Props) => {
               />
             </div>
           ))}
-          {/* <input type="radio" name="question" value={1} required /> 1
+        </div> */}
+        {/* <input type="radio" name="question" value={1} required /> 1
           <input type="radio" name="question" value={1} required /> 2
           <input type="radio" name="question" value={1} required checked /> 3
           <input type="radio" name="question" value={1} required /> 4
           <input type="radio" name="question" value={1} required /> 5 */}
-        </div>
+
         <button style={{ backgroundColor: 'red' }} onClick={removeQuestion}>
           Poista
         </button>
