@@ -1,47 +1,45 @@
+import { useState } from 'react';
 import { CITIES } from '../../../variables/Constants';
+import { User } from '../../../interfaces/User';
 
 export const CreateUser = () => {
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [companyName, setCompanyName] = useState<string>('');
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const newUser: User = {
+      full_name: name,
+      email: email,
+      password: password,
+      company: companyName,
+    };
+    alert('submit');
+    console.log('newUser: ', newUser);
+  };
   return (
     <div className="centered-container">
-      <h1>CreateUser</h1>
-      <form>
+      <h1>Lisää isännöitsijä</h1>
+      <form onSubmit={handleSubmit}>
         <label>
-          Sähtköposti
-          <input type="email" placeholder="Sähköposti" />
-        </label>
-        <label>
-          Salasana
-          <input type="password" placeholder="Salasana" />
+          Isännöitsijän nimi
+          <input type="text" onChange={(e) => setName(e.target.value)} />
         </label>
         <label>
           Yrityksen nimi
-          <input />
-        </label>
-
-        {/* <h4>Taloyhtiö</h4>
-        <label>
-          Osoite
-          <input placeholder="Osoite" />
+          <input onChange={(e) => setCompanyName(e.target.value)} />
         </label>
         <label>
-          Postinumero
-          <input placeholder="Postinumero" />
+          Sähköposti
+          <input type="email" onChange={(e) => setEmail(e.target.value)} />
         </label>
-
         <label>
-          Kaupunki
-          <select>
-            {CITIES.map((city: string) => (
-              <option key={city}>{city}</option>
-            ))}
-          </select>
+          Salasana
+          <input
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </label>
-
-        <label>
-          Taloyhtiön nimi
-          <input placeholder="Taloyhtiön nimi" />
-        </label> */}
-
         <button>Lisää isännöitsijä</button>
       </form>
     </div>
