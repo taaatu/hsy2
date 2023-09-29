@@ -18,6 +18,7 @@ export const Login = () => {
     };
     // TODO: Login API call
     console.log('loginInput: ', loginInput);
+    localStorage.setItem('token', 'some_token');
     navigate('/admin');
   };
 

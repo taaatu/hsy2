@@ -14,7 +14,7 @@ import {
   CreateUser,
   AdminHome,
 } from './pages';
-import { testSurvey } from './data/Survey';
+import { testSurvey } from './data/TestSurvey';
 import { ManagerHome } from './pages/manager/ManagerHome';
 import { AddProperty } from './pages/manager/add-property/AddProperty';
 import { TopNavBar } from './components/TopNavBar';

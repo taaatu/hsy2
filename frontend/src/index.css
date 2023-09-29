@@ -110,3 +110,14 @@ label {
   display: flex;
   flex-direction: column;
 } */
+#topnav-bar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2em 0 2em;
+  background-color: lightgray;
+  min-height: 10vh;
+  flex-wrap: wrap;
+}

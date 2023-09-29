@@ -1,24 +1,10 @@
 import { CITIES } from '../../../variables/Constants';
 
-export const CreateUser = () => {
+export const AddProperty = () => {
   return (
     <div className="centered-container">
-      <h1>CreateUser</h1>
       <form>
-        <label>
-          Sähtköposti
-          <input type="email" placeholder="Sähköposti" />
-        </label>
-        <label>
-          Salasana
-          <input type="password" placeholder="Salasana" />
-        </label>
-        <label>
-          Yrityksen nimi
-          <input />
-        </label>
-
-        {/* <h4>Taloyhtiö</h4>
+        <h4>Taloyhtiö</h4>
         <label>
           Osoite
           <input placeholder="Osoite" />
@@ -40,9 +26,9 @@ export const CreateUser = () => {
         <label>
           Taloyhtiön nimi
           <input placeholder="Taloyhtiön nimi" />
-        </label> */}
+        </label>
 
-        <button>Lisää isännöitsijä</button>
+        <button>Lisää taloyhtiö</button>
       </form>
     </div>
   );
