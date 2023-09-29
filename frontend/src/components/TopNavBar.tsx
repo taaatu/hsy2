@@ -1,5 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { ADMIN_HOME, MANAGER_HOME } from '../variables/RoutePaths';
+import {
+  ADMIN_HOME,
+  MANAGERS_PATH,
+  MANAGER_HOME,
+} from '../variables/RoutePaths';
 
 type Props = {
   isAdmin: boolean;
@@ -24,6 +28,7 @@ const AdminLinks = () => (
     <Link to={MANAGER_HOME}>Isännöitsijä</Link>
     <Link to="/admin/create">Luo kysely</Link>
     <Link to="/admin/adduser">Lisää isännöitsijä</Link>
+    <Link to={MANAGERS_PATH}>Isännöitsijät</Link>
     <Link to="/surveys">Kyselyt</Link>
   </>
 );

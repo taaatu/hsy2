@@ -20,6 +20,9 @@ import { AddProperty } from './pages/manager/add-property/AddProperty';
 import { TopNavBar } from './components/TopNavBar';
 import { PropertyManagerRoutes } from './PropertyManagerRoutes';
 import { MangerProperties } from './pages/manager/manager-properties/ManagerProperties';
+import { MANAGERS_PATH } from './variables/RoutePaths';
+import { PropertyMangers } from './pages/admin/property-managers/PropertyManagers';
+import { PropertyManager } from './pages/admin/property-managers/ProperyManager';
 
 function App() {
   return (
@@ -40,6 +43,11 @@ function App() {
             <Route path="/properties" element={<PropertiesPage />} />
             <Route path="/admin" element={<AdminHome />} />
             <Route path="/admin/adduser" element={<CreateUser />} />
+            <Route path={MANAGERS_PATH} element={<PropertyMangers />} />
+            <Route
+              path={MANAGERS_PATH + '/:userid'}
+              element={<PropertyManager />}
+            />
             {/* <Route path="/preview" element={<PreviewPage />} /> */}
           </Route>
           <Route element={<PropertyManagerRoutes />}>
