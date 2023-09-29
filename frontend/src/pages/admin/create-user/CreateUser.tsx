@@ -1,21 +1,26 @@
 import { useState } from 'react';
 import { CITIES } from '../../../variables/Constants';
 import { User } from '../../../interfaces/User';
+import { useUser } from '../../../hooks/UserHook';
 
 export const CreateUser = () => {
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [companyName, setCompanyName] = useState<string>('');
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const { addUser } = useUser();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const newUser: User = {
       full_name: name,
       email: email,
       password: password,
       company: companyName,
     };
-    alert('submit');
-    console.log('newUser: ', newUser);
+    const res = await addUser(newUser);
+    console.log('add user: ', res);
+    if (!res || !res.id) return;
+    alert('Käyttäjä lisätty');
   };
   return (
     <div className="centered-container">
