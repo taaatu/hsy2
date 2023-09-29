@@ -1,3 +1,5 @@
+import { BASE_URL } from '../variables/Constants';
+
 const doFetch = async (
   endPoint: string,
   method: string,
@@ -14,7 +16,7 @@ const doFetch = async (
       Authentication: `Bearer ${token}`,
       body: JSON.stringify(body),
     };
-    const response = await fetch(endPoint, options);
+    const response = await fetch(BASE_URL + endPoint, options);
     const json = await response.json();
     if (!response.ok) {
       throw new Error(json.message);
