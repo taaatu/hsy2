@@ -27,7 +27,7 @@ router
     .get(user_get_by_id)
     .delete(user_delete);
 router
-    .route("/update/:userId")
+    .route("/update")
     .put(
         body("full_name").isLength({ min: 3 }),
         body("email").isEmail(),

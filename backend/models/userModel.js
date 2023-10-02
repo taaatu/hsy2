@@ -55,8 +55,6 @@ const deleteUser = async (userId) => {
 
 const updateUserInfo = async (user, userId) => {
     try {
-        console.log(user);
-        console.log(userId);
         const [rows] = await promisePool.execute(
             "UPDATE user SET full_name = ?, password = ?, email = ?, company = ? WHERE user_id = ?",
             [user.full_name, user.password, user.email, user.company, userId]
@@ -66,11 +64,25 @@ const updateUserInfo = async (user, userId) => {
         console.error("model update user info", e.message);
     }
 }; 
+
+const getUserLogin = async (params) => {
+    try {
+      console.log(params);
+      const [rows] = await promisePool.execute(
+        "SELECT * FROM user WHERE email = ?;",
+        params
+      );
+      return rows;
+    } catch (e) {
+      console.log("error", e.message);
+    }
+};
   
 module.exports = {
     getAllUsers,
     insertUser,
     getUserById,
     deleteUser,
-    updateUserInfo
+    updateUserInfo,
+    getUserLogin
 }; 
