@@ -21,8 +21,8 @@ import { TopNavBar } from './components/TopNavBar';
 import { PropertyManagerRoutes } from './PropertyManagerRoutes';
 import { MangerProperties } from './pages/manager/manager-properties/ManagerProperties';
 import { MANAGERS_PATH } from './variables/RoutePaths';
-import { PropertyMangers } from './pages/admin/property-managers/PropertyManagers';
-import { PropertyManager } from './pages/admin/property-managers/ProperyManager';
+import { PropertyMangers } from './pages/admin/property-managers/list/PropertyManagers';
+import { PropertyManagerPage } from './pages/admin/property-managers/single/ProperyManagerPage';
 
 function App() {
   return (
@@ -46,7 +46,7 @@ function App() {
             <Route path={MANAGERS_PATH} element={<PropertyMangers />} />
             <Route
               path={MANAGERS_PATH + '/:userid'}
-              element={<PropertyManager />}
+              element={<PropertyManagerPage />}
             />
             {/* <Route path="/preview" element={<PreviewPage />} /> */}
           </Route>

@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { testUserList } from '../../../data/TestUser';
-import { User } from '../../../interfaces/User';
-import { MANAGERS_PATH } from '../../../variables/RoutePaths';
+import { testUserList } from '../../../../data/TestUser';
+import { User } from '../../../../interfaces/User';
+import { MANAGERS_PATH } from '../../../../variables/RoutePaths';
 import { useEffect, useState } from 'react';
-import { useUser } from '../../../hooks/UserHook';
+import { useUser } from '../../../../hooks/UserHook';
 
 export const PropertyMangers = () => {
   const navigate = useNavigate();
@@ -26,18 +26,16 @@ export const PropertyMangers = () => {
         Lisää isännöitsijä
       </button>
       <div>
-        {
-          /*testUserList*/ userList.map((user: User) => (
-            <div
-              onClick={() => navigate(MANAGERS_PATH + '/' + user.user_id)}
-              key={user.user_id}
-              style={{ display: 'flex', gap: '1em' }}
-            >
-              <h4>{user.full_name}</h4>
-              <h4>{user.company}</h4>
-            </div>
-          ))
-        }
+        {userList.map((user: User) => (
+          <div
+            onClick={() => navigate(MANAGERS_PATH + '/' + user.user_id)}
+            key={user.user_id}
+            style={{ display: 'flex', gap: '1em' }}
+          >
+            <h4>{user.full_name}</h4>
+            <h4>{user.company}</h4>
+          </div>
+        ))}
       </div>
     </div>
   );
