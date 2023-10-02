@@ -1,21 +1,29 @@
 import { useState } from 'react';
 import { CITIES } from '../../../variables/Constants';
 import { User } from '../../../interfaces/User';
+import { useUser } from '../../../hooks/UserHook';
 
 export const CreateUser = () => {
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [companyName, setCompanyName] = useState<string>('');
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const { addUser } = useUser();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const newUser: User = {
       full_name: name,
       email: email,
       password: password,
       company: companyName,
     };
-    alert('submit');
-    console.log('newUser: ', newUser);
+    const res = await addUser(newUser);
+    console.log('add user: ', res);
+    if (!res) {
+      alert('Käyttäjän lisäys epäonnistui');
+      return;
+    }
+    alert('Käyttäjä lisätty');
   };
   return (
     <div className="centered-container">
@@ -23,20 +31,29 @@ export const CreateUser = () => {
       <form onSubmit={handleSubmit}>
         <label>
           Isännöitsijän nimi
-          <input type="text" onChange={(e) => setName(e.target.value)} />
+          <input
+            required
+            type="text"
+            onChange={(e) => setName(e.target.value)}
+          />
         </label>
         <label>
           Yrityksen nimi
-          <input onChange={(e) => setCompanyName(e.target.value)} />
+          <input required onChange={(e) => setCompanyName(e.target.value)} />
         </label>
         <label>
           Sähköposti
-          <input type="email" onChange={(e) => setEmail(e.target.value)} />
+          <input
+            type="email"
+            required
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </label>
         <label>
           Salasana
           <input
             type="password"
+            required
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
