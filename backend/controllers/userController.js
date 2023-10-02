@@ -75,7 +75,7 @@ const user_info_update_put = async (req, res, next) => {
     return;
   }
   const allUsers = await getAllUsers();
-  const userById = await getUserById(req.params.userId);
+  const userById = await getUserById(req.user.user_id);
   var saveUser = true;
   allUsers.forEach((user) => {
     if (userById.email != req.body.email && user.email == req.body.email) {
@@ -83,7 +83,7 @@ const user_info_update_put = async (req, res, next) => {
     }
   });
   if (saveUser) {
-    await updateUserInfo(req.body, req.params.userId);
+    await updateUserInfo(req.body, req.user.user_id);
     res.json({ message: `User ${userById.full_name}'s info updated` });
   } else {
     res.status(400).json({ message: 'This user email already exist' });
