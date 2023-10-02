@@ -86,7 +86,7 @@ const user_info_update_put = async (req, res, next) => {
     await updateUserInfo(req.body, req.params.userId);
     res.json({ message: `User ${userById.full_name}'s info updated` });
   } else {
-    res.json({ message: 'This user email already exist' });
+    res.status(400).json({ message: 'This user email already exist' });
   }
 };
 module.exports = {
