@@ -12,6 +12,14 @@ const useUser = () => {
       console.error('get user list', error);
     }
   };
+  const getUserById = async (userid: string) => {
+    try {
+      const response = await doFetch('user/userid/' + userid, 'GET');
+      return response as User;
+    } catch (error) {
+      console.error('get user by id', error);
+    }
+  };
   const addUser = async (user: User) => {
     try {
       const response = await doFetch('user', 'POST', user);
@@ -20,7 +28,27 @@ const useUser = () => {
       console.error('add user', error);
     }
   };
-  return { getUserList, addUser };
+  const modifyUser = async (user: User) => {
+    try {
+      const response = await doFetch(
+        'user/update/' + user.user_id,
+        'PUT',
+        user
+      );
+      return response as MessageResponse;
+    } catch (error) {
+      console.error('modify user', error);
+    }
+  };
+  const deleteUser = async (userid: number) => {
+    try {
+      const response = await doFetch('user/userid/' + userid, 'DELETE');
+      return response as MessageResponse;
+    } catch (error) {
+      console.error('delete user', error);
+    }
+  };
+  return { getUserList, getUserById, addUser, modifyUser, deleteUser };
 };
 
 export { useUser };
