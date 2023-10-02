@@ -19,7 +19,10 @@ export const CreateUser = () => {
     };
     const res = await addUser(newUser);
     console.log('add user: ', res);
-    if (!res || !res.id) return;
+    if (!res) {
+      alert('Käyttäjän lisäys epäonnistui');
+      return;
+    }
     alert('Käyttäjä lisätty');
   };
   return (
@@ -28,20 +31,29 @@ export const CreateUser = () => {
       <form onSubmit={handleSubmit}>
         <label>
           Isännöitsijän nimi
-          <input type="text" onChange={(e) => setName(e.target.value)} />
+          <input
+            required
+            type="text"
+            onChange={(e) => setName(e.target.value)}
+          />
         </label>
         <label>
           Yrityksen nimi
-          <input onChange={(e) => setCompanyName(e.target.value)} />
+          <input required onChange={(e) => setCompanyName(e.target.value)} />
         </label>
         <label>
           Sähköposti
-          <input type="email" onChange={(e) => setEmail(e.target.value)} />
+          <input
+            type="email"
+            required
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </label>
         <label>
           Salasana
           <input
             type="password"
+            required
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>

@@ -38,6 +38,7 @@ export const ModifyUser = ({ user, setIsModifying }: ModifyUserProps) => {
         <label>
           Nimi
           <input
+            required
             type="text"
             defaultValue={user.full_name}
             onChange={(e) => setName(e.target.value)}
@@ -46,6 +47,7 @@ export const ModifyUser = ({ user, setIsModifying }: ModifyUserProps) => {
         <label>
           Sähköposti
           <input
+            required
             type="email"
             defaultValue={user.email}
             onChange={(e) => setEmail(e.target.value)}
@@ -54,6 +56,7 @@ export const ModifyUser = ({ user, setIsModifying }: ModifyUserProps) => {
         <label>
           Yritys
           <input
+            required
             type="text"
             defaultValue={user.company}
             onChange={(e) => setCompany(e.target.value)}
@@ -62,6 +65,7 @@ export const ModifyUser = ({ user, setIsModifying }: ModifyUserProps) => {
         <label>
           Salasana
           <input
+            required
             type="password"
             defaultValue={user.password}
             onChange={(e) => setPassword(e.target.value)}
