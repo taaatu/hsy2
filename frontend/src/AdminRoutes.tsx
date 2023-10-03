@@ -3,7 +3,7 @@ import { TopNavBar } from './components/TopNavBar';
 
 // https://medium.com/@dennisivy/creating-protected-routes-with-react-router-v6-2c4bbaf7bc1c
 const AdminRoutes = () => {
-  const token = 'some token';
+  const token = localStorage.getItem('token');
   return token ? (
     <>
       <TopNavBar isAdmin={true} />

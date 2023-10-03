@@ -4,14 +4,14 @@ interface User {
   password: string;
   full_name: string;
   company: string;
-  role?: UserRole;
+  user_group?: UserGroup;
 }
 
-enum UserRole {
-  ADMIN = 'admin',
-  MANAGER = 'manager',
+enum UserGroup {
+  ADMIN = 0,
+  MANAGER = 1,
 }
 
 type LoginInput = Pick<User, 'email' | 'password'>;
 
-export { User, LoginInput };
+export { User, LoginInput, UserGroup };

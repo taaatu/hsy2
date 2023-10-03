@@ -1,6 +1,13 @@
+import { User } from './User';
+
 interface MessageResponse {
   message: string;
   id?: number;
 }
 
-export { MessageResponse };
+interface TokenResponse {
+  token: string;
+  user: Omit<User, 'password'>;
+}
+
+export { MessageResponse, TokenResponse };

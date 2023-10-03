@@ -1,19 +1,14 @@
 import { BASE_URL } from '../variables/Constants';
 
-const doFetch = async (
-  endPoint: string,
-  method: string,
-  body?: object,
-  token?: string
-) => {
+const doFetch = async (endPoint: string, method: string, body?: object) => {
+  const token = localStorage.getItem('token');
   try {
     const options: any = {
       method: method,
       headers: {
         'Content-Type': 'application/json',
-        // 'x-access-token': token || '',
+        Authorization: `Bearer ${token}`,
       },
-      Authentication: `Bearer ${token}`,
       body: JSON.stringify(body),
     };
     const response = await fetch(BASE_URL + endPoint, options);
