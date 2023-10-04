@@ -4,6 +4,7 @@ import {
   MANAGERS_PATH,
   MANAGER_HOME,
 } from '../variables/RoutePaths';
+import useAuth from '../hooks/AuthHook';
 
 type Props = {
   isAdmin: boolean;
@@ -11,10 +12,8 @@ type Props = {
 
 export const TopNavBar = ({ isAdmin }: Props) => {
   const navigate = useNavigate();
-  const onLogout = () => {
-    localStorage.removeItem('token');
-    navigate('/login');
-  };
+  const { logoutUser } = useAuth();
+  const onLogout = () => logoutUser();
   return (
     <div id="topnav-bar">
       <button onClick={onLogout}>Kirjaudu ulos</button>

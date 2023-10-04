@@ -5,7 +5,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AppName } from '../../components/AppName';
 import { HsyLogo } from '../../components/HsyLogo';
 import useAuth from '../../hooks/AuthHook';
-import { ADMIN_HOME, MANAGER_HOME } from '../../variables/RoutePaths';
 
 export const Login = () => {
   const [email, setEmail] = useState<string>('');
@@ -20,15 +19,7 @@ export const Login = () => {
       password: password,
     };
     console.log('loginInput: ', loginInput);
-    const res = await loginUser(loginInput);
-    if (!res) {
-      alert('Kirjautuminen epäonnistui');
-      return;
-    }
-    localStorage.setItem('token', res.token);
-    res.user.user_group === UserGroup.ADMIN
-      ? navigate(ADMIN_HOME)
-      : navigate(MANAGER_HOME);
+    await loginUser(loginInput);
   };
 
   return (

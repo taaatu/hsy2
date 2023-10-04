@@ -1,10 +1,10 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { TopNavBar } from './components/TopNavBar';
+import { TOKEN } from './variables/Constants';
 
 // https://medium.com/@dennisivy/creating-protected-routes-with-react-router-v6-2c4bbaf7bc1c
 const AdminRoutes = () => {
-  const token = localStorage.getItem('token');
-  return token ? (
+  return TOKEN ? (
     <>
       <TopNavBar isAdmin={true} />
       <Outlet />

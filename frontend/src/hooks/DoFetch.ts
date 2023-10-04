@@ -1,13 +1,12 @@
-import { BASE_URL } from '../variables/Constants';
+import { BASE_URL, TOKEN } from '../variables/Constants';
 
 const doFetch = async (endPoint: string, method: string, body?: object) => {
-  const token = localStorage.getItem('token');
   try {
     const options: any = {
       method: method,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${TOKEN}`,
       },
       body: JSON.stringify(body),
     };
