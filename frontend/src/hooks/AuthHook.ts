@@ -3,9 +3,12 @@ import { TokenResponse } from '../interfaces/Response';
 import { LoginInput, UserGroup } from '../interfaces/User';
 import { doFetch } from './DoFetch';
 import { ADMIN_HOME, MANAGER_HOME } from '../variables/RoutePaths';
+import { useContext } from 'react';
+import { MainContext } from '../context/MainContext';
 
 const useAuth = () => {
   const navigate = useNavigate();
+  const { setCurrentUser } = useContext(MainContext);
 
   const loginUser = async (args: LoginInput) => {
     try {
@@ -16,6 +19,8 @@ const useAuth = () => {
       )) as TokenResponse;
       console.log('login user', response);
       sessionStorage.setItem('token', response.token);
+      setCurrentUser(response.user);
+      // Navigate to correct home page based on user group
       response.user.user_group === UserGroup.ADMIN
         ? navigate(ADMIN_HOME)
         : navigate(MANAGER_HOME);
@@ -27,6 +32,7 @@ const useAuth = () => {
 
   const logoutUser = () => {
     sessionStorage.removeItem('token');
+    setCurrentUser(null);
     navigate('/login');
   };
 
