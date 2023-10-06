@@ -25,8 +25,8 @@ export const Login = () => {
   return (
     <div className={styles.container}>
       <AppName />
-      <form onSubmit={handleSumbit}>
-        <label>
+      <form onSubmit={handleSumbit} className='loginforms'>
+        <label className='loginlabel'>
           Sähköposti
           <input
             type="email"
@@ -36,7 +36,7 @@ export const Login = () => {
           />
         </label>
 
-        <label>
+        <label className='loginlabel'>
           Salasana{' '}
           <input
             type="password"
@@ -46,9 +46,9 @@ export const Login = () => {
           />
         </label>
 
-        <button>Kirjaudu sisään</button>
+        <button className='loginbutton'>Kirjaudu sisään</button>
       </form>
-      <Link to="/">Home</Link>
+      <Link to="/" className='homebutton'>Home</Link>
       <HsyLogo />
     </div>
   );

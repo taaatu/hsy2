@@ -79,12 +79,12 @@ const CreateSurvey = () => {
     );
   }
   return (
-    <div>
+    <div className='createsurvey'>
       <h1>Create Survey</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
+      <form onSubmit={handleSubmit} className='createsurveystuff'>
+        <label className='createsurveything'>
           Kyselyn nimi
-          <input
+          <input className='createsurveything'
             type="text"
             placeholder="Kyselyn nimi"
             required
@@ -92,7 +92,7 @@ const CreateSurvey = () => {
             onChange={(e) => setTitle(e.target.value)}
           />
         </label>
-        <label>
+        <label className='createsurveything'>
           Kuvaus
           <textarea
             placeholder="Kuvaus"
@@ -101,7 +101,7 @@ const CreateSurvey = () => {
             onChange={(e) => setDescription(e.target.value)}
           />
         </label>
-        <label>
+        <label className='createsurveything'>
           Alkaa
           <input
             type="date"
@@ -111,7 +111,7 @@ const CreateSurvey = () => {
             onChange={(e) => setStartTime(e.target.value)}
           />
         </label>
-        <label>
+        <label className='createsurveything'>
           Päättyy
           <input
             type="date"
@@ -121,7 +121,7 @@ const CreateSurvey = () => {
             onChange={(e) => setEndTime(e.target.value)}
           />
         </label>
-        <select>
+        <select className='createsurveything'>
           {CITIES.map((city: string) => (
             <option key={city}>{city}</option>
           ))}
@@ -139,13 +139,16 @@ const CreateSurvey = () => {
             />
           </>
         ))}
-        <button type="button" onClick={addQuestion}>
+        <p className='createsurveybuttons'>
+        <button type="button" onClick={addQuestion} className='hehe'>
           Lisää kysymys
         </button>
-        <button type="button" onClick={() => setShowPreview(true)}>
+        <button type="button" onClick={() => setShowPreview(true)}className='hehe'>
           Esikatsele
         </button>
-        <input type="submit" value="Luo kysely" />
+        </p>
+        <input type="submit" value="Luo kysely" className='createsurveything' />
+        
       </form>
     </div>
   );

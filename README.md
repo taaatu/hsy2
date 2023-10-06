@@ -1,1 +1,0 @@
-# HSY survey app

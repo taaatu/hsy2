@@ -1,8 +1,8 @@
 const AppName = () => {
   return (
     <div className="app-name">
-      <h1>HIMA</h1>
-      <h3>Hiilijalanjäljen Minimointi Asuinkiinteistöissä</h3>
+      <h1 className='hima'></h1>
+      <h3></h3>
     </div>
   );
 };

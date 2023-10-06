@@ -16,7 +16,7 @@ const HomePage = () => {
   return (
     <div style={{ padding: '2em' }}>
       <div className={styles.main}>
-        <h1>Home page</h1>
+        <h1 >Home page</h1>
         <AppName />
         <h4>Pääsykoodi</h4>
         <form onSubmit={handleSubmit}>
@@ -26,13 +26,11 @@ const HomePage = () => {
             placeholder="Pääsykoodi"
             onChange={(e) => setSurveyKey(e.target.value)}
           />
-          <button>Siirry kyselyyn</button>
+          <button className='button'>Siirry kyselyyn</button>
         </form>
         <HsyLogo />
       </div>
-
-      <Link to="/login">Kirjaudu/Login</Link>
-
+      <Link to="/login" className='linktologin'>Kirjaudu/Login</Link>
       {/* <div className="column">
         <Link to="/survey">Survey answer</Link>
         <Link to="/survey/edit">Edit Survey</Link>
