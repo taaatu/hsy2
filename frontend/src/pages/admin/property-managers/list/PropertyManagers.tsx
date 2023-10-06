@@ -5,7 +5,7 @@ import { MANAGERS_PATH } from '../../../../variables/RoutePaths';
 import { useEffect, useState } from 'react';
 import { useUser } from '../../../../hooks/UserHook';
 
-export const PropertyMangers = () => {
+export const PropertyManagers = () => {
   const navigate = useNavigate();
   const [userList, setUserList] = useState<User[]>([]); // TODO: Replace with useUserList hook
   const [fullList, setFullList] = useState<User[]>([]); // TODO: Replace with useUserList hook
