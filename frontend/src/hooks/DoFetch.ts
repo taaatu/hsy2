@@ -1,12 +1,13 @@
-import { BASE_URL, TOKEN } from '../variables/Constants';
+import { BASE_URL } from '../variables/Constants';
 
 const doFetch = async (endPoint: string, method: string, body?: object) => {
+  const token = sessionStorage.getItem('token');
   try {
     const options: any = {
       method: method,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
     };
