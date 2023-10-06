@@ -13,16 +13,15 @@ import {
   UserResultsPage,
   CreateUser,
   AdminHome,
+  AddProperty,
+  PropertyManagers,
+  PropertyManagerPage,
 } from './pages';
 import { testSurvey } from './data/TestSurvey';
 import { ManagerHome } from './pages/manager/ManagerHome';
-import { AddProperty } from './pages/manager/add-property/AddProperty';
-import { TopNavBar } from './components/TopNavBar';
 import { PropertyManagerRoutes } from './PropertyManagerRoutes';
 import { MangerProperties } from './pages/manager/manager-properties/ManagerProperties';
-import { MANAGERS_PATH } from './variables/RoutePaths';
-import { PropertyMangers } from './pages/admin/property-managers/list/PropertyManagers';
-import { PropertyManagerPage } from './pages/admin/property-managers/single/ProperyManagerPage';
+import { ADD_PROPERTY_PATH, MANAGERS_PATH } from './variables/RoutePaths';
 import { MainProvider } from './context/MainContext';
 
 function App() {
@@ -45,7 +44,7 @@ function App() {
               <Route path="/properties" element={<PropertiesPage />} />
               <Route path="/admin" element={<AdminHome />} />
               <Route path="/admin/adduser" element={<CreateUser />} />
-              <Route path={MANAGERS_PATH} element={<PropertyMangers />} />
+              <Route path={MANAGERS_PATH} element={<PropertyManagers />} />
               <Route
                 path={MANAGERS_PATH + '/:userid'}
                 element={<PropertyManagerPage />}
@@ -54,7 +53,7 @@ function App() {
             </Route>
             <Route element={<PropertyManagerRoutes />}>
               <Route path="/manager" element={<ManagerHome />} />
-              <Route path="/manager/addproperty" element={<AddProperty />} />
+              <Route path={ADD_PROPERTY_PATH} element={<AddProperty />} />
               <Route
                 path="/manager/properties"
                 element={<MangerProperties />}

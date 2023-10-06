@@ -2,7 +2,8 @@ interface Property {
   id: number;
   address: string;
   city: string;
-  postcode: number;
+  postcode: string;
+  name: string;
 }
 
 type PropertyInput = Omit<Property, 'id'>;

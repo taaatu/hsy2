@@ -1,14 +1,18 @@
 import { AdminHome } from './admin/admin-home/AdminHome';
 import { CreateUser } from './admin/create-user/CreateUser';
-import CreateSurvey from './admin/createsurvey/CreateSurvey.tsx';
+import CreateSurvey from './admin/createsurvey/CreateSurvey';
 import EditSurveyPage from './admin/edit-survey/EditSurveyPage';
 import PreviewPage from './admin/preview/PreviewPage';
 import PropertiesPage from './admin/properties/PropertiesPage';
 import SurveysPage from './admin/surveys/SurveysPage';
-import HomePage from './home/Home.tsx';
+import HomePage from './home/Home';
 import Login from './login/Login';
 import SurveyAnswerPage from './resident/answer-survey/SurveyAnswerPage';
 import UserResultsPage from './resident/user-results/UserResultsPage';
+import { AddProperty } from './manager/add-property/AddProperty';
+import { PropertyManagers } from './admin/property-managers/list/PropertyManagers';
+import { PropertyManagerPage } from './admin/property-managers/single/ProperyManagerPage';
+// const i = <PropertyM />
 
 export {
   HomePage,
@@ -22,4 +26,7 @@ export {
   CreateSurvey,
   CreateUser,
   AdminHome,
+  AddProperty,
+  PropertyManagers,
+  PropertyManagerPage,
 };
