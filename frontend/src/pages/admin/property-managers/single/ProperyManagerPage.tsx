@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useUser } from '../../../../hooks/UserHook';
 import { MANAGERS_PATH } from '../../../../variables/RoutePaths';
 import { ModifyUser } from './ModifyUser';
+import { testProperties } from '../../../../data/TestProperties';
 
 export const PropertyManagerPage = () => {
   const { userid } = useParams();
@@ -59,7 +60,19 @@ export const PropertyManagerPage = () => {
           Poista
         </button>
       </div>
-      <div>Taloyhtiöt:</div>
+      <h4>Taloyhtiöt:</h4>
+      <ul>
+        {testProperties.map((property) => (
+          <div
+            style={{ backgroundColor: 'white', display: 'flex', gap: '2em' }}
+            key={property.id}
+          >
+            <p>{property.address}</p>
+            <p>{property.city}</p>
+            <p>{property.postcode} </p>
+          </div>
+        ))}
+      </ul>
     </div>
   );
 };

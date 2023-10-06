@@ -21,7 +21,7 @@ import { testSurvey } from './data/TestSurvey';
 import { ManagerHome } from './pages/manager/ManagerHome';
 import { PropertyManagerRoutes } from './PropertyManagerRoutes';
 import { MangerProperties } from './pages/manager/manager-properties/ManagerProperties';
-import { MANAGERS_PATH } from './variables/RoutePaths';
+import { ADD_PROPERTY_PATH, MANAGERS_PATH } from './variables/RoutePaths';
 import { MainProvider } from './context/MainContext';
 
 function App() {
@@ -53,7 +53,7 @@ function App() {
             </Route>
             <Route element={<PropertyManagerRoutes />}>
               <Route path="/manager" element={<ManagerHome />} />
-              <Route path="/manager/addproperty" element={<AddProperty />} />
+              <Route path={ADD_PROPERTY_PATH} element={<AddProperty />} />
               <Route
                 path="/manager/properties"
                 element={<MangerProperties />}
