@@ -19,7 +19,12 @@ const CreateSurvey = () => {
   const navigate = useNavigate();
   const [nextId, setNextId] = useState<number>(1); // [1, 2, 3, 4, 5
   const [questions, setQuestions] = useState<Partial<Question>[]>([
-    { id: nextId, answer1: ANSWER_1, answer2: ANSWER_2, answer3: ANSWER_3 },
+    {
+      question_id: nextId,
+      option_1: ANSWER_1,
+      option_2: ANSWER_2,
+      option_3: ANSWER_3,
+    },
   ]);
   // const [survey, setSurvey] = useState({});
   const [title, setTitle] = useState<string>();
@@ -30,10 +35,10 @@ const CreateSurvey = () => {
     setQuestions([
       ...questions,
       {
-        id: nextId + 1,
-        answer1: ANSWER_1,
-        answer2: ANSWER_2,
-        answer3: ANSWER_3,
+        question_id: nextId + 1,
+        option_1: ANSWER_1,
+        option_2: ANSWER_2,
+        option_3: ANSWER_3,
       },
     ]);
     setNextId(nextId + 1);
@@ -79,12 +84,13 @@ const CreateSurvey = () => {
     );
   }
   return (
-    <div className='createsurvey'>
+    <div className="createsurvey">
       <h1>Create Survey</h1>
-      <form onSubmit={handleSubmit} className='createsurveystuff'>
-        <label className='createsurveything'>
+      <form onSubmit={handleSubmit} className="createsurveystuff">
+        <label className="createsurveything">
           Kyselyn nimi
-          <input className='createsurveything'
+          <input
+            className="createsurveything"
             type="text"
             placeholder="Kyselyn nimi"
             required
@@ -92,7 +98,7 @@ const CreateSurvey = () => {
             onChange={(e) => setTitle(e.target.value)}
           />
         </label>
-        <label className='createsurveything'>
+        <label className="createsurveything">
           Kuvaus
           <textarea
             placeholder="Kuvaus"
@@ -101,7 +107,7 @@ const CreateSurvey = () => {
             onChange={(e) => setDescription(e.target.value)}
           />
         </label>
-        <label className='createsurveything'>
+        <label className="createsurveything">
           Alkaa
           <input
             type="date"
@@ -111,7 +117,7 @@ const CreateSurvey = () => {
             onChange={(e) => setStartTime(e.target.value)}
           />
         </label>
-        <label className='createsurveything'>
+        <label className="createsurveything">
           Päättyy
           <input
             type="date"
@@ -121,7 +127,7 @@ const CreateSurvey = () => {
             onChange={(e) => setEndTime(e.target.value)}
           />
         </label>
-        <select className='createsurveything'>
+        <select className="createsurveything">
           {CITIES.map((city: string) => (
             <option key={city}>{city}</option>
           ))}
@@ -132,23 +138,26 @@ const CreateSurvey = () => {
           <>
             <h4>Kysymys {index + 1}</h4>
             <AddQuestion
-              key={question.id}
+              key={question.question_id}
               setQuestions={setQuestions}
               questions={questions as Question[]}
               question={question}
             />
           </>
         ))}
-        <p className='createsurveybuttons'>
-        <button type="button" onClick={addQuestion} className='hehe'>
-          Lisää kysymys
-        </button>
-        <button type="button" onClick={() => setShowPreview(true)}className='hehe'>
-          Esikatsele
-        </button>
+        <p className="createsurveybuttons">
+          <button type="button" onClick={addQuestion} className="hehe">
+            Lisää kysymys
+          </button>
+          <button
+            type="button"
+            onClick={() => setShowPreview(true)}
+            className="hehe"
+          >
+            Esikatsele
+          </button>
         </p>
-        <input type="submit" value="Luo kysely" className='createsurveything' />
-        
+        <input type="submit" value="Luo kysely" className="createsurveything" />
       </form>
     </div>
   );
