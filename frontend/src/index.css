@@ -172,3 +172,8 @@ label {
 .buttonadmin{
   width: 20vh;
 }
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
