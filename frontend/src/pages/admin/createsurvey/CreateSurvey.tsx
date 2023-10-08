@@ -10,9 +10,12 @@ import {
 } from '../../../variables/Constants';
 import { useNavigate } from 'react-router-dom';
 import PreviewPage from '../preview/PreviewPage';
-import { Survey } from '../../../interfaces/Survey';
+import { Survey, SurveyHeader } from '../../../interfaces/Survey';
 import { Question } from '../../../interfaces/Question';
 import SurveyAnswerPage from '../../resident/answer-survey/SurveyAnswerPage.js';
+import useSurvey from '../../../hooks/SurveyHook.js';
+import { SelectProperties } from './SelectProperties.js';
+import { format } from 'date-fns';
 
 const CreateSurvey = () => {
   // let nextId = 1;
@@ -31,6 +34,7 @@ const CreateSurvey = () => {
   const [description, setDescription] = useState<string>();
   const [startTime, setStartTime] = useState<string>();
   const [endTime, setEndTime] = useState<string>();
+  const { createSurvey } = useSurvey();
   const addQuestion = () => {
     setQuestions([
       ...questions,
@@ -48,19 +52,25 @@ const CreateSurvey = () => {
   //   const value = e.target.value;
   //   setSurvey({ ...survey, [objPropertyName]: value });
   // };
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!startTime || !endTime) return;
     const nSurvey: Partial<Survey> = {
-      title: title,
-      description: description,
-      startDate: startTime,
-      endDate: endTime,
+      survey_header: {
+        u_id: 27,
+        survey_title: title,
+        description: description,
+        start_time: format(new Date(startTime), 'dd-MM-yyyy'),
+        end_time: format(new Date(endTime), 'dd-MM-yyyy'),
+      },
       questions: questions as Question[],
     };
     console.log('Survey: ', nSurvey);
-    alert('Kysely lähetetty');
+    // alert('Kysely lähetetty');
     console.log('questions: ', questions);
+    await createSurvey(nSurvey as Survey);
   };
+
   if (showPreview) {
     const nSurvey: Partial<Survey> = {
       title: title,
@@ -127,11 +137,9 @@ const CreateSurvey = () => {
             onChange={(e) => setEndTime(e.target.value)}
           />
         </label>
-        <select className="createsurveything">
-          {CITIES.map((city: string) => (
-            <option key={city}>{city}</option>
-          ))}
-        </select>
+
+        <SelectProperties />
+
         {/* <AddQuestion /> */}
         {`Kysymyksiä (${questions.length})`}
         {questions.map((question, index) => (
