@@ -1,11 +1,16 @@
 import { Question } from './Question';
 
-interface Survey {
-  title: string;
+type SurveyHeader = {
+  u_id: number;
+  survey_title: string;
   description: string;
-  startDate: string;
-  endDate: string;
+  start_time: string;
+  end_time: string;
+};
+
+interface Survey {
+  survey_header: SurveyHeader;
   questions: Question[];
 }
 
-export { Survey };
+export { Survey, SurveyHeader };

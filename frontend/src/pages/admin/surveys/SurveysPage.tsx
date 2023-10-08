@@ -1,26 +1,24 @@
 // Page that displays all surveys
 import { useEffect, useState } from 'react';
 import useSurvey from '../../../hooks/SurveyHook';
-import { Survey } from '../../../interfaces/Survey';
+import { SurveyHeader } from '../../../interfaces/Survey';
 
 const SurveysPage = () => {
   const { getSurveys } = useSurvey();
-  const [surveys, setSurveys] = useState<Survey[]>([]);
-  const [fullList, setFullList] = useState<Survey[]>([]);
+  const [surveys, setSurveys] = useState<SurveyHeader[]>([]);
+  const [fullList, setFullList] = useState<SurveyHeader[]>([]);
 
   const fetchSurveys = async () => {
-    // const surveys = await getSurveys();
-    // console.log('Surveys: ', surveys);
-    // if (!surveys) return;
-    // setSurveys(surveys);
-    // setFullList(surveys);
+    const surveys = await getSurveys();
+    if (!surveys) return;
+    setSurveys(surveys);
+    setFullList(surveys);
   };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const search = e.target.value;
-    const filteredSurveys = fullList.filter(
-      (survey) => survey.title.toLowerCase().includes(search.toLowerCase()) //||
-      // user.company.toLowerCase().includes(search.toLowerCase())
+    const filteredSurveys = fullList.filter((survey) =>
+      survey.survey_title.toLowerCase().includes(search.toLowerCase())
     );
     setSurveys(filteredSurveys);
   };
@@ -39,7 +37,7 @@ const SurveysPage = () => {
       <h4>{`Kyselyt (${surveys.length})`}</h4>
       {surveys.map((survey) => (
         <div>
-          <h3>{survey.title}</h3>
+          <h3>{survey.survey_title}</h3>
         </div>
       ))}
     </div>
