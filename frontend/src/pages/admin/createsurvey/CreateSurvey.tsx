@@ -1,26 +1,17 @@
 import { useState } from 'react';
 import AddQuestion from './AddQuestion.tsx';
 import styles from './CreateSurvey.module.css';
-// import { Survey } from '../../../data/Survey';
-import {
-  CITIES,
-  ANSWER_1,
-  ANSWER_2,
-  ANSWER_3,
-} from '../../../variables/Constants';
+import { ANSWER_1, ANSWER_2, ANSWER_3 } from '../../../variables/Constants';
 import { useNavigate } from 'react-router-dom';
-import PreviewPage from '../preview/PreviewPage';
 import { Survey, SurveyHeader } from '../../../interfaces/Survey';
 import { Question } from '../../../interfaces/Question';
 import SurveyAnswerPage from '../../resident/answer-survey/SurveyAnswerPage.js';
 import useSurvey from '../../../hooks/SurveyHook.js';
 import { SelectProperties } from './SelectProperties.js';
-import { format } from 'date-fns';
 
 const CreateSurvey = () => {
-  // let nextId = 1;
   const navigate = useNavigate();
-  const [nextId, setNextId] = useState<number>(1); // [1, 2, 3, 4, 5
+  const [nextId, setNextId] = useState<number>(1);
   const [questions, setQuestions] = useState<Partial<Question>[]>([
     {
       question_id: nextId,
@@ -30,10 +21,10 @@ const CreateSurvey = () => {
     },
   ]);
   // const [survey, setSurvey] = useState({});
-  const [title, setTitle] = useState<string>();
-  const [description, setDescription] = useState<string>();
-  const [startTime, setStartTime] = useState<string>();
-  const [endTime, setEndTime] = useState<string>();
+  const [surveyHeader, setSurveyHeader] = useState<Partial<SurveyHeader>>({
+    u_id: 27,
+  });
+
   const { createSurvey } = useSurvey();
   const addQuestion = () => {
     setQuestions([
@@ -48,35 +39,32 @@ const CreateSurvey = () => {
     setNextId(nextId + 1);
   };
   const [showPreview, setShowPreview] = useState(false);
-  // const handleInputChange = (e, objPropertyName) => {
-  //   const value = e.target.value;
-  //   setSurvey({ ...survey, [objPropertyName]: value });
-  // };
+
+  const handleHeaderChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setSurveyHeader({
+      ...surveyHeader,
+      [name]: value,
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!startTime || !endTime) return;
-    const nSurvey: Partial<Survey> = {
-      survey_header: {
-        u_id: 27,
-        survey_title: title,
-        description: description,
-        start_time: format(new Date(startTime), 'dd-MM-yyyy'),
-        end_time: format(new Date(endTime), 'dd-MM-yyyy'),
-      },
+    const nSurvey: Survey = {
+      survey_header: surveyHeader as SurveyHeader,
       questions: questions as Question[],
     };
-    console.log('Survey: ', nSurvey);
-    // alert('Kysely lähetetty');
     console.log('questions: ', questions);
+    console.log('surveyHeader: ', surveyHeader);
+    console.log('nSurvey: ', nSurvey);
     await createSurvey(nSurvey as Survey);
   };
 
   if (showPreview) {
-    const nSurvey: Partial<Survey> = {
-      title: title,
-      description: description,
-      startDate: startTime,
-      endDate: endTime,
+    const nSurvey: Survey = {
+      survey_header: surveyHeader as SurveyHeader,
       questions: questions as Question[],
     };
     return (
@@ -104,8 +92,9 @@ const CreateSurvey = () => {
             type="text"
             placeholder="Kyselyn nimi"
             required
-            defaultValue={title}
-            onChange={(e) => setTitle(e.target.value)}
+            name="survey_title"
+            defaultValue={surveyHeader.survey_title}
+            onChange={handleHeaderChange}
           />
         </label>
         <label className="createsurveything">
@@ -113,8 +102,9 @@ const CreateSurvey = () => {
           <textarea
             placeholder="Kuvaus"
             required
-            defaultValue={description}
-            onChange={(e) => setDescription(e.target.value)}
+            name="description"
+            defaultValue={surveyHeader.description}
+            onChange={handleHeaderChange}
           />
         </label>
         <label className="createsurveything">
@@ -123,8 +113,9 @@ const CreateSurvey = () => {
             type="date"
             placeholder="Alkaa"
             required
-            defaultValue={startTime}
-            onChange={(e) => setStartTime(e.target.value)}
+            name="start_time"
+            defaultValue={surveyHeader.start_time}
+            onChange={handleHeaderChange}
           />
         </label>
         <label className="createsurveything">
@@ -133,8 +124,9 @@ const CreateSurvey = () => {
             type="date"
             placeholder="Päättyy"
             required
-            defaultValue={endTime}
-            onChange={(e) => setEndTime(e.target.value)}
+            name="end_time"
+            defaultValue={surveyHeader.end_time}
+            onChange={handleHeaderChange}
           />
         </label>
 
