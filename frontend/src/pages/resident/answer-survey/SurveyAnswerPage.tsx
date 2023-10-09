@@ -27,8 +27,8 @@ const SurveyAnswerPage = ({ survey, isPreview = false }: Props) => {
   }, [survey]);
   return (
     <div className="survey-bg">
-      <h2>{survey.title ?? 'Ei nimeä'}</h2>
-      <p>{survey.description ?? 'Ei kuvausta'}</p>
+      <h2>{survey.survey_header?.survey_title ?? 'Ei nimeä'}</h2>
+      <p>{survey.survey_header?.description ?? 'Ei kuvausta'}</p>
       <h4>{`Kysymyksiä (${survey.questions?.length})`}</h4>
       <form onSubmit={handleSubmit}>
         {survey.questions !== undefined && (
@@ -37,7 +37,7 @@ const SurveyAnswerPage = ({ survey, isPreview = false }: Props) => {
               <>
                 {/* <h4>Kysymys {index + 1}</h4> */}
                 <AnswerQuestion
-                  key={question.id}
+                  key={question.question_id}
                   question={question}
                   index={index}
                   answers={answers}

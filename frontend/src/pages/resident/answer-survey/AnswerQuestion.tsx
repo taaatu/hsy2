@@ -36,37 +36,37 @@ const AnswerQuestion = ({ question, index, answers, setAnswers }: Props) => {
           <input
             type="radio"
             name={question.question}
-            value={question.answer1}
+            value={question.option_1}
             // onChange={() => setAnswer(question.answer1)}
-            onChange={() => changeAnswer(question.answer1 ?? '')}
+            onChange={() => changeAnswer(question.option_1 ?? '')}
             // checked={answer === 1}
             required
           />{' '}
-          {question.answer1}
+          {question.option_1}
         </div>
         <div>
           <input
             type="radio"
             name={question.question}
-            value={question.answer2}
+            value={question.option_2}
             // onChange={() => setAnswer(question.answer2)}
-            onChange={() => changeAnswer(question.answer2 ?? '')}
+            onChange={() => changeAnswer(question.option_2 ?? '')}
             // checked={answer === 2}
             required
           />{' '}
-          {question.answer2}
+          {question.option_2}
         </div>
         <div>
           <input
             type="radio"
             name={question.question}
-            value={question.answer3}
+            value={question.option_3}
             // onChange={() => setAnswer(question.answer3)}
-            onChange={() => changeAnswer(question.answer3 ?? '')}
+            onChange={() => changeAnswer(question.option_3 ?? '')}
             // checked={answer === 3}
             required
           />{' '}
-          {question.answer3}
+          {question.option_3}
         </div>
       </div>
       {/* <h4>vastaus {answer}</h4> */}

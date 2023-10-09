@@ -1,13 +1,12 @@
 import { useState } from 'react';
-import AddQuestion from './AddQuestion.tsx';
-import styles from './CreateSurvey.module.css';
+import AddQuestion from './AddQuestion';
 import { ANSWER_1, ANSWER_2, ANSWER_3 } from '../../../variables/Constants';
 import { useNavigate } from 'react-router-dom';
 import { Survey, SurveyHeader } from '../../../interfaces/Survey';
 import { Question } from '../../../interfaces/Question';
-import SurveyAnswerPage from '../../resident/answer-survey/SurveyAnswerPage.js';
 import useSurvey from '../../../hooks/SurveyHook.js';
 import { SelectProperties } from './SelectProperties.js';
+import { SurveyPreview } from '../../../components/SurveyPreview.js';
 
 const CreateSurvey = () => {
   const navigate = useNavigate();
@@ -62,25 +61,6 @@ const CreateSurvey = () => {
     await createSurvey(nSurvey as Survey);
   };
 
-  if (showPreview) {
-    const nSurvey: Survey = {
-      survey_header: surveyHeader as SurveyHeader,
-      questions: questions as Question[],
-    };
-    return (
-      <>
-        <div className={styles.previewTop}>
-          <button onClick={() => setShowPreview(false)}>
-            Sulje esikatselu
-          </button>
-          <h4>Esikatselu</h4>
-        </div>
-
-        <SurveyAnswerPage survey={nSurvey} isPreview={true} />
-        {/* <PreviewPage survey={nSurvey} />; */}
-      </>
-    );
-  }
   return (
     <div className="createsurvey">
       <h1>Create Survey</h1>
@@ -149,13 +129,13 @@ const CreateSurvey = () => {
           <button type="button" onClick={addQuestion} className="hehe">
             Lisää kysymys
           </button>
-          <button
-            type="button"
-            onClick={() => setShowPreview(true)}
-            className="hehe"
-          >
-            Esikatsele
-          </button>
+
+          <SurveyPreview
+            survey={{
+              survey_header: surveyHeader as SurveyHeader,
+              questions: questions as Question[],
+            }}
+          />
         </p>
         <input type="submit" value="Luo kysely" className="createsurveything" />
       </form>
