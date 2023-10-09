@@ -23,6 +23,7 @@ import { PropertyManagerRoutes } from './PropertyManagerRoutes';
 import { MangerProperties } from './pages/manager/manager-properties/ManagerProperties';
 import { ADD_PROPERTY_PATH, MANAGERS_PATH } from './variables/RoutePaths';
 import { MainProvider } from './context/MainContext';
+import { SingleSurveyPage } from './pages/admin/surveys/SingleSurveyPage';
 
 function App() {
   return (
@@ -37,27 +38,29 @@ function App() {
             />
             <Route path="/user-results" element={<UserResultsPage />} />
             <Route path="/login" element={<Login />} />
-            <Route element={<AdminRoutes />}>
-              <Route path="/admin/create" element={<CreateSurvey />} />
-              <Route path="/surveys" element={<SurveysPage />} />
-              <Route path="/survey/edit" element={<EditSurveyPage />} />
-              <Route path="/properties" element={<PropertiesPage />} />
-              <Route path="/admin" element={<AdminHome />} />
-              <Route path="/admin/adduser" element={<CreateUser />} />
-              <Route path={MANAGERS_PATH} element={<PropertyManagers />} />
-              <Route
-                path={MANAGERS_PATH + '/:userid'}
-                element={<PropertyManagerPage />}
-              />
-              {/* <Route path="/preview" element={<PreviewPage />} /> */}
+
+            <Route path="admin" element={<AdminRoutes />}>
+              <Route index element={<AdminHome />} />
+              <Route path="surveys">
+                <Route index element={<SurveysPage />} />
+                <Route path=":surveyid" element={<SingleSurveyPage />} />
+                <Route path="create" element={<CreateSurvey />} />
+              </Route>
+              <Route path="managers">
+                <Route index element={<PropertyManagers />} />
+                <Route path=":userid" element={<PropertyManagerPage />} />
+                <Route path="add" element={<CreateUser />} />
+              </Route>
+              <Route path="survey/edit" element={<EditSurveyPage />} />
+              <Route path="properties" element={<PropertiesPage />} />
             </Route>
-            <Route element={<PropertyManagerRoutes />}>
-              <Route path="/manager" element={<ManagerHome />} />
-              <Route path={ADD_PROPERTY_PATH} element={<AddProperty />} />
-              <Route
-                path="/manager/properties"
-                element={<MangerProperties />}
-              />
+
+            <Route path="manager" element={<PropertyManagerRoutes />}>
+              <Route index element={<ManagerHome />} />
+              <Route path="properties">
+                <Route index element={<MangerProperties />} />
+                <Route path="add" element={<AddProperty />} />
+              </Route>
             </Route>
           </Routes>
         </MainProvider>

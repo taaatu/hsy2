@@ -24,18 +24,16 @@ export const TopNavBar = ({ isAdmin }: Props) => {
 
 const AdminLinks = () => (
   <>
-    <Link to={MANAGER_HOME}>Isännöitsijä</Link>
-    <Link to="/admin/create">Luo kysely</Link>
-    <Link to="/admin/adduser">Lisää isännöitsijä</Link>
+    <Link to="/admin/surveys/create">Luo kysely</Link>
+    <Link to="/admin/managers/add">Lisää isännöitsijä</Link>
     <Link to={MANAGERS_PATH}>Isännöitsijät</Link>
-    <Link to="/surveys">Kyselyt</Link>
+    <Link to="/admin/surveys">Kyselyt</Link>
   </>
 );
 
 const ManagerLinks = () => (
   <>
-    <Link to={ADMIN_HOME}>Super admin</Link>
-    <Link to="/manager/addproperty">Lisää taloyhtiö</Link>
-    <Link to="/surveys">Kyselyt</Link>
+    <Link to="/manager/properties/add">Lisää taloyhtiö</Link>
+    <Link to="/manager/properties">Taloyhtiöt</Link>
   </>
 );
