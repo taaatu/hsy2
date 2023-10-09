@@ -12,7 +12,9 @@ type Props = {
 // Component for adding questions to survey
 const AddQuestion = ({ setQuestions, questions, question }: Props) => {
   const removeQuestion = () => {
-    setQuestions(questions.filter((q) => q.id !== question.id));
+    setQuestions(
+      questions.filter((q) => q.question_id !== question.question_id)
+    );
   };
 
   // Save input fields value on change to questions array state
@@ -23,7 +25,7 @@ const AddQuestion = ({ setQuestions, questions, question }: Props) => {
     const value = e.target.value;
     setQuestions(
       questions.map((q) => {
-        if (q.id === question.id) {
+        if (q.question_id === question.question_id) {
           return { ...q, [objPropertyName]: value };
         }
         return q;
