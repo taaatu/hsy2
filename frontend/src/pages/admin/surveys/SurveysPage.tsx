@@ -32,7 +32,8 @@ const SurveysPage = () => {
     <div>
       <h1>Surveys Page</h1>
       <label>
-        <input onChange={handleSearch} type="text" />
+        Hae kyselyitä
+        <input className="search-bar" onChange={handleSearch} type="text" />
       </label>
 
       <h4>{`Kyselyt (${surveys.length})`}</h4>

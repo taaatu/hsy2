@@ -39,7 +39,7 @@ export const PropertyManagers = () => {
       </button>
       <label>
         Hae isännöitsijää
-        <input onChange={handleSearch} />
+        <input className="search-bar" onChange={handleSearch} />
       </label>
 
       <div>
