@@ -1,6 +1,7 @@
 import { Question } from './Question';
 
 type SurveyHeader = {
+  survey_id?: number;
   u_id: number;
   survey_title: string;
   description: string;
