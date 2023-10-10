@@ -12,19 +12,18 @@ type Props = {
 // Component for adding questions to survey
 const AddQuestion = ({ setQuestions, questions, question }: Props) => {
   const removeQuestion = () => {
-    setQuestions(questions.filter((q) => q.id !== question.id));
+    setQuestions(
+      questions.filter((q) => q.question_id !== question.question_id)
+    );
   };
 
   // Save input fields value on change to questions array state
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    objPropertyName: string
-  ) => {
-    const value = e.target.value;
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
     setQuestions(
       questions.map((q) => {
-        if (q.id === question.id) {
-          return { ...q, [objPropertyName]: value };
+        if (q.question_id === question.question_id) {
+          return { ...q, [name]: value };
         }
         return q;
       })
@@ -37,8 +36,9 @@ const AddQuestion = ({ setQuestions, questions, question }: Props) => {
         type="text"
         placeholder="Kysymys"
         required
+        name="question"
         defaultValue={question.question}
-        onChange={(e) => handleInputChange(e, 'question')}
+        onChange={handleInputChange}
       />
       <div className="column">
         <div className="center-align">
@@ -48,7 +48,8 @@ const AddQuestion = ({ setQuestions, questions, question }: Props) => {
             defaultValue={ANSWER_1}
             placeholder="Vastaus 1"
             required
-            onChange={(e) => handleInputChange(e, 'answer1')}
+            name="option_1"
+            onChange={handleInputChange}
           />
           +1
         </div>
@@ -59,7 +60,8 @@ const AddQuestion = ({ setQuestions, questions, question }: Props) => {
             defaultValue={ANSWER_2}
             placeholder="Vastaus 2"
             required
-            onChange={(e) => handleInputChange(e, 'answer2')}
+            name="option_2"
+            onChange={handleInputChange}
           />
           +0,5
         </div>
@@ -70,7 +72,8 @@ const AddQuestion = ({ setQuestions, questions, question }: Props) => {
             defaultValue={ANSWER_3}
             placeholder="Vastaus 3"
             required
-            onChange={(e) => handleInputChange(e, 'answer3')}
+            name="option_3"
+            onChange={handleInputChange}
           />
           0
         </div>

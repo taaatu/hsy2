@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import useSurvey from '../../../hooks/SurveyHook';
 import { SurveyHeader } from '../../../interfaces/Survey';
+import { Link } from 'react-router-dom';
 
 const SurveysPage = () => {
   const { getSurveys } = useSurvey();
@@ -31,13 +32,16 @@ const SurveysPage = () => {
     <div>
       <h1>Surveys Page</h1>
       <label>
-        <input onChange={handleSearch} type="text" />
+        Hae kyselyitä
+        <input className="search-bar" onChange={handleSearch} type="text" />
       </label>
 
       <h4>{`Kyselyt (${surveys.length})`}</h4>
       {surveys.map((survey) => (
-        <div>
-          <h3>{survey.survey_title}</h3>
+        <div style={{ backgroundColor: 'white', padding: '1em' }}>
+          <Link to={`/admin/surveys/${survey.survey_id}`}>
+            {survey.survey_title}
+          </Link>
         </div>
       ))}
     </div>

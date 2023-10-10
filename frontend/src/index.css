@@ -177,3 +177,12 @@ label {
   display: flex;
   flex-direction: row;
 }
+
+button.delete {
+  background-color: red;
+}
+
+.search-bar {
+  width: 30ch;
+  max-width: 80%;
+}

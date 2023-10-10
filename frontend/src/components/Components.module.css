@@ -7,3 +7,30 @@
     max-width: 200px;
     width: 80%;
 }
+
+.previewModal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%; 
+  overflow: hidden; 
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modalContent {
+    background-color: #fefefe;
+    margin: 15% auto; 
+    border: 1px solid #888;
+    width: 80%; 
+    height: 80%;
+    margin-top: 5vh;
+    overflow: hidden;
+}
+
+.modalBody {
+    height: 100%;
+    overflow: auto;
+}

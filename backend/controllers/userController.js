@@ -89,10 +89,20 @@ const user_info_update_put = async (req, res, next) => {
     res.status(400).json({ message: 'This user email already exist' });
   }
 };
+const checkToken = (req, res, next) => {
+  const user = req.user;
+  if (!user) {
+    const err = httpError('Token missing or invalid', 401);
+    next(err);
+    return;
+  }
+  res.json(user);
+};
 module.exports = {
   user_list_get,
   user_post,
   user_get_by_id,
   user_delete,
   user_info_update_put,
+  checkToken,
 };
