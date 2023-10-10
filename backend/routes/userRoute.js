@@ -9,7 +9,8 @@ const {
     user_post,
     user_get_by_id,
     user_delete,
-    user_info_update_put
+    user_info_update_put,
+    checkToken
 } = require("../controllers/userController");
 
 router
@@ -35,6 +36,9 @@ router
         body("company").notEmpty(),
         user_info_update_put
     ); 
+
+router.route("/token")
+    .get(checkToken)    
      
 
 module.exports = router;

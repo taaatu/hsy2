@@ -48,7 +48,24 @@ const useUser = () => {
       console.error('delete user', error);
     }
   };
-  return { getUserList, getUserById, addUser, modifyUser, deleteUser };
+
+  const getUserByToken = async () => {
+    try {
+      const response = await doFetch('user/token', 'GET');
+      return response as User;
+    } catch (error) {
+      console.error('get user by token', error);
+    }
+  };
+
+  return {
+    getUserList,
+    getUserById,
+    addUser,
+    modifyUser,
+    deleteUser,
+    getUserByToken,
+  };
 };
 
 export { useUser };
