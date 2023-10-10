@@ -6,8 +6,14 @@ import { SurveyPreview } from '../../../components/SurveyPreview';
 
 export const SingleSurveyPage = () => {
   const { surveyid } = useParams();
-  const { getSurveyById } = useSurvey();
+  const { getSurveyById, deleteSurvey } = useSurvey();
   const [survey, setSurvey] = useState<Survey>();
+
+  const handleDelete = async () => {
+    if (!surveyid) return;
+    if (!confirm('Haluatko varmasti poistaa kyselyn?')) return;
+    await deleteSurvey(surveyid);
+  };
 
   const fetchSurvey = async () => {
     if (!surveyid) return;
@@ -25,7 +31,9 @@ export const SingleSurveyPage = () => {
     <div>
       <h1>{survey.survey_header.survey_title}</h1>
       <SurveyPreview survey={survey} />
-      <button className="delete">Poista kysely</button>
+      <button className="delete" onClick={handleDelete}>
+        Poista kysely
+      </button>
     </div>
   );
 };

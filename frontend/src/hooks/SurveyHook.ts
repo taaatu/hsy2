@@ -1,9 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import { MessageResponse } from '../interfaces/Response';
 import { Survey, SurveyHeader } from '../interfaces/Survey';
 import { doFetch } from './DoFetch';
 import { format } from 'date-fns';
 
 const useSurvey = () => {
+  const navigate = useNavigate();
   const getSurveys = async () => {
     try {
       const response = await doFetch('survey', 'GET');
@@ -49,7 +51,19 @@ const useSurvey = () => {
     }
   };
 
-  return { getSurveys, getSurveyById, createSurvey };
+  const deleteSurvey = async (id: string) => {
+    try {
+      const response = await doFetch(`survey/surveybyid/${id}`, 'DELETE');
+      console.log('Delete survey: ', response);
+      alert('Kysely poistettu');
+      navigate('/admin/surveys');
+    } catch (error: any) {
+      alert('Kyselyn poistaminen epäonnistui');
+      throw new Error(error.message);
+    }
+  };
+
+  return { getSurveys, getSurveyById, createSurvey, deleteSurvey };
 };
 
 export default useSurvey;
