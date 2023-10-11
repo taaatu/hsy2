@@ -44,6 +44,7 @@ const AddQuestion = ({ setQuestions, questions, question }: Props) => {
         <div className="center-align">
           <span className={styles.dot}>&#183;</span>
           <input
+            className={styles.optionInput}
             type="text"
             defaultValue={ANSWER_1}
             placeholder="Vastaus 1"
@@ -56,6 +57,7 @@ const AddQuestion = ({ setQuestions, questions, question }: Props) => {
         <div className="center-align">
           <span className={styles.dot}>&#183;</span>
           <input
+            className={styles.optionInput}
             type="text"
             defaultValue={ANSWER_2}
             placeholder="Vastaus 2"
@@ -68,6 +70,7 @@ const AddQuestion = ({ setQuestions, questions, question }: Props) => {
         <div className="center-align">
           <span className={styles.dot}>&#183;</span>
           <input
+            className={styles.optionInput}
             type="text"
             defaultValue={ANSWER_3}
             placeholder="Vastaus 3"

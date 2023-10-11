@@ -17,6 +17,13 @@
 .createsurvey{
     max-width: 15vh;
 }
+.form {
+    padding: 1em;
+    gap: 1em;
+}
+.optionInput {
+    width: 100%;
+}
 .createsurveystuff{
 }
 .creatsurveything{
