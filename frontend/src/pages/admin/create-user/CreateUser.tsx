@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { CITIES } from '../../../variables/Constants';
 import { User } from '../../../interfaces/User';
 import { useUser } from '../../../hooks/UserHook';
+import { ButtonLoading } from '../../../components/ButtonLoading';
 
 export const CreateUser = () => {
   const [name, setName] = useState<string>('');
@@ -57,7 +58,7 @@ export const CreateUser = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <button>Lisää isännöitsijä</button>
+        <ButtonLoading text="Lisää isännöitsijä" />
       </form>
     </div>
   );

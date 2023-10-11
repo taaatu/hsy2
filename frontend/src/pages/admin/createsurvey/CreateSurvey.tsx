@@ -7,6 +7,7 @@ import { Question } from '../../../interfaces/Question';
 import useSurvey from '../../../hooks/SurveyHook.js';
 import { SelectProperties } from './SelectProperties.js';
 import { SurveyPreview } from '../../../components/SurveyPreview.js';
+import { ButtonLoading } from '../../../components/ButtonLoading';
 
 const CreateSurvey = () => {
   const navigate = useNavigate();
@@ -115,15 +116,14 @@ const CreateSurvey = () => {
         {/* <AddQuestion /> */}
         {`Kysymyksiä (${questions.length})`}
         {questions.map((question, index) => (
-          <>
+          <div key={question.question_id}>
             <h4>Kysymys {index + 1}</h4>
             <AddQuestion
-              key={question.question_id}
               setQuestions={setQuestions}
               questions={questions as Question[]}
               question={question}
             />
-          </>
+          </div>
         ))}
         <p className="createsurveybuttons">
           <button type="button" onClick={addQuestion} className="hehe">
@@ -137,7 +137,7 @@ const CreateSurvey = () => {
             }}
           />
         </p>
-        <input type="submit" value="Luo kysely" className="createsurveything" />
+        <ButtonLoading text="Luo kysely" />
       </form>
     </div>
   );

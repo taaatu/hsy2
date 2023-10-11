@@ -38,7 +38,10 @@ const SurveysPage = () => {
 
       <h4>{`Kyselyt (${surveys.length})`}</h4>
       {surveys.map((survey) => (
-        <div style={{ backgroundColor: 'white', padding: '1em' }}>
+        <div
+          key={survey.survey_id}
+          style={{ backgroundColor: 'white', padding: '1em' }}
+        >
           <Link to={`/admin/surveys/${survey.survey_id}`}>
             {survey.survey_title}
           </Link>

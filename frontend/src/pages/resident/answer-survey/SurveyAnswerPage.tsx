@@ -34,16 +34,13 @@ const SurveyAnswerPage = ({ survey, isPreview = false }: Props) => {
         {survey.questions !== undefined && (
           <>
             {survey.questions.map((question, index) => (
-              <>
-                {/* <h4>Kysymys {index + 1}</h4> */}
-                <AnswerQuestion
-                  key={question.question_id}
-                  question={question}
-                  index={index}
-                  answers={answers}
-                  setAnswers={setAnswers}
-                />
-              </>
+              <AnswerQuestion
+                key={question.question_id}
+                question={question}
+                index={index}
+                answers={answers}
+                setAnswers={setAnswers}
+              />
             ))}
           </>
         )}

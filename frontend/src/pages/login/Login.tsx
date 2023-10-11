@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AppName } from '../../components/AppName';
 import { HsyLogo } from '../../components/HsyLogo';
 import useAuth from '../../hooks/AuthHook';
+import { ButtonLoading } from '../../components/ButtonLoading';
 
 export const Login = () => {
   const [email, setEmail] = useState<string>('');
@@ -25,8 +26,8 @@ export const Login = () => {
   return (
     <div className={styles.container}>
       <AppName />
-      <form onSubmit={handleSumbit} className='loginforms'>
-        <label className='loginlabel'>
+      <form onSubmit={handleSumbit} className="loginforms">
+        <label className="loginlabel">
           Sähköposti
           <input
             type="email"
@@ -36,7 +37,7 @@ export const Login = () => {
           />
         </label>
 
-        <label className='loginlabel'>
+        <label className="loginlabel">
           Salasana{' '}
           <input
             type="password"
@@ -46,9 +47,11 @@ export const Login = () => {
           />
         </label>
 
-        <button className='loginbutton'>Kirjaudu sisään</button>
+        <ButtonLoading text="Kirjaudu sisään" />
       </form>
-      <Link to="/" className='homebutton'>Home</Link>
+      <Link to="/" className="homebutton">
+        Home
+      </Link>
       <HsyLogo />
     </div>
   );
