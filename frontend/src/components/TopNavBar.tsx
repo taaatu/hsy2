@@ -35,5 +35,6 @@ const ManagerLinks = () => (
   <>
     <Link to="/manager/properties/add">Lisää taloyhtiö</Link>
     <Link to="/manager/properties">Taloyhtiöt</Link>
+    <Link to="/manager/profile">Profiili</Link>
   </>
 );

@@ -8,6 +8,7 @@ import useSurvey from '../../../hooks/SurveyHook.js';
 import { SelectProperties } from './SelectProperties.js';
 import { SurveyPreview } from '../../../components/SurveyPreview.js';
 import { ButtonLoading } from '../../../components/ButtonLoading';
+import styles from './CreateSurvey.module.css';
 
 const CreateSurvey = () => {
   const navigate = useNavigate();
@@ -63,9 +64,8 @@ const CreateSurvey = () => {
   };
 
   return (
-    <div className="createsurvey">
-      <h1>Create Survey</h1>
-      <form onSubmit={handleSubmit} className="createsurveystuff">
+    <div className={styles.createSurvey}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <label className="createsurveything">
           Kyselyn nimi
           <input

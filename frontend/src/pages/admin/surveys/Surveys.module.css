@@ -1,0 +1,8 @@
+.container {
+    padding: 1em;
+}
+.surveyList {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
