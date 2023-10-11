@@ -54,6 +54,7 @@ input {
 textarea {
   border-radius: 1em;
   padding: 0.6em 1.2em;
+  resize: vertical;
 }
 
 .hima{
@@ -115,12 +116,17 @@ form {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
-  max-width: 75vh;
   position:center;
   margin: auto;
   padding: 1em;
   border-radius: 10px;
   background-color: lightblue;
+}
+
+main {
+  background-color: lightblue;
+  border-radius: 0.5em;
+  padding: 1em;
 }
 
 label {
@@ -165,10 +171,10 @@ label {
   transform: translate(0%, -50%);
 }
 .button{
-  left: 50%;
+  /* left: 50%;
   top:75%;
   position: fixed;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
 }
 .homebutton{
   font-weight: bolder;
