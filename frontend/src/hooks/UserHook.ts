@@ -1,9 +1,12 @@
+import { useNavigate } from 'react-router-dom';
 import { MessageResponse } from '../interfaces/Response';
 import { User } from '../interfaces/User';
 import useFetch from './DoFetch';
 
 const useUser = () => {
   const { doFetch } = useFetch();
+  const navigate = useNavigate();
+
   const getUserList = async () => {
     try {
       const response = await doFetch('user', 'GET');
@@ -31,11 +34,8 @@ const useUser = () => {
   };
   const modifyUser = async (user: User) => {
     try {
-      const response = await doFetch(
-        'user/update/' + user.user_id,
-        'PUT',
-        user
-      );
+      const response = await doFetch('user/update', 'PUT', user);
+      alert('Käyttäjä päivitetty');
       return response as MessageResponse;
     } catch (error) {
       console.error('modify user', error);
@@ -43,9 +43,13 @@ const useUser = () => {
   };
   const deleteUser = async (userid: number) => {
     try {
+      if (!confirm('Haluatko varmasti poistaa käyttäjän?')) return;
       const response = await doFetch('user/userid/' + userid, 'DELETE');
-      return response as MessageResponse;
+      console.log('delete user: ', response);
+      alert('Käyttäjä poistettu');
+      navigate('/');
     } catch (error) {
+      alert('Käyttäjän poistaminen epäonnistui');
       console.error('delete user', error);
     }
   };

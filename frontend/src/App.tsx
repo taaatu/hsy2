@@ -24,6 +24,7 @@ import { ADD_PROPERTY_PATH, MANAGERS_PATH } from './variables/RoutePaths';
 import { MainProvider } from './context/MainContext';
 import { SingleSurveyPage } from './pages/admin/surveys/SingleSurveyPage';
 import { UserGroup } from './interfaces/User';
+import { ProfilePage } from './pages/manager/profile/ProfilePage';
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route
-              path="/survey"
+              path="/survey/:surveyid"
               element={<SurveyAnswerPage survey={testSurvey} />}
             />
             <Route path="/user-results" element={<UserResultsPage />} />
@@ -66,6 +67,9 @@ function App() {
               <Route path="properties">
                 <Route index element={<MangerProperties />} />
                 <Route path="add" element={<AddProperty />} />
+              </Route>
+              <Route path="profile">
+                <Route index element={<ProfilePage />} />
               </Route>
             </Route>
           </Routes>
