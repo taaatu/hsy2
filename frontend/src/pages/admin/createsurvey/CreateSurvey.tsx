@@ -115,7 +115,7 @@ const CreateSurvey = () => {
         {/* <AddQuestion /> */}
         {`Kysymyksiä (${questions.length})`}
         {questions.map((question, index) => (
-          <>
+          <div key={question.question_id}>
             <h4>Kysymys {index + 1}</h4>
             <AddQuestion
               key={question.question_id}
@@ -123,7 +123,7 @@ const CreateSurvey = () => {
               questions={questions as Question[]}
               question={question}
             />
-          </>
+          </div>
         ))}
         <p className="createsurveybuttons">
           <button type="button" onClick={addQuestion} className="hehe">
