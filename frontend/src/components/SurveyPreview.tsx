@@ -2,6 +2,7 @@ import { useState } from 'react';
 import SurveyAnswerPage from '../pages/resident/answer-survey/SurveyAnswerPage';
 import { Survey } from '../interfaces/Survey';
 import styles from './Components.module.css';
+import { GrClose } from 'react-icons/gr';
 
 type Props = {
   survey: Survey;
@@ -30,7 +31,9 @@ export const SurveyPreview = ({ survey }: Props) => {
           <div className={styles.previewModal}>
             <div className={styles.modalContent}>
               <header style={{ padding: '5px' }}>
-                <button onClick={handleClose}>Piilota</button>
+                <button onClick={handleClose}>
+                  <GrClose />
+                </button>
               </header>
               <div className={styles.modalBody}>
                 <SurveyAnswerPage survey={survey} isPreview={true} />
