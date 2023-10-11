@@ -1,11 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { MessageResponse } from '../interfaces/Response';
 import { Survey, SurveyHeader } from '../interfaces/Survey';
-import { doFetch } from './DoFetch';
 import { format } from 'date-fns';
+import useFetch from './DoFetch';
 
 const useSurvey = () => {
   const navigate = useNavigate();
+  const { doFetch } = useFetch();
+
   const getSurveys = async () => {
     try {
       const response = await doFetch('survey', 'GET');

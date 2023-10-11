@@ -1,13 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 import { TokenResponse } from '../interfaces/Response';
 import { LoginInput, UserGroup } from '../interfaces/User';
-import { doFetch } from './DoFetch';
 import { ADMIN_HOME, MANAGER_HOME } from '../variables/RoutePaths';
 import { useContext } from 'react';
 import { MainContext } from '../context/MainContext';
+import useFetch from './DoFetch';
 
 const useAuth = () => {
   const navigate = useNavigate();
+  const { doFetch } = useFetch();
   const { setCurrentUser } = useContext(MainContext);
 
   const loginUser = async (args: LoginInput) => {

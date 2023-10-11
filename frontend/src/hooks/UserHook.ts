@@ -1,8 +1,9 @@
 import { MessageResponse } from '../interfaces/Response';
 import { User } from '../interfaces/User';
-import { doFetch } from './DoFetch';
+import useFetch from './DoFetch';
 
 const useUser = () => {
+  const { doFetch } = useFetch();
   const getUserList = async () => {
     try {
       const response = await doFetch('user', 'GET');
