@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AddQuestion from './AddQuestion';
 import { ANSWER_1, ANSWER_2, ANSWER_3 } from '../../../variables/Constants';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Survey, SurveyHeader } from '../../../interfaces/Survey';
 import { Question } from '../../../interfaces/Question';
 import useSurvey from '../../../hooks/SurveyHook.js';
@@ -9,9 +9,11 @@ import { SelectProperties } from './SelectProperties.js';
 import { SurveyPreview } from '../../../components/SurveyPreview.js';
 import { ButtonLoading } from '../../../components/ButtonLoading';
 import styles from './CreateSurvey.module.css';
+import { set } from 'date-fns';
 
 const CreateSurvey = () => {
   const navigate = useNavigate();
+  const { surveyid } = useParams();
   const [nextId, setNextId] = useState<number>(1);
   const [questions, setQuestions] = useState<Partial<Question>[]>([
     {
@@ -26,7 +28,7 @@ const CreateSurvey = () => {
     u_id: 27,
   });
 
-  const { createSurvey } = useSurvey();
+  const { createSurvey, getSurveyById } = useSurvey();
   const addQuestion = () => {
     setQuestions([
       ...questions,
@@ -62,6 +64,17 @@ const CreateSurvey = () => {
     console.log('nSurvey: ', nSurvey);
     await createSurvey(nSurvey as Survey);
   };
+
+  useEffect(() => {
+    console.log('surveyid: ', surveyid);
+    if (!surveyid) return;
+    (async () => {
+      const _survey = await getSurveyById(surveyid);
+      if (!_survey) return;
+      setSurveyHeader(_survey.survey_header);
+      setQuestions(_survey.questions);
+    })();
+  }, []);
 
   return (
     <div className={styles.createSurvey}>
