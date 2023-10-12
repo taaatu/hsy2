@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useSurvey from '../../../hooks/SurveyHook';
 import { Survey } from '../../../interfaces/Survey';
 import { SurveyPreview } from '../../../components/SurveyPreview';
@@ -8,6 +8,7 @@ export const SingleSurveyPage = () => {
   const { surveyid } = useParams();
   const { getSurveyById, deleteSurvey } = useSurvey();
   const [survey, setSurvey] = useState<Survey>();
+  const navigate = useNavigate();
 
   const handleDelete = async () => {
     if (!surveyid) return;
@@ -33,6 +34,13 @@ export const SingleSurveyPage = () => {
       <SurveyPreview survey={survey} />
       <button className="delete" onClick={handleDelete}>
         Poista kysely
+      </button>
+      <button
+        onClick={() =>
+          navigate('/admin/surveys/create/' + survey.survey_header.survey_id)
+        }
+      >
+        Luo kopio
       </button>
     </div>
   );

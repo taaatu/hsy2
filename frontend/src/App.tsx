@@ -48,7 +48,7 @@ function App() {
               <Route path="surveys">
                 <Route index element={<SurveysPage />} />
                 <Route path=":surveyid" element={<SingleSurveyPage />} />
-                <Route path="create" element={<CreateSurvey />} />
+                <Route path="create/:surveyid?" element={<CreateSurvey />} />
               </Route>
               <Route path="managers">
                 <Route index element={<PropertyManagers />} />
