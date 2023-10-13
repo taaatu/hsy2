@@ -5,6 +5,7 @@ import { MANAGERS_PATH } from '../../../../variables/RoutePaths';
 import { useEffect, useState } from 'react';
 import { useUser } from '../../../../hooks/UserHook';
 import styles from '../Managers.module.css';
+import { FaUser } from 'react-icons/fa';
 
 export const PropertyManagers = () => {
   const navigate = useNavigate();
@@ -34,26 +35,32 @@ export const PropertyManagers = () => {
   }, []);
   return (
     <div className={styles.container}>
-      <div style={{ marginBottom: '1em' }}>
-        <h1>Property managers</h1>
-        <button onClick={() => navigate('/admin/adduser')}>
-          Lisää isännöitsijä
-        </button>
+      <div style={{ marginBottom: '1em' }} className="flex-row">
+        {/* <h1>Property managers</h1> */}
         <label>
           Hae isännöitsijää
           <input className="search-bar" onChange={handleSearch} />
         </label>
+        <button onClick={() => navigate('/admin/adduser')}>
+          Lisää isännöitsijä
+        </button>
       </div>
 
       <div className={styles.managersList}>
         {userList.map((user: User) => (
-          <div
-            onClick={() => navigate(MANAGERS_PATH + '/' + user.user_id)}
-            key={user.user_id}
-            className={styles.listItem}
-          >
-            <h4>{user.full_name}</h4>
-            <h4>{user.company}</h4>
+          <div key={user.user_id} className={styles.listItem}>
+            <div
+              style={{ gap: '0.5em', width: '20ch' }}
+              className="center-align"
+            >
+              <FaUser /> {user.full_name}{' '}
+            </div>
+            <div style={{ width: '30ch' }}>{user.company}</div>
+            <button
+              onClick={() => navigate(MANAGERS_PATH + '/' + user.user_id)}
+            >
+              Siirry profiiliin
+            </button>
           </div>
         ))}
       </div>

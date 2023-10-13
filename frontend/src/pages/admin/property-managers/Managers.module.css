@@ -11,6 +11,8 @@
     display: flex;
     gap: 1em;
     background-color: lightblue;
-    padding: 0.5em;
+    padding: 1rem;
     border-radius: 10px;
+    justify-content: space-between;
+    align-items: center;
 }

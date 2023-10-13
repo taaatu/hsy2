@@ -47,14 +47,20 @@ h1 {
 }
 
 input {
-  border-radius: 1em;
+  border-radius: 0.5rem;
   padding: 0.6em 1.2em;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
 }
 
 textarea {
-  border-radius: 1em;
+  border-radius: 0.5rem;
   padding: 0.6em 1.2em;
+  border-style: solid;
+  border-color: black;
   resize: vertical;
+  border-width: 1px;
 }
 
 .hima{

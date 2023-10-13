@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { User } from '../../../../interfaces/User';
 import { useUser } from '../../../../hooks/UserHook';
+import { PASSWORD_REGEX } from '../../../../variables/Constants';
 
 type ModifyUserProps = {
   user: User;
@@ -66,6 +67,7 @@ export const ModifyUser = ({ user, setIsModifying }: ModifyUserProps) => {
           Salasana
           <input
             required
+            pattern={PASSWORD_REGEX}
             type="password"
             defaultValue={user.password}
             onChange={(e) => setPassword(e.target.value)}

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CITIES } from '../../../variables/Constants';
+import { CITIES, PASSWORD_REGEX } from '../../../variables/Constants';
 import { User } from '../../../interfaces/User';
 import { useUser } from '../../../hooks/UserHook';
 import { ButtonLoading } from '../../../components/ButtonLoading';
@@ -54,6 +54,7 @@ export const CreateUser = () => {
           Salasana
           <input
             type="password"
+            pattern={PASSWORD_REGEX}
             required
             onChange={(e) => setPassword(e.target.value)}
           />
