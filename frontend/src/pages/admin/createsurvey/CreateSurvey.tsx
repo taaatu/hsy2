@@ -26,6 +26,7 @@ const CreateSurvey = () => {
   // const [survey, setSurvey] = useState({});
   const [surveyHeader, setSurveyHeader] = useState<Partial<SurveyHeader>>({
     u_id: 27,
+    start_time: new Date().toISOString().slice(0, 10),
   });
 
   const { createSurvey, getSurveyById } = useSurvey();
