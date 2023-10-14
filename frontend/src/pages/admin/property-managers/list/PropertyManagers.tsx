@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-import { testUserList } from '../../../../data/TestUser';
 import { User } from '../../../../interfaces/User';
 import { MANAGERS_PATH } from '../../../../variables/RoutePaths';
 import { useEffect, useState } from 'react';
 import { useUser } from '../../../../hooks/UserHook';
 import styles from '../Managers.module.css';
-import { FaUser } from 'react-icons/fa';
+import { FaUser, FaUserPlus } from 'react-icons/fa';
+import { SearchBar } from '../../../../components/SearchBar';
 
 export const PropertyManagers = () => {
   const navigate = useNavigate();
@@ -33,15 +33,23 @@ export const PropertyManagers = () => {
   useEffect(() => {
     fetchUserList();
   }, []);
+
   return (
     <div className={styles.container}>
-      <div style={{ marginBottom: '1em' }} className="flex-row">
-        {/* <h1>Property managers</h1> */}
-        <label>
-          Hae isännöitsijää
-          <input className="search-bar" onChange={handleSearch} />
-        </label>
-        <button onClick={() => navigate('/admin/adduser')}>
+      <div
+        style={{ marginBottom: '1em', gap: '1rem', flexWrap: 'wrap' }}
+        className="flex-row center-align"
+      >
+        <SearchBar
+          placeholder="Hae isännöitsijää"
+          handleSearch={handleSearch}
+        />
+        <button
+          className="center-align"
+          style={{ gap: '0.5em' }}
+          onClick={() => navigate('/admin/managers/add')}
+        >
+          <FaUserPlus size={20} />
           Lisää isännöitsijä
         </button>
       </div>

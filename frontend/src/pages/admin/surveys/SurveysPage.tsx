@@ -2,11 +2,13 @@
 import { useEffect, useState } from 'react';
 import useSurvey from '../../../hooks/SurveyHook';
 import { SurveyHeader } from '../../../interfaces/Survey';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styles from './Surveys.module.css';
+import { SearchBar } from '../../../components/SearchBar';
 
 const SurveysPage = () => {
   const { getSurveys } = useSurvey();
+  const navigate = useNavigate();
   const [surveys, setSurveys] = useState<SurveyHeader[]>([]);
   const [fullList, setFullList] = useState<SurveyHeader[]>([]);
 
@@ -31,22 +33,26 @@ const SurveysPage = () => {
 
   return (
     <div className={styles.container}>
-      <h1>Surveys Page</h1>
-      <label>
-        Hae kyselyitä
-        <input className="search-bar" onChange={handleSearch} type="text" />
-      </label>
+      <div
+        style={{ marginBottom: '1em', gap: '1rem', flexWrap: 'wrap' }}
+        className="flex-row center-align"
+      >
+        <SearchBar placeholder="Hae kyselyitä" handleSearch={handleSearch} />
+        <button onClick={() => navigate('/admin/surveys/create')}>
+          Luo uusi kysely
+        </button>
+      </div>
 
       <h4>{`Kyselyt (${surveys.length})`}</h4>
       <div className={styles.surveyList}>
         {surveys.map((survey) => (
-          <div
-            key={survey.survey_id}
-            style={{ backgroundColor: 'white', padding: '1em' }}
-          >
-            <Link to={`/admin/surveys/${survey.survey_id}`}>
-              {survey.survey_title}
-            </Link>
+          <div key={survey.survey_id} className={styles.listItem}>
+            <div>{survey.survey_title}</div>
+            <button
+              onClick={() => navigate(`/admin/surveys/${survey.survey_id}`)}
+            >
+              Siirry
+            </button>
           </div>
         ))}
       </div>

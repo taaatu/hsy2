@@ -54,6 +54,11 @@ input {
   border-width: 1px;
 }
 
+input[type="date"] {
+  width: 20ch;
+  /* max-width: 20em;} */
+}
+
 textarea {
   border-radius: 0.5rem;
   padding: 0.6em 1.2em;
@@ -140,6 +145,15 @@ label {
   flex-direction: column;
 }
 
+p.error {
+  color: red;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+}
+
 .center-align {
   display: flex;
   align-items: center;
@@ -167,6 +181,7 @@ label {
   min-height: 10vh;
   flex-wrap: wrap;
   font-weight: bold;
+  z-index: 100;
 }
 
 .linktologin{
@@ -209,7 +224,6 @@ button.delete {
 
 .search-bar {
   width: 30ch;
-  max-width: 80%;
 }
 
 .loader {
