@@ -5,6 +5,7 @@ const cors = require('cors');
 const authRoute = require('./routes/authRoute');
 const userRoute = require('./routes/userRoute');
 const surveyRoute = require('./routes/surveyRoute');
+const buildingRoute = require('./routes/buildingRoute');
 const { httpError } = require('./utils/errors');
 const passport = require('./utils/pass');
 const app = express()
@@ -16,7 +17,8 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use('/auth', authRoute);
 app.use('/user', passport.authenticate('jwt', { session: false }), userRoute);
-app.use('/survey', passport.authenticate('jwt', {session: false}), surveyRoute);
+app.use('/survey', passport.authenticate('jwt', { session: false }), surveyRoute);
+app.use('/building', passport.authenticate('jwt', {session: false}), buildingRoute);
 
 app.use((req, res, next)=>{
     const err = httpError('Not found', 404);
