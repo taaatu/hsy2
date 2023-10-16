@@ -34,6 +34,7 @@ a:hover {
   color: #535bf2;
 }
 .app-name{
+  margin-top: 2em;
   background-image:url( " https://i.gyazo.com/39e1d12e262896fea16d5790e584c13c.png"); /* tulee icon tänne */
   background-position: center;
   width: 100%;
@@ -72,22 +73,21 @@ h3{
 
 }
 button {
-  /* border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s; */
-  width: fit-content;
-  padding: 0.6em 1.2em;
-  border-radius: 10px;
-  background-color: #00AAA3;
+  font-size: larger;
+  text-align: center;
+  position: fixed;
+  left: 50%;
+  bottom: 25%;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  padding: 4vh;
+  font-weight: bold;
+  width: 25vh;
+  border-radius: 15%;
 }
 button:hover {
   border-color: #646cff;
+  background-color: #00AAA3;
 }
 button:focus,
 button:focus-visible {
@@ -101,6 +101,7 @@ button:focus-visible {
   }
   a:hover {
     color: #747bff;
+    
   }
   /* button {
     background-color: #f9f9f9;
@@ -119,14 +120,13 @@ button:focus-visible {
 }
 
 form {
+  text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 0.5em;
   position:center;
   margin: auto;
-  padding: 1em;
+  padding: 2em;
   border-radius: 10px;
-  background-color: lightblue;
 }
 
 main {
@@ -177,26 +177,59 @@ label {
   transform: translate(0%, -50%);
 }
 .button{
-  /* left: 50%;
-  top:75%;
-  position: fixed;
-  transform: translate(-50%, -50%); */
+
 }
+/* }
+ButtonLoading{
+  position: fixed;
+  left: 50%;
+  bottom: 25%;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  padding: 4vh;
+  font-weight: bold;
+  width: 25vh;
+  border-radius: 15%;
+} */
 .homebutton{
+  bottom: 15%;
+  left: 15%;
+  position: fixed;
   font-weight: bolder;
   color: black;
+  border: #00AAA3;
 }
-.loginbutton{
+
+::placeholder {
+  color: black;
+  opacity: 0.75;
 }
-.loginforms{
-  
+.accesscode{
+  font-size: xx-large;
+  color: black;
+  text-align: center;
 }
 .loginlabel{
-  
+  color: black;
+  font-size: larger;
+  width: 25vh;
+   padding: 1vh;
+
+}
+.loginlabel:focus{
+  border: 3px solid #747474;
 }
 .buttonadmin{
   width: 20vh;
 }
+input{
+  font-size: large;
+  font-weight:900;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgb(33, 28, 28);
+}
+
 
 .flex-row {
   display: flex;

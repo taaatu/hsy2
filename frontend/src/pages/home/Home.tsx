@@ -14,11 +14,11 @@ const HomePage = () => {
   };
 
   return (
-    <div style={{ padding: '2em' }}>
+    <div style={{  }}>
       <div className={styles.main}>
         <AppName />
         <form onSubmit={handleSubmit}>
-          <h4 style={{ margin: 0 }}>Syötä kyselyn pääsykoodi</h4>
+          <h4 className='accesscode'>Pääsykoodi</h4>
           <input
             type="text"
             required
@@ -26,7 +26,7 @@ const HomePage = () => {
             onChange={(e) => setSurveyKey(e.target.value)}
           />
 
-          <button className="button">Siirry kyselyyn</button>
+          <button>Siirry kyselyyn</button>
         </form>
         <HsyLogo />
       </div>
