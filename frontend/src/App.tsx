@@ -13,7 +13,7 @@ import {
   UserResultsPage,
   CreateUser,
   AdminHome,
-  AddProperty,
+  AddBuilding,
   PropertyManagers,
   PropertyManagerPage,
 } from './pages';
@@ -66,7 +66,7 @@ function App() {
               <Route index element={<ManagerHome />} />
               <Route path="properties">
                 <Route index element={<MangerProperties />} />
-                <Route path="add" element={<AddProperty />} />
+                <Route path="add" element={<AddBuilding />} />
               </Route>
               <Route path="profile">
                 <Route index element={<ProfilePage />} />

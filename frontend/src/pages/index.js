@@ -9,7 +9,7 @@ import HomePage from './home/Home';
 import Login from './login/Login';
 import SurveyAnswerPage from './resident/answer-survey/SurveyAnswerPage';
 import UserResultsPage from './resident/user-results/UserResultsPage';
-import { AddProperty } from './manager/add-property/AddProperty';
+import { AddBuilding } from './manager/buildings/AddBuilding';
 import { PropertyManagers } from './admin/property-managers/list/PropertyManagers';
 import { PropertyManagerPage } from './admin/property-managers/single/ProperyManagerPage';
 // const i = <PropertyM />
@@ -26,7 +26,7 @@ export {
   CreateSurvey,
   CreateUser,
   AdminHome,
-  AddProperty,
+  AddBuilding,
   PropertyManagers,
   PropertyManagerPage,
 };

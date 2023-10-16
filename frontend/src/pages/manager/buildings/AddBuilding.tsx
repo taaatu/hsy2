@@ -1,22 +1,30 @@
-import { useState } from 'react';
 import { CITIES } from '../../../variables/Constants';
-import { Property } from '../../../interfaces/Property';
-import useProperty from '../../../hooks/PropertyHook';
+import { Building } from '../../../interfaces/Building';
+import useBuilding from '../../../hooks/BuildingHook';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { FormFieldError } from '../../../components/FormFieldError';
 
-export const AddProperty = () => {
-  const { addProperty } = useProperty();
+export const AddBuilding = () => {
+  const { addBuilding } = useBuilding();
 
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
-  } = useForm<Property>({
+  } = useForm<Building>({
     defaultValues: { city: CITIES[0] },
   });
 
-  const onSubmit: SubmitHandler<Property> = async (data) => addProperty(data);
+  const onSubmit: SubmitHandler<Building> = async (data) => {
+    const res = await addBuilding(data);
+    if (!res) {
+      setError('root.serverError', {
+        message: 'Taloyhtiön lisäys epäonnistui',
+      });
+      return;
+    }
+  };
 
   return (
     <div className="centered-container">
@@ -26,19 +34,19 @@ export const AddProperty = () => {
           Osoite
           <input
             placeholder="Osoite"
-            {...register('address', { required: 'Osoite vaaditaan' })}
+            {...register('street', { required: 'Osoite vaaditaan' })}
           />
-          <FormFieldError error={errors.address} />
+          <FormFieldError error={errors.street} />
         </label>
         <label>
           Postinumero
           <input
             placeholder="Postinumero"
-            {...register('postcode', {
+            {...register('post_code', {
               required: 'Postinumero vaaditaan',
             })}
           />
-          <FormFieldError error={errors.postcode} />
+          <FormFieldError error={errors.post_code} />
         </label>
 
         <label>
@@ -58,7 +66,9 @@ export const AddProperty = () => {
           />
           <FormFieldError error={errors.name} />
         </label>
-
+        {errors.root?.serverError && (
+          <FormFieldError error={errors.root?.serverError} />
+        )}
         <button>Lisää taloyhtiö</button>
       </form>
     </div>
