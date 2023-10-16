@@ -27,6 +27,7 @@ const AdminLinks = () => (
     <Link to="/admin/surveys/create">Luo kysely</Link>
     <Link to="/admin/managers/add">Lisää isännöitsijä</Link>
     <Link to={MANAGERS_PATH}>Isännöitsijät</Link>
+    <Link to="/admin/properties">Taloyhtiöt</Link>
     <Link to="/admin/surveys">Kyselyt</Link>
   </>
 );

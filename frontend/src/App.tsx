@@ -13,7 +13,7 @@ import {
   UserResultsPage,
   CreateUser,
   AdminHome,
-  AddProperty,
+  AddBuilding,
   PropertyManagers,
   PropertyManagerPage,
 } from './pages';
@@ -25,6 +25,7 @@ import { MainProvider } from './context/MainContext';
 import { SingleSurveyPage } from './pages/admin/surveys/SingleSurveyPage';
 import { UserGroup } from './interfaces/User';
 import { ProfilePage } from './pages/manager/profile/ProfilePage';
+import { SinglePropertyPage } from './pages/admin/properties/SinglePropertyPage';
 
 function App() {
   return (
@@ -56,7 +57,10 @@ function App() {
                 <Route path="add" element={<CreateUser />} />
               </Route>
               <Route path="survey/edit" element={<EditSurveyPage />} />
-              <Route path="properties" element={<PropertiesPage />} />
+              <Route path="properties">
+                <Route index element={<PropertiesPage />} />
+                <Route path=":buildingid" element={<SinglePropertyPage />} />
+              </Route>
             </Route>
 
             <Route
@@ -66,7 +70,7 @@ function App() {
               <Route index element={<ManagerHome />} />
               <Route path="properties">
                 <Route index element={<MangerProperties />} />
-                <Route path="add" element={<AddProperty />} />
+                <Route path="add" element={<AddBuilding />} />
               </Route>
               <Route path="profile">
                 <Route index element={<ProfilePage />} />

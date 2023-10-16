@@ -34,3 +34,9 @@
     height: 100%;
     overflow: auto;
 }
+.searchIcon {
+  position: absolute;
+  top:50%;
+  right:0.5rem;
+  transform: translateY(-50%);
+}

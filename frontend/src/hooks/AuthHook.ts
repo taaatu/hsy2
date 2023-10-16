@@ -18,6 +18,7 @@ const useAuth = () => {
         'POST',
         args
       )) as TokenResponse;
+      console.log('login user input: ', args);
       console.log('login user', response);
       sessionStorage.setItem('token', response.token);
       setCurrentUser(response.user);
@@ -25,8 +26,8 @@ const useAuth = () => {
       response.user.user_group === UserGroup.ADMIN
         ? navigate(ADMIN_HOME)
         : navigate(MANAGER_HOME);
+      return response;
     } catch (error) {
-      alert('Kirjautuminen epäonnistui');
       console.error('login user', error);
     }
   };

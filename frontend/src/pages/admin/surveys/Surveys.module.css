@@ -4,5 +4,15 @@
 .surveyList {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    background-color: white;
+}
+
+.listItem {
+    display: flex;
     gap: 1em;
+    padding: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid lightgray;
 }

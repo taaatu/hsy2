@@ -5,6 +5,7 @@ import { useUser } from '../../../../hooks/UserHook';
 import { MANAGERS_PATH } from '../../../../variables/RoutePaths';
 import { ModifyUser } from './ModifyUser';
 import { testProperties } from '../../../../data/TestProperties';
+import { ModifyUserForm } from '../../../../components/forms/ModifyUserForm';
 
 export const PropertyManagerPage = () => {
   const { userid } = useParams();
@@ -45,7 +46,8 @@ export const PropertyManagerPage = () => {
       <h1>User id {userid}</h1>
       <div>
         {isModifying ? (
-          <ModifyUser user={user} setIsModifying={setIsModifying} />
+          // <ModifyUser user={user} setIsModifying={setIsModifying} />
+          <ModifyUserForm user={user} setIsModifying={setIsModifying} />
         ) : (
           <>
             <h4>Nimi: {user.full_name}</h4>
@@ -65,11 +67,11 @@ export const PropertyManagerPage = () => {
         {testProperties.map((property) => (
           <div
             style={{ backgroundColor: 'white', display: 'flex', gap: '2em' }}
-            key={property.id}
+            key={property.building_id}
           >
-            <p>{property.address}</p>
+            <p>{property.street}</p>
             <p>{property.city}</p>
-            <p>{property.postcode} </p>
+            <p>{property.post_code} </p>
           </div>
         ))}
       </ul>

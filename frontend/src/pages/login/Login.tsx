@@ -1,40 +1,44 @@
-import { FormEvent, useState } from 'react';
 import styles from './Login.module.css';
-import { LoginInput, UserGroup } from '../../interfaces/User';
-import { Link, useNavigate } from 'react-router-dom';
+import { LoginInput } from '../../interfaces/User';
+import { Link } from 'react-router-dom';
 import { AppName } from '../../components/AppName';
 import { HsyLogo } from '../../components/HsyLogo';
 import useAuth from '../../hooks/AuthHook';
 import { ButtonLoading } from '../../components/ButtonLoading';
+import { useForm } from 'react-hook-form';
+import { FormFieldError } from '../../components/FormFieldError';
 
 export const Login = () => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const navigate = useNavigate();
   const { loginUser } = useAuth();
 
-  const handleSumbit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const loginInput: LoginInput = {
-      email: email,
-      password: password,
-    };
-    console.log('loginInput: ', loginInput);
-    await loginUser(loginInput);
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<LoginInput>();
+
+  const onSubmit = async (data: LoginInput) => {
+    const res = await loginUser(data);
+    if (!res) {
+      setError('root.serverError', {
+        message: 'Sähköposti tai salasana on virheellinen',
+      });
+    }
   };
 
   return (
     <div className={styles.container}>
       <AppName />
-      <form onSubmit={handleSumbit} className="loginforms">
+      <form onSubmit={handleSubmit(onSubmit)} className="loginforms">
         <label className="loginlabel">
           Sähköposti
           <input
             type="email"
+            {...register('email', { required: 'Sähköposti vaaditaan' })}
             placeholder="Email"
-            required
-            onChange={(e) => setEmail(e.target.value)}
           />
+          <FormFieldError error={errors.email} />
         </label>
 
         <label className="loginlabel">
@@ -42,11 +46,13 @@ export const Login = () => {
           <input
             type="password"
             placeholder="Password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
+            {...register('password', { required: 'Salasana vaaditaan' })}
           />
+          <FormFieldError error={errors.password} />
         </label>
-
+        {errors.root?.serverError && (
+          <FormFieldError error={errors.root?.serverError} />
+        )}
         <ButtonLoading text="Kirjaudu sisään" />
       </form>
       <Link to="/" className="homebutton">
