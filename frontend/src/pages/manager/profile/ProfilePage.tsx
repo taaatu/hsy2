@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { User } from '../../../interfaces/User';
 import { useUser } from '../../../hooks/UserHook';
-import { ModifyProfile } from './ModifyProfile';
+import { ModifyUserForm } from '../../../components/forms/ModifyUserForm';
 
 export const ProfilePage = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -26,7 +26,7 @@ export const ProfilePage = () => {
       <div style={{ padding: '1em' }}>
         <main>
           {isModifying ? (
-            <ModifyProfile user={user} setIsModifying={setIsModifying} />
+            <ModifyUserForm user={user} setIsModifying={setIsModifying} />
           ) : (
             <>
               <div>{user.full_name}</div>
