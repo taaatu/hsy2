@@ -4,13 +4,15 @@ import { MainContext } from '../context/MainContext';
 type Props = {
   text: string;
   onClick?: () => void;
+  classname: any;
 };
 
-export const ButtonLoading = ({ text, onClick }: Props) => {
+export const ButtonLoading = ({ text, onClick, classname }: Props) => {
   const { isLoading } = useContext(MainContext);
   return (
     <button
-      style={{ display: 'flex', gap: '1em', alignItems: 'center' }}
+      className={classname}
+      // style={{ display: 'flex', gap: '1em', alignItems: 'center' }}
       disabled={isLoading}
       onClick={onClick}
     >
