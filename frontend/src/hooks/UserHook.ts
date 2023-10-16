@@ -2,10 +2,13 @@ import { useNavigate } from 'react-router-dom';
 import { MessageResponse } from '../interfaces/Response';
 import { User } from '../interfaces/User';
 import useFetch from './DoFetch';
+import { useContext } from 'react';
+import { MainContext } from '../context/MainContext';
 
 const useUser = () => {
   const { doFetch } = useFetch();
   const navigate = useNavigate();
+  const { setCurrentUser } = useContext(MainContext);
 
   const getUserList = async () => {
     try {
@@ -27,14 +30,17 @@ const useUser = () => {
   const addUser = async (user: User) => {
     try {
       const response = await doFetch('user', 'POST', user);
+      console.log('add user: ', response);
+      alert('Käyttäjä lisätty');
       return response as MessageResponse;
-    } catch (error) {
+    } catch (error: any) {
       console.error('add user', error);
     }
   };
   const modifyUser = async (user: User) => {
     try {
       const response = await doFetch('user/update', 'PUT', user);
+      console.log('modify user res: ', response);
       alert('Käyttäjä päivitetty');
       return response as MessageResponse;
     } catch (error) {
@@ -57,6 +63,7 @@ const useUser = () => {
   const getUserByToken = async () => {
     try {
       const response = await doFetch('user/token', 'GET');
+      if (response) setCurrentUser(response);
       return response as User;
     } catch (error) {
       console.error('get user by token', error);
