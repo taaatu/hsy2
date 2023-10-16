@@ -78,17 +78,10 @@ h3{
 
 }
 button {
-  font-size: larger;
-  text-align: center;
-  position: fixed;
-  left: 50%;
-  bottom: 25%;
-  transform: translate(-50%, -50%);
-  background: transparent;
-  padding: 4vh;
-  font-weight: bold;
-  width: 25vh;
-  border-radius: 15%;
+  width: fit-content;
+  padding: 0.6em 1.2em;
+  border-radius: 10px;
+  background-color: #00AAA3;
 }
 button:hover {
   border-color: #646cff;
@@ -191,8 +184,18 @@ label {
   color: black;
   transform: translate(0%, -50%);
 }
-.button{
-
+.buttonloginandhome{
+  font-size: larger;
+  text-align: center;
+  position: fixed;
+  left: 50%;
+  bottom: 25%;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  padding: 4vh;
+  font-weight: bold;
+  width: 25vh;
+  border-radius: 15%;
 }
 /* }
 ButtonLoading{
