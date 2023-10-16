@@ -26,7 +26,7 @@ const HomePage = () => {
             onChange={(e) => setSurveyKey(e.target.value)}
           />
 
-          <button>Siirry kyselyyn</button>
+          <button className='buttonloginandhome'>Siirry kyselyyn</button>
         </form>
         <HsyLogo />
       </div>

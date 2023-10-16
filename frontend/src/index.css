@@ -55,6 +55,11 @@ input {
   border-width: 1px;
 }
 
+input[type="date"] {
+  width: 20ch;
+  /* max-width: 20em;} */
+}
+
 textarea {
   border-radius: 0.5rem;
   padding: 0.6em 1.2em;
@@ -73,17 +78,10 @@ h3{
 
 }
 button {
-  font-size: larger;
-  text-align: center;
-  position: fixed;
-  left: 50%;
-  bottom: 25%;
-  transform: translate(-50%, -50%);
-  background: transparent;
-  padding: 4vh;
-  font-weight: bold;
-  width: 25vh;
-  border-radius: 15%;
+  width: fit-content;
+  padding: 0.6em 1.2em;
+  border-radius: 10px;
+  background-color: #00AAA3;
 }
 button:hover {
   border-color: #646cff;
@@ -140,6 +138,15 @@ label {
   flex-direction: column;
 }
 
+p.error {
+  color: red;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+}
+
 .center-align {
   display: flex;
   align-items: center;
@@ -167,6 +174,7 @@ label {
   min-height: 10vh;
   flex-wrap: wrap;
   font-weight: bold;
+  z-index: 100;
 }
 
 .linktologin{
@@ -176,8 +184,18 @@ label {
   color: black;
   transform: translate(0%, -50%);
 }
-.button{
-
+.buttonloginandhome{
+  font-size: larger;
+  text-align: center;
+  position: fixed;
+  left: 50%;
+  bottom: 25%;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  padding: 4vh;
+  font-weight: bold;
+  width: 25vh;
+  border-radius: 15%;
 }
 /* }
 ButtonLoading{
@@ -242,7 +260,6 @@ button.delete {
 
 .search-bar {
   width: 30ch;
-  max-width: 80%;
 }
 
 .loader {
