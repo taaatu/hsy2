@@ -53,7 +53,7 @@ export const Login = () => {
         {errors.root?.serverError && (
           <FormFieldError error={errors.root?.serverError} />
         )}
-        <ButtonLoading text="Kirjaudu sisään" />
+        <ButtonLoading text="Kirjaudu sisään" classname={styles.button} />
       </form>
       <Link to="/" className="homebutton">
         Home
