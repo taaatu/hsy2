@@ -5,3 +5,17 @@
     justify-content: center;
     font-weight: bolder;
 }
+
+button{
+    font-size: larger;
+    text-align: center;
+    position: fixed;
+    left: 50%;
+    bottom: 25%;
+    transform: translate(-50%, -50%);
+    background: transparent;
+    padding: 4vh;
+    font-weight: bold;
+    width: 25vh;
+    border-radius: 15%;
+}
