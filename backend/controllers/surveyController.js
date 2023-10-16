@@ -1,13 +1,16 @@
 'use strict';
 const { httpError } = require('../utils/errors');
 const { validationResult } = require('express-validator');
+const { getUserById } = require('../models/userModel');
 const {
     getAllSurvey,
     insertSurvey,
     deleteSurveyById,
     getSurveyById,
     getSurveyQuestionsBySurveyId,
-    insertSurveyQuestionBySurveyId
+    insertSurveyQuestionBySurveyId,
+    assignSurveyToBuilding,
+    getAllAssignedSurveyByUserId
 } = require('../models/surveyModel');
 
 const survey_list_get = async (req, res, next) => {
@@ -72,10 +75,38 @@ const survey_get_by_id = async (req, res, next) => {
         next(error);
     } 
 };
+
+const assign_survey_post = async (req, res, next) => {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            console.error('assign_survey_post', errors.array());
+            const err = httpError(errors.errors[0].msg, 400);
+            next(err);
+            return;
+        }
+        const id = await assignSurveyToBuilding(req.body);
+        res.json({ message: `Survey ${req.body.s_id} has been successfully assigned to building ${req.body.b_id}`, status: 200 });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const assigned_survey_list_get = async (req, res, next) => {
+    try {
+        const user = await getUserById(req.user.user_id);
+        const surveys = await getAllAssignedSurveyByUserId(user);
+        res.json(surveys);
+    } catch(error) {
+        next(error);
+    }
+};
   
 module.exports = {
     survey_list_get,
     survey_post,
     survey_delete,
-    survey_get_by_id
+    survey_get_by_id,
+    assign_survey_post,
+    assigned_survey_list_get
 };

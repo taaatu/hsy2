@@ -10,7 +10,8 @@ const {
     user_get_by_id,
     user_delete,
     user_info_update_put,
-    checkToken
+    checkToken,
+    user_info_update_by_admin_put
 } = require("../controllers/userController");
 
 router
@@ -27,6 +28,7 @@ router
     .route("/userid/:userId")
     .get(user_get_by_id)
     .delete(user_delete);
+
 router
     .route("/update")
     .put(
@@ -39,6 +41,17 @@ router
 
 router.route("/token")
     .get(checkToken)    
+
+router.route("/adminupdate/:userId")
+    .put(
+        body("full_name").isLength({ min: 3 }),
+        body("email").isEmail(),
+        body("password").matches("(?=.*[A-Z]).{8,}"),
+        body("company").notEmpty(),
+        body("user_group").isNumeric(),
+        user_info_update_by_admin_put
+    ); 
+    
      
 
 module.exports = router;

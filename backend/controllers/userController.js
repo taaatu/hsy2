@@ -7,6 +7,7 @@ const {
   getUserById,
   deleteUser,
   updateUserInfo,
+  updateUserInfoByAdmin,
 } = require('../models/userModel');
 
 const user_list_get = async (req, res) => {
@@ -89,6 +90,7 @@ const user_info_update_put = async (req, res, next) => {
     res.status(400).json({ message: 'This user email already exist' });
   }
 };
+
 const checkToken = (req, res, next) => {
   const user = req.user;
   if (!user) {
@@ -98,6 +100,35 @@ const checkToken = (req, res, next) => {
   }
   res.json(user);
 };
+
+const user_info_update_by_admin_put = async (req, res, next) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.error('user_info_update_by_admin_put validation', errors.array());
+      const err = httpError('data not valid', 400);
+      next(err);
+      return;
+    }
+    const allUsers = await getAllUsers();
+    var saveUser = true;
+    allUsers.forEach((user) => {
+    if (req.params.userId != req.body.email && user.email == req.body.email && req.user.user_group == 0) {
+      saveUser = false;
+    }
+    });
+    console.log(req.body);
+    if (saveUser) {
+      await updateUserInfoByAdmin(req.body, req.params.userId);
+      res.json({ message: `User ${req.body.full_name}'s info updated` });
+    } else {
+      res.status(400).json({ message: 'This user email already exist' });
+    }
+  } catch (error) {
+    next(error);
+  } 
+};
+  
 module.exports = {
   user_list_get,
   user_post,
@@ -105,4 +136,5 @@ module.exports = {
   user_delete,
   user_info_update_put,
   checkToken,
+  user_info_update_by_admin_put,
 };

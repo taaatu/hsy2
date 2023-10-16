@@ -8,7 +8,9 @@ const {
     survey_list_get,
     survey_post,
     survey_delete,
-    survey_get_by_id
+    survey_get_by_id,
+    assign_survey_post,
+    assigned_survey_list_get
 } = require("../controllers/surveyController");
 
 router
@@ -42,5 +44,14 @@ router
     .route("/surveybyid/:surveyId")
     .get(survey_get_by_id)
     .delete(survey_delete);
+
+router
+    .route("/assignsurevey")
+    .get(assigned_survey_list_get)
+    .post(
+        body("s_id").isNumeric(),
+        body("b_id").isNumeric(),
+        assign_survey_post
+    );
 
 module.exports = router;
