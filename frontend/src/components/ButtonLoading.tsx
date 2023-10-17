@@ -4,7 +4,7 @@ import { MainContext } from '../context/MainContext';
 type Props = {
   text: string;
   onClick?: () => void;
-  classname: any;
+  classname?: any;
 };
 
 export const ButtonLoading = ({ text, onClick, classname }: Props) => {
@@ -12,7 +12,7 @@ export const ButtonLoading = ({ text, onClick, classname }: Props) => {
   return (
     <button
       className={classname}
-      // style={{ display: 'flex', gap: '1em', alignItems: 'center' }}
+      style={{ display: 'flex', gap: '1em', alignItems: 'center' }}
       disabled={isLoading}
       onClick={onClick}
     >

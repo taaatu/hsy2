@@ -6,6 +6,10 @@
     font-weight: bolder;
 }
 
+.loginForm {
+    text-align: center;
+}
+
 .button{
     font-size: larger;
     text-align: center;

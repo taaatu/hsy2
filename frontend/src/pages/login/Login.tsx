@@ -30,7 +30,7 @@ export const Login = () => {
   return (
     <div className={styles.container}>
       <AppName />
-      <form onSubmit={handleSubmit(onSubmit)} className="loginforms">
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.loginForm}>
         <label className="loginlabel">
           Sähköposti
           <input
