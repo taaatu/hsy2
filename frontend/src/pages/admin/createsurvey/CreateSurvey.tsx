@@ -5,16 +5,18 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Survey, SurveyHeader } from '../../../interfaces/Survey';
 import { Question } from '../../../interfaces/Question';
 import useSurvey from '../../../hooks/SurveyHook.js';
-import { SelectProperties } from './SelectProperties.js';
+import { SelectLevel, SelectProperties } from './SelectProperties.js';
 import { SurveyPreview } from '../../../components/SurveyPreview.js';
 import { ButtonLoading } from '../../../components/ButtonLoading';
 import styles from './CreateSurvey.module.css';
-import { set } from 'date-fns';
+import { Building } from '../../../interfaces/Building';
 
 const CreateSurvey = () => {
   const navigate = useNavigate();
   const { surveyid } = useParams();
   const [nextId, setNextId] = useState<number>(1);
+  const [selectLevel, setSelectLevel] = useState<SelectLevel>(SelectLevel.NONE);
+  const [selectedBuildings, setSelectedBuildings] = useState<Building[]>([]);
   const [questions, setQuestions] = useState<Partial<Question>[]>([
     {
       question_id: nextId,
@@ -63,7 +65,7 @@ const CreateSurvey = () => {
     console.log('questions: ', questions);
     console.log('surveyHeader: ', surveyHeader);
     console.log('nSurvey: ', nSurvey);
-    await createSurvey(nSurvey as Survey);
+    await createSurvey(nSurvey as Survey, selectedBuildings);
   };
 
   useEffect(() => {
@@ -125,7 +127,12 @@ const CreateSurvey = () => {
           />
         </label>
 
-        <SelectProperties />
+        <SelectProperties
+          selectLevel={selectLevel}
+          setSelectLevel={setSelectLevel}
+          selectedBuildings={selectedBuildings}
+          setSelectedBuildings={setSelectedBuildings}
+        />
 
         {/* <AddQuestion /> */}
         {`Kysymyksiä (${questions.length})`}

@@ -1,41 +1,64 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   ADMIN_HOME,
   MANAGERS_PATH,
   MANAGER_HOME,
 } from '../variables/RoutePaths';
-import useAuth from '../hooks/AuthHook';
+import styles from './Components.module.css';
 
 type Props = {
   isAdmin: boolean;
 };
 
 export const TopNavBar = ({ isAdmin }: Props) => {
-  const navigate = useNavigate();
-  const { logoutUser } = useAuth();
-  const onLogout = () => logoutUser();
   return (
-    <div id="topnav-bar">
-      <button onClick={onLogout}>Kirjaudu ulos</button>
-      {isAdmin ? <AdminLinks /> : <ManagerLinks />}
+    <div id="topnav-bar">{isAdmin ? <AdminLinks /> : <ManagerLinks />}</div>
+  );
+};
+
+const DropDown = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) => {
+  return (
+    <div className={styles.dropdown}>
+      <button className={styles.dropbtn}>{title}</button>
+      <div className={styles.dropdownContent}>{children}</div>
     </div>
   );
 };
 
 const AdminLinks = () => (
   <>
-    <Link to="/admin/surveys/create">Luo kysely</Link>
-    <Link to="/admin/managers/add">Lisää isännöitsijä</Link>
-    <Link to={MANAGERS_PATH}>Isännöitsijät</Link>
-    <Link to="/admin/properties">Taloyhtiöt</Link>
-    <Link to="/admin/surveys">Kyselyt</Link>
+    <DropDown title="Taloyhtiö">
+      <Link to="/admin/properties">Taloyhtiöt</Link>
+    </DropDown>
+    <DropDown title="Kysely">
+      <Link to="/admin/surveys">Kyselyt</Link>
+      <Link to="/admin/surveys/create">Luo kysely</Link>
+    </DropDown>
+    <DropDown title="Isännöitsijä">
+      <Link to="/admin/managers/add">Lisää isännöitsijä</Link>
+      <Link to={MANAGERS_PATH}>Isännöitsijät</Link>
+    </DropDown>
+    <DropDown title="Profiili">
+      <Link to="/logout">Kirjaudu ulos</Link>
+    </DropDown>
   </>
 );
 
 const ManagerLinks = () => (
   <>
-    <Link to="/manager/properties/add">Lisää taloyhtiö</Link>
-    <Link to="/manager/properties">Taloyhtiöt</Link>
-    <Link to="/manager/profile">Profiili</Link>
+    <DropDown title="Taloyhtiö">
+      <Link to="/manager/properties">Taloyhtiöt</Link>
+      <Link to="/manager/properties/add">Lisää taloyhtiö</Link>
+    </DropDown>
+    <DropDown title="Profiili">
+      <Link to="/manager/profile">Profiili</Link>
+      <Link to="/logout">Kirjaudu ulos</Link>
+    </DropDown>
   </>
 );

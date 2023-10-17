@@ -1,8 +1,10 @@
+import { SelectLevel } from './../pages/admin/createsurvey/SelectProperties';
 import { useNavigate } from 'react-router-dom';
 import { MessageResponse } from '../interfaces/Response';
 import { Survey, SurveyHeader } from '../interfaces/Survey';
 import { format } from 'date-fns';
 import useFetch from './DoFetch';
+import { Building } from '../interfaces/Building';
 
 const useSurvey = () => {
   const navigate = useNavigate();
@@ -28,7 +30,7 @@ const useSurvey = () => {
     }
   };
 
-  const createSurvey = async (survey: Survey) => {
+  const createSurvey = async (survey: Survey, buildings: Building[]) => {
     try {
       // Format dates
       survey.survey_header.start_time = format(
@@ -40,13 +42,19 @@ const useSurvey = () => {
         'dd-MM-yyyy'
       );
 
-      const response = (await doFetch(
-        'survey',
-        'POST',
-        survey
-      )) as MessageResponse;
+      const response = await doFetch('survey', 'POST', survey);
       console.log('Create survey: ', response);
-      alert('Kysely luotu');
+      if (!response.survey_id) return;
+      if (buildings.length === 0) return alert('Kysely luotu');
+      await Promise.all(
+        buildings.map(async (building) => {
+          await doFetch(`survey/assignsurevey`, 'POST', {
+            b_id: building.building_id,
+            s_id: response.survey_id,
+          });
+        })
+      );
+      alert('Kysely luotu ja taloyhtiöt lisätty');
     } catch (error: any) {
       alert('Kyselyn luominen epäonnistui');
       throw new Error(error.message);
