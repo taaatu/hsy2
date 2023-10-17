@@ -26,6 +26,7 @@ import { SingleSurveyPage } from './pages/admin/surveys/SingleSurveyPage';
 import { UserGroup } from './interfaces/User';
 import { ProfilePage } from './pages/manager/profile/ProfilePage';
 import { SinglePropertyPage } from './pages/admin/properties/SinglePropertyPage';
+import { Logout } from './pages/Logout';
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
             />
             <Route path="/user-results" element={<UserResultsPage />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<Logout />} />
 
             <Route
               path="admin"
