@@ -3,9 +3,9 @@ import { User } from '../../../../interfaces/User';
 import { useEffect, useState } from 'react';
 import { useUser } from '../../../../hooks/UserHook';
 import { MANAGERS_PATH } from '../../../../variables/RoutePaths';
-import { ModifyUser } from './ModifyUser';
-import { testProperties } from '../../../../data/TestProperties';
 import { ModifyUserForm } from '../../../../components/forms/ModifyUserForm';
+import { ManagerProperties } from './ManagerProperties';
+import styles from '../Managers.module.css';
 
 export const PropertyManagerPage = () => {
   const { userid } = useParams();
@@ -41,12 +41,9 @@ export const PropertyManagerPage = () => {
   if (!user) return <div>Ei käyttäjää</div>;
 
   return (
-    <div className="centered-container">
-      <h1>Property Manager</h1>
-      <h1>User id {userid}</h1>
+    <div className={styles.container}>
       <div>
         {isModifying ? (
-          // <ModifyUser user={user} setIsModifying={setIsModifying} />
           <ModifyUserForm user={user} setIsModifying={setIsModifying} />
         ) : (
           <>
@@ -62,19 +59,7 @@ export const PropertyManagerPage = () => {
           Poista
         </button>
       </div>
-      <h4>Taloyhtiöt:</h4>
-      <ul>
-        {testProperties.map((property) => (
-          <div
-            style={{ backgroundColor: 'white', display: 'flex', gap: '2em' }}
-            key={property.building_id}
-          >
-            <p>{property.street}</p>
-            <p>{property.city}</p>
-            <p>{property.post_code} </p>
-          </div>
-        ))}
-      </ul>
+      <ManagerProperties user={user} />
     </div>
   );
 };
