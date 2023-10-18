@@ -1,0 +1,40 @@
+.navLinks {
+    display: flex;
+   justify-content: space-between;
+   flex-wrap: wrap;
+   width: 100%;
+  }
+
+  .navLinks a {
+    color: black;
+  }
+  
+  .topBarAppName {
+    display: none;
+  }
+  
+  #navDropdown {
+    display: flex;
+    align-items: center;
+    font-size: 1.25em;
+    gap: 0.25rem;
+  }
+  
+  #navDropdown > p {
+    margin: 0;
+    display: none;
+  }
+ 
+  /* Wider screens */
+  @media only screen and (min-width: 770px) {
+    .navLinks {
+      justify-content: flex-start;
+      gap: 1rem;
+    }
+    .topBarAppName {
+      display: block;
+    }
+    #navDropdown > p {
+      display: block;
+    }
+  }

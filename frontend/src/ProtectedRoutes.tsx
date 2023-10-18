@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { TopNavBar } from './components/TopNavBar';
+import { TopNavBar } from './components/nav-bar/TopNavBar';
 import { TOKEN } from './variables/Constants';
 import { useContext, useEffect, useState } from 'react';
 import { MainContext } from './context/MainContext';
