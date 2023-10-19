@@ -1,5 +1,5 @@
 .dot {
-    font-size: 50px;
+    font-size: 70px;
 }
 
 .selectWeight {
@@ -23,6 +23,9 @@
 }
 .optionInput {
     width: 100%;
+    max-width: 50ch;
+    background-color: white;
+
 }
 .createsurveystuff{
 }
@@ -45,4 +48,14 @@
     background-color: rgba(0,0,0,0.2);
     z-index: 2;
     cursor: pointer;
+}
+
+.input {
+    background-color: white;
+}
+
+.dates {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
 }

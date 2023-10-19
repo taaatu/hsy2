@@ -3,6 +3,8 @@ import { CITIES } from '../../../variables/Constants';
 import styles from './CreateSurvey.module.css';
 import { Building } from '../../../interfaces/Building';
 import useBuilding from '../../../hooks/BuildingHook';
+import Modal from 'react-bootstrap/Modal';
+import { SearchBar } from '../../../components/SearchBar';
 
 export enum SelectLevel {
   ALL = 'all',
@@ -25,9 +27,15 @@ export const SelectProperties = ({
 }: Props) => {
   const { getAllBuildings } = useBuilding();
   const [buildings, setBuildings] = useState<Building[]>([]);
+  const [searchBuildings, setSearchBuildings] = useState<Building[]>([]);
+  const [modelOpen, setModelOpen] = useState<boolean>(false);
 
-  const addBuilding = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value } = e.target;
+  const addBuilding = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, checked } = e.target;
+    if (!checked) {
+      removeFromSelected(Number(value));
+      return;
+    }
     const _b = buildings.find((b) => b.building_id === Number(value));
     const duplicate = selectedBuildings.find(
       (b) => b.building_id === Number(value)
@@ -38,7 +46,20 @@ export const SelectProperties = ({
     console.log('selected buildings: ', selectedBuildings);
   };
 
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const search = e.target.value;
+    const filteredBuildings = buildings.filter(
+      (building) =>
+        building.street.toLowerCase().includes(search.toLowerCase()) ||
+        building.name.toLowerCase().includes(search.toLowerCase()) ||
+        building.city.toLowerCase().includes(search.toLowerCase()) ||
+        building.post_code.toLowerCase().includes(search.toLowerCase())
+    );
+    setSearchBuildings(filteredBuildings);
+  };
+
   const removeFromSelected = (id: number) => {
+    console.log('remove from selected: ', id);
     setSelectedBuildings(selectedBuildings.filter((b) => b.building_id !== id));
   };
 
@@ -52,17 +73,122 @@ export const SelectProperties = ({
     setSelectLevel(SelectLevel.ALL);
   };
 
+  const handleShowModal = () => setModelOpen(true);
+  const handleCloseModal = () => setModelOpen(false);
+
   useEffect(() => {
     (async () => {
-      setBuildings(await getAllBuildings());
+      const _buildings = await getAllBuildings();
+      setBuildings(_buildings);
+      setSearchBuildings(_buildings);
     })();
   }, []);
 
   return (
     <div>
       <h2>Valitse taloyhtiöt</h2>{' '}
+      <button type="button" onClick={handleShowModal}>
+        Valitse taloyhtiöt
+      </button>
+      <label style={{ display: 'flex', flexDirection: 'row' }}>
+        <h3>Kaikki</h3>
+        <input
+          onChange={() => onSelectAll()}
+          checked={selectLevel === SelectLevel.ALL}
+          type="checkbox"
+        />
+      </label>
+      {modelOpen && (
+        <Modal show={modelOpen} onHide={handleCloseModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Valitse taloyhtiöt</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div style={{ position: 'relative' }}>
+              {selectLevel === SelectLevel.ALL && (
+                <div className={styles.overlay}></div>
+              )}
+              <div /* className="flex-row" */ style={{ gap: '1rem' }}>
+                <SearchBar
+                  placeholder="Hae taloyhtiötä"
+                  handleSearch={handleSearch}
+                />
+                <div
+                  style={{
+                    width: '100%',
+                    height: '70vh',
+                    overflow: 'scroll',
+                    padding: '0.5rem',
+                  }}
+                >
+                  {searchBuildings.map((building: Building) => (
+                    <div
+                      key={building.building_id}
+                      className="flex-row"
+                      style={{ justifyContent: 'space-between' }}
+                    >
+                      <div>{building.name}</div>
+                      <div>
+                        {building.street}, {building.post_code}, {building.city}
+                      </div>
+                      {/* <button onClick={() => addBuilding(building.building_id)}>
+                        +
+                      </button> */}
+                      <input
+                        checked={selectedBuildings.some(
+                          (b) => b.building_id === building.building_id
+                        )}
+                        type="checkbox"
+                        value={building.building_id}
+                        onChange={addBuilding}
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                {/* <select
+                  onChange={addBuilding}
+                  style={{ height: 'fit-content' }}
+                >
+                  {buildings.map((building: Building) => (
+                    <option
+                      key={building.building_id}
+                      value={building.building_id}
+                    >
+                      {building.name} {building.building_id}
+                    </option>
+                  ))}
+                </select> */}
+              </div>
+              {/* <SelectCity
+            selectLevel={selectLevel}
+            setSelectLevel={setSelectLevel}
+          />
+          <SelectPostalCode /> */}
+            </div>
+          </Modal.Body>
+        </Modal>
+      )}
       <div style={{ backgroundColor: 'white' }}>
-        <label style={{ display: 'flex', flexDirection: 'row' }}>
+        <h4>Valitut taloyhtiöt {`(${selectedBuildings.length})`}</h4>
+        {selectedBuildings.map((building: Building) => (
+          <div
+            key={building.building_id}
+            className="flex-row"
+            style={{ justifyContent: 'space-between' }}
+          >
+            {building.name}{' '}
+            <div>
+              {building.street}, {building.post_code}, {building.city}
+            </div>
+            <button onClick={() => removeFromSelected(building.building_id)}>
+              X
+            </button>
+          </div>
+        ))}
+      </div>
+      <div style={{ backgroundColor: 'white' }}>
+        {/* <label style={{ display: 'flex', flexDirection: 'row' }}>
           Kaikki
           <input
             onChange={() => onSelectAll()}
@@ -95,13 +221,13 @@ export const SelectProperties = ({
                 </div>
               ))}
             </div>
-          </div>
-          {/* <SelectCity
+          </div> */}
+        {/* <SelectCity
             selectLevel={selectLevel}
             setSelectLevel={setSelectLevel}
           />
           <SelectPostalCode /> */}
-        </div>
+        {/* </div> */}
       </div>
     </div>
   );

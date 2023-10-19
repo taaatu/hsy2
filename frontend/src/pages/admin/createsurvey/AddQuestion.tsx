@@ -11,11 +11,10 @@ type Props = {
 };
 // Component for adding questions to survey
 const AddQuestion = ({ setQuestions, questions, question }: Props) => {
-  const removeQuestion = () => {
+  const removeQuestion = () =>
     setQuestions(
       questions.filter((q) => q.question_id !== question.question_id)
     );
-  };
 
   // Save input fields value on change to questions array state
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,6 +36,7 @@ const AddQuestion = ({ setQuestions, questions, question }: Props) => {
         placeholder="Kysymys"
         required
         name="question"
+        className={styles.input}
         defaultValue={question.question}
         onChange={handleInputChange}
       />
@@ -52,7 +52,7 @@ const AddQuestion = ({ setQuestions, questions, question }: Props) => {
             name="option_1"
             onChange={handleInputChange}
           />
-          +1
+          <div>+1</div>
         </div>
         <div className="center-align">
           <span className={styles.dot}>&#183;</span>
@@ -65,7 +65,7 @@ const AddQuestion = ({ setQuestions, questions, question }: Props) => {
             name="option_2"
             onChange={handleInputChange}
           />
-          +0,5
+          <div>+0,5</div>
         </div>
         <div className="center-align">
           <span className={styles.dot}>&#183;</span>
@@ -78,7 +78,7 @@ const AddQuestion = ({ setQuestions, questions, question }: Props) => {
             name="option_3"
             onChange={handleInputChange}
           />
-          0
+          <div>0</div>
         </div>
         {/* Painotus
         <div className={styles.selectWeight}>
