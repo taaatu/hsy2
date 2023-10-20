@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Surveys.module.css';
 import { SearchBar } from '../../../components/SearchBar';
 
-const SurveysPage = () => {
+export const SurveysPage = () => {
   const { getSurveys } = useSurvey();
   const navigate = useNavigate();
   const [surveys, setSurveys] = useState<SurveyHeader[]>([]);
@@ -59,5 +59,3 @@ const SurveysPage = () => {
     </div>
   );
 };
-
-export default SurveysPage;

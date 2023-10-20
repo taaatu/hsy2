@@ -12,7 +12,7 @@ type Props = {
 
 export const TopNavBar = ({ isAdmin }: Props) => {
   return (
-    <Navbar id="topnav-bar">
+    <Navbar id={styles.topnavBar}>
       <Navbar.Brand className={styles.topBarAppName}>HIMA</Navbar.Brand>
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className={styles.navLinks}>
