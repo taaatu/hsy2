@@ -1,5 +1,9 @@
 .dot {
-    font-size: 70px;
+    height: 10px;
+    width: 10px;
+    background-color: black;
+    border-radius: 50%;
+    display: inline-block;
 }
 
 .selectWeight {
@@ -58,4 +62,19 @@
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+}
+
+.questionCard {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.tabsBar {
+    background-color: lightgray;
+    position: sticky;
+    top: 10vh;
+    z-index: 50;
 }
