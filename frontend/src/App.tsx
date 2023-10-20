@@ -6,7 +6,6 @@ import {
   EditSurveyPage,
   HomePage,
   Login,
-  PreviewPage,
   PropertiesPage,
   SurveyAnswerPage,
   SurveysPage,
@@ -16,17 +15,17 @@ import {
   AddBuilding,
   PropertyManagers,
   PropertyManagerPage,
+  ProfilePage,
+  SinglePropertyPage,
+  SingleSurveyPage,
+  Logout,
 } from './pages';
 import { testSurvey } from './data/TestSurvey';
 import { ManagerHome } from './pages/manager/ManagerHome';
 import { MangerProperties } from './pages/manager/manager-properties/ManagerProperties';
 import { ADD_PROPERTY_PATH, MANAGERS_PATH } from './variables/RoutePaths';
 import { MainProvider } from './context/MainContext';
-import { SingleSurveyPage } from './pages/admin/surveys/SingleSurveyPage';
 import { UserGroup } from './interfaces/User';
-import { ProfilePage } from './pages/manager/profile/ProfilePage';
-import { SinglePropertyPage } from './pages/admin/properties/SinglePropertyPage';
-import { Logout } from './pages/Logout';
 
 function App() {
   return (

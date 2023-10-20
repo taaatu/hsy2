@@ -9,7 +9,7 @@ type Props = {
   isPreview?: boolean;
 };
 
-const SurveyAnswerPage = ({ survey, isPreview = false }: Props) => {
+export const SurveyAnswerPage = ({ survey, isPreview = false }: Props) => {
   const [answers, setAnswers] = useState<Partial<Answer>[]>([]);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -53,5 +53,3 @@ const SurveyAnswerPage = ({ survey, isPreview = false }: Props) => {
 SurveyAnswerPage.propTypes = {
   survey: PropTypes.object.isRequired,
 };
-
-export default SurveyAnswerPage;

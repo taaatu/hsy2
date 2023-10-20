@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import SurveyAnswerPage from '../pages/resident/answer-survey/SurveyAnswerPage';
+import { SurveyAnswerPage } from '../pages/resident/answer-survey/SurveyAnswerPage';
 import { Survey } from '../interfaces/Survey';
 import styles from './Components.module.css';
 import { GrClose } from 'react-icons/gr';

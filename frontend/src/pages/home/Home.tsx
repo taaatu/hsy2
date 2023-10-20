@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { AppName } from '../../components/AppName';
 import { HsyLogo } from '../../components/HsyLogo';
 
-const HomePage = () => {
+export const HomePage = () => {
   const navigate = useNavigate();
   const [surveyKey, setSurveyKey] = useState<string>('');
 
@@ -14,11 +14,11 @@ const HomePage = () => {
   };
 
   return (
-    <div style={{  }}>
+    <div style={{}}>
       <div className={styles.main}>
         <AppName />
         <form onSubmit={handleSubmit}>
-          <h4 className='accesscode'>Pääsykoodi</h4>
+          <h4 className="accesscode">Pääsykoodi</h4>
           <input
             type="text"
             required
@@ -26,7 +26,7 @@ const HomePage = () => {
             onChange={(e) => setSurveyKey(e.target.value)}
           />
 
-          <button className='buttonloginandhome'>Siirry kyselyyn</button>
+          <button className="buttonloginandhome">Siirry kyselyyn</button>
         </form>
         <HsyLogo />
       </div>
@@ -36,5 +36,3 @@ const HomePage = () => {
     </div>
   );
 };
-
-export default HomePage;

@@ -3,6 +3,7 @@ import { User } from '../../interfaces/User';
 import { PASSWORD_REGEX } from '../../variables/Constants';
 import { FormFieldError } from '../FormFieldError';
 import { useUser } from '../../hooks/UserHook';
+import { ButtonLoading } from '../ButtonLoading';
 
 type Props = {
   user: User;
@@ -73,7 +74,12 @@ export const ModifyUserForm = ({ user, setIsModifying }: Props) => {
       {errors.root?.serverError && (
         <FormFieldError error={errors.root?.serverError} />
       )}
-      <button>Tallenna</button>
+      <div className="flex-row">
+        <ButtonLoading text="Tallenna" />
+        <button type="button" onClick={() => setIsModifying(false)}>
+          Poistu
+        </button>
+      </div>
     </form>
   );
 };

@@ -13,7 +13,7 @@ import { Building } from '../../../interfaces/Building';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 
-const CreateSurvey = () => {
+export const CreateSurvey = () => {
   const navigate = useNavigate();
   const { surveyid } = useParams();
   const [nextId, setNextId] = useState<number>(1);
@@ -83,7 +83,7 @@ const CreateSurvey = () => {
   return (
     <div className={styles.createSurvey}>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <Tabs style={{ backgroundColor: 'lightgray' }}>
+        <Tabs className={styles.tabsBar}>
           <Tab eventKey="survey" title="Kysely">
             <div className="column" style={{ maxWidth: '60ch', gap: '1rem' }}>
               <label className="createsurveything">
@@ -141,21 +141,24 @@ const CreateSurvey = () => {
 
             {/* <ButtonLoading text="Luo kysely" /> */}
           </Tab>
-          <Tab eventKey="questions" title="Kysymykset">
-            {`Kysymyksiä (${questions.length})`}
-            {questions.map((question, index) => (
-              <div key={question.question_id}>
-                <h4>Kysymys {index + 1}</h4>
-                <AddQuestion
-                  setQuestions={setQuestions}
-                  questions={questions as Question[]}
-                  question={question}
-                />
+          <Tab eventKey="questions" title="Kysymykset" id="column">
+            <div className="column">
+              <h3>{`Kysymyksiä (${questions.length})`}</h3>
+              <div className="column" style={{ gap: '1rem' }}>
+                {questions.map((question, index) => (
+                  <AddQuestion
+                    index={index}
+                    setQuestions={setQuestions}
+                    questions={questions as Question[]}
+                    question={question}
+                  />
+                ))}
               </div>
-            ))}
-            <button type="button" onClick={addQuestion} className="hehe">
-              Lisää kysymys
-            </button>
+
+              <button type="button" onClick={addQuestion} className="hehe">
+                Lisää kysymys
+              </button>
+            </div>
           </Tab>
           <Tab eventKey="properties" title="Lisää taloyhtiöt">
             <SelectProperties
@@ -179,5 +182,3 @@ const CreateSurvey = () => {
     </div>
   );
 };
-
-export default CreateSurvey;

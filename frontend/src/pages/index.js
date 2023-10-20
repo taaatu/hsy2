@@ -1,32 +1,17 @@
-import { AdminHome } from './admin/admin-home/AdminHome';
-import { CreateUser } from './admin/create-user/CreateUser';
-import CreateSurvey from './admin/createsurvey/CreateSurvey';
-import EditSurveyPage from './admin/edit-survey/EditSurveyPage';
-import PreviewPage from './admin/preview/PreviewPage';
-import PropertiesPage from './admin/properties/PropertiesPage';
-import SurveysPage from './admin/surveys/SurveysPage';
-import HomePage from './home/Home';
-import Login from './login/Login';
-import SurveyAnswerPage from './resident/answer-survey/SurveyAnswerPage';
-import UserResultsPage from './resident/user-results/UserResultsPage';
-import { AddBuilding } from './manager/buildings/AddBuilding';
-import { PropertyManagers } from './admin/property-managers/list/PropertyManagers';
-import { PropertyManagerPage } from './admin/property-managers/single/ProperyManagerPage';
-// const i = <PropertyM />
-
-export {
-  HomePage,
-  SurveyAnswerPage,
-  Login,
-  UserResultsPage,
-  PropertiesPage,
-  EditSurveyPage,
-  PreviewPage,
-  SurveysPage,
-  CreateSurvey,
-  CreateUser,
-  AdminHome,
-  AddBuilding,
-  PropertyManagers,
-  PropertyManagerPage,
-};
+export { AdminHome } from './admin/admin-home/AdminHome';
+export { CreateUser } from './admin/create-user/CreateUser';
+export { CreateSurvey } from './admin/createsurvey/CreateSurvey';
+export { EditSurveyPage } from './admin/edit-survey/EditSurveyPage';
+export { PropertiesPage } from './admin/properties/PropertiesPage';
+export { SurveysPage } from './admin/surveys/SurveysPage';
+export { HomePage } from './home/Home';
+export { Login } from './login/Login';
+export { SurveyAnswerPage } from './resident/answer-survey/SurveyAnswerPage';
+export { UserResultsPage } from './resident/user-results/UserResultsPage';
+export { AddBuilding } from './manager/buildings/AddBuilding';
+export { PropertyManagers } from './admin/property-managers/list/PropertyManagers';
+export { PropertyManagerPage } from './admin/property-managers/single/ProperyManagerPage';
+export { ProfilePage } from './manager/profile/ProfilePage';
+export { SingleSurveyPage } from './admin/surveys/SingleSurveyPage';
+export { SinglePropertyPage } from './admin/properties/SinglePropertyPage';
+export { Logout } from './Logout';
