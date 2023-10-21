@@ -126,14 +126,14 @@ const survey_get_by_key = async (req, res, next) => {
             return;
         }
         const assigned_survey_info = await getAssignedSurveyInfoByKey(req.body.survey_key);
-        const survey_info = await getSurveyById(assigned_survey_info.s_id);
-        const currentDate = getCurrentDate();
 
         if (!assigned_survey_info) {
             const err = httpError(`Fail to fetch the survey, because key ${req.body.survey_key} is not valid.`, 400);
             next(err);
             return;
         } else {
+            const survey_info = await getSurveyById(assigned_survey_info.s_id);
+            const currentDate = getCurrentDate();
             if (isCurrentDateInSurveyDataRange(currentDate, survey_info.start_time, survey_info.end_time)) {
                 const survey = await getSurveyById(assigned_survey_info.s_id);
                 const survey_questions = await getSurveyQuestionsBySurveyId(assigned_survey_info.s_id)
