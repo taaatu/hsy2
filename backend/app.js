@@ -6,6 +6,7 @@ const authRoute = require('./routes/authRoute');
 const userRoute = require('./routes/userRoute');
 const surveyRoute = require('./routes/surveyRoute');
 const buildingRoute = require('./routes/buildingRoute');
+const answerSurveyRoute = require('./routes/answerSurveyRoute');
 const { httpError } = require('./utils/errors');
 const passport = require('./utils/pass');
 const app = express()
@@ -16,6 +17,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.use('/auth', authRoute);
+app.use('/submit', answerSurveyRoute);
 app.use('/user', passport.authenticate('jwt', { session: false }), userRoute);
 app.use('/survey', passport.authenticate('jwt', { session: false }), surveyRoute);
 app.use('/building', passport.authenticate('jwt', {session: false}), buildingRoute);

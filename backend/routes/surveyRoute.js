@@ -10,7 +10,11 @@ const {
     survey_delete,
     survey_get_by_id,
     assign_survey_post,
-    assigned_survey_list_get
+    assigned_survey_list_get,
+    assigned_survey_key_list_get,
+    assigned_survey_key_post,
+    survey_get_by_key,
+    survey_question_answer_post
 } = require("../controllers/surveyController");
 
 router
@@ -49,9 +53,38 @@ router
     .route("/assignsurevey")
     .get(assigned_survey_list_get)
     .post(
-        body("s_id").isNumeric(),
-        body("b_id").isNumeric(),
+        body("s_id")
+            .isNumeric().withMessage('s_id must be a numeric value.'),
+        body("b_id")
+            .isNumeric().withMessage('b_id must be a numeric value.'),
         assign_survey_post
     );
-
+    
+router
+    .route("/assignsureveykey")
+    .get(
+        body("as_id")
+            .isNumeric().withMessage('as_id must be a numeric value.'),
+        body('key_status')
+            .isIn(['all', 'used', 'unused']).withMessage('key_status value must be "all", "used", or "unused".'),
+        assigned_survey_key_list_get)
+    .post(
+        body("as_id").isNumeric().withMessage('as_id must be a numeric value.'),
+        assigned_survey_key_post
+    );
+router
+    .route("/surveybykey")
+    .get(
+        body("survey_key")
+            .matches(/^\d{6}$/).withMessage('Key must be a 6 digits number.'),
+        survey_get_by_key)
+    .post(
+        body("answers[*].q_id")
+            .isNumeric().withMessage('q_id must be a numeric value.'),
+        body("answers[*].selected_option")
+            .notEmpty().withMessage("Seleced option can't be empty!"),
+        body("answers[*].s_key")
+            .matches(/^\d{6}$/).withMessage('Survey Key must be a 6 digits number.'),
+        survey_question_answer_post
+    );
 module.exports = router;

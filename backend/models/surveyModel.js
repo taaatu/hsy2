@@ -131,6 +131,122 @@ const getAllAssignedSurveyByUserId = async (user) => {
     }
 };
 
+const createKeyForAssignedSurvey = async (key,as_id) => {
+    try {
+        const [rows] = await promisePool.execute(
+            "INSERT INTO assigned_survey_key (survey_key, as_id, key_status) VALUES (?,?,?)",
+            [key, as_id, "unused"]
+        );
+        console.log("model insert key for assigned survey", rows);
+        return rows.insertId;
+    } catch (e) {
+        console.error("model insert key for assigned survey", e.message);
+        throw httpError(e.message, 400);
+    }
+}; 
+
+const getAllKeyByAssignedSurveyId = async (assgnedSurveyId,keyStatus) => {
+    try {
+        if (keyStatus == "all") {
+            const [rows] = await promisePool.query(
+            "SELECT survey_key, key_status FROM assigned_survey_key WHERE as_id =?",
+            [assgnedSurveyId]
+            );
+            return rows;
+        } else {   
+            const [rows] = await promisePool.query(
+            "SELECT survey_key, key_status FROM assigned_survey_key WHERE as_id =? AND key_status = ?",
+            [assgnedSurveyId, keyStatus]
+            );
+            return rows;
+        }
+    } catch (e) {
+        console.error('model get all assigned survey key', e.message);
+        throw httpError(e.message, 400);
+    }
+};
+
+const getAssignedSurveyInfoByKey = async (surveyKey) => {
+    try {
+        const [rows] = await promisePool.execute(
+            "SELECT * FROM assigned_survey JOIN assigned_survey_key ON assigned_survey.assigned_survey_id = assigned_survey_key.as_id WHERE assigned_survey_key.key_status = 'unused' AND assigned_survey_key.survey_key = ? ",
+            [surveyKey]
+        );
+        console.log("Get by survey key result?", rows);
+        return rows[0];
+    } catch (e) {
+        console.error("model get assigned survey info by key", e.message);
+        throw httpError(e.message, 400);
+    }
+};
+
+const getSurveyInfoByAssignedSurveyId = async (assignedSurveyId) => {
+    try {
+        const [rows] = await promisePool.execute(
+            "SELECT * FROM survey JOIN assigned_survey ON survey.survey_id = assigned_survey.s_id WHERE assigned_survey.assigned_survey_id = ? ",
+            [assignedSurveyId]
+        );
+        console.log("Get survey info by assigned survey ID result?", rows);
+        return rows[0];
+    } catch (e) {
+        console.error("model survey info by assigned survey ID", e.message);
+        throw httpError(e.message, 400);
+    }
+};
+
+const insertSurveyQuestionAnswer = async (answer) => {
+    try {
+        const [rows] = await promisePool.execute(
+            "INSERT INTO question_answer (q_id, selected_option, s_key) VALUES (?,?,?)",
+            [answer.q_id, answer.selected_option, answer.s_key]
+        );
+        console.log("model insert survey question answer", rows);
+        return rows.insertId;
+    } catch (e) {
+        console.error("model insert survey question answer", e.message);
+        throw httpError(e.message, 400);
+    }
+}; 
+
+const updateKeyStatus = async (key) => {
+    try {
+        const [rows] = await promisePool.execute(
+            "UPDATE assigned_survey_key SET key_status = 'used' WHERE survey_key = ? ",
+            [key]
+        );
+        return rows.affectedRows === 1;
+    } catch (e) {
+        console.error("model update assigned survey key status", e.message);
+        throw httpError(e.message, 400);
+    }
+}; 
+
+const checkKeyStatus = async (key) => {
+    try {
+        const [rows] = await promisePool.execute(
+            "SELECT key_status FROM assigned_survey_key WHERE survey_key = ?",
+            [key]
+        );
+        return rows[0];
+    } catch (e) {
+        console.error("model get key status by key", e.message);
+        throw httpError(e.message, 400);
+    }
+};
+
+const getAllAssignedSurveyAnswersByKey = async (surveyKey) => {
+    try {
+        const [rows] = await promisePool.query(
+            "SELECT * FROM question_answer WHERE s_key = ?",
+            [surveyKey]
+        );
+        return rows;
+    } catch (e) {
+        console.error('model get all answers of assigned survey by survey key', e.message);
+        throw httpError(e.message, 400);
+    }
+};
+
 module.exports = {
     insertSurvey,
     getAllSurvey,
@@ -139,5 +255,13 @@ module.exports = {
     getSurveyQuestionsBySurveyId,
     insertSurveyQuestionBySurveyId,
     assignSurveyToBuilding,
-    getAllAssignedSurveyByUserId
+    getAllAssignedSurveyByUserId,
+    createKeyForAssignedSurvey,
+    getAllKeyByAssignedSurveyId,
+    getAssignedSurveyInfoByKey,
+    getSurveyInfoByAssignedSurveyId,
+    insertSurveyQuestionAnswer,
+    updateKeyStatus,
+    checkKeyStatus,
+    getAllAssignedSurveyAnswersByKey
 }; 

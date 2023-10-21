@@ -113,9 +113,9 @@ const user_info_update_by_admin_put = async (req, res, next) => {
     const allUsers = await getAllUsers();
     var saveUser = true;
     allUsers.forEach((user) => {
-    if (req.params.userId != req.body.email && user.email == req.body.email && req.user.user_group == 0) {
-      saveUser = false;
-    }
+      if (req.params.userId != req.body.email && user.email == req.body.email && req.user.user_group == 0) {
+        saveUser = false;
+      }
     });
     console.log(req.body);
     if (saveUser) {
