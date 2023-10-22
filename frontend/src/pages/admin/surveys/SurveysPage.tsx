@@ -10,22 +10,20 @@ export const SurveysPage = () => {
   const { getSurveys } = useSurvey();
   const navigate = useNavigate();
   const [surveys, setSurveys] = useState<SurveyHeader[]>([]);
-  const [fullList, setFullList] = useState<SurveyHeader[]>([]);
+  const [search, setSearch] = useState('');
+
+  const filteredSurveys = surveys.filter((survey) => {
+    return survey.survey_title.toLowerCase().includes(search.toLowerCase());
+  });
 
   const fetchSurveys = async () => {
     const surveys = await getSurveys();
     if (!surveys) return;
     setSurveys(surveys);
-    setFullList(surveys);
   };
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const search = e.target.value;
-    const filteredSurveys = fullList.filter((survey) =>
-      survey.survey_title.toLowerCase().includes(search.toLowerCase())
-    );
-    setSurveys(filteredSurveys);
-  };
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setSearch(e.target.value);
 
   useEffect(() => {
     fetchSurveys();
@@ -45,7 +43,7 @@ export const SurveysPage = () => {
 
       <h4>{`Kyselyt (${surveys.length})`}</h4>
       <div className={styles.surveyList}>
-        {surveys.map((survey) => (
+        {filteredSurveys.map((survey) => (
           <div key={survey.survey_id} className={styles.listItem}>
             <div>{survey.survey_title}</div>
             <button

@@ -3,6 +3,7 @@ import useBuilding from '../../../../hooks/BuildingHook';
 import { Building } from '../../../../interfaces/Building';
 import styles from '../Managers.module.css';
 import { User } from '../../../../interfaces/User';
+import { BuildingList } from '../../../../components/lists/BuildingList';
 
 type Props = {
   user: User;
@@ -24,15 +25,7 @@ export const ManagerProperties = ({ user }: Props) => {
   return (
     <div>
       <h4>Taloyhtiöt {`(${buildings.length})`}</h4>
-      {buildings.map((building) => (
-        <div
-          className={styles.listItem}
-          style={{ backgroundColor: 'white' }}
-          key={building.building_id}
-        >
-          {building.street}
-        </div>
-      ))}
+      <BuildingList buildings={buildings} />
     </div>
   );
 };

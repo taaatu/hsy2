@@ -27,8 +27,17 @@ export const SelectProperties = ({
 }: Props) => {
   const { getAllBuildings } = useBuilding();
   const [buildings, setBuildings] = useState<Building[]>([]);
-  const [searchBuildings, setSearchBuildings] = useState<Building[]>([]);
+  const [search, setSearch] = useState('');
   const [modelOpen, setModelOpen] = useState<boolean>(false);
+
+  const filteredBuildings = buildings.filter((building) => {
+    return (
+      building.street.toLowerCase().includes(search.toLowerCase()) ||
+      building.name.toLowerCase().includes(search.toLowerCase()) ||
+      building.city.toLowerCase().includes(search.toLowerCase()) ||
+      building.post_code.toLowerCase().includes(search.toLowerCase())
+    );
+  });
 
   const addBuilding = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
@@ -46,17 +55,8 @@ export const SelectProperties = ({
     console.log('selected buildings: ', selectedBuildings);
   };
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const search = e.target.value;
-    const filteredBuildings = buildings.filter(
-      (building) =>
-        building.street.toLowerCase().includes(search.toLowerCase()) ||
-        building.name.toLowerCase().includes(search.toLowerCase()) ||
-        building.city.toLowerCase().includes(search.toLowerCase()) ||
-        building.post_code.toLowerCase().includes(search.toLowerCase())
-    );
-    setSearchBuildings(filteredBuildings);
-  };
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setSearch(e.target.value);
 
   const removeFromSelected = (id: number) => {
     console.log('remove from selected: ', id);
@@ -78,9 +78,7 @@ export const SelectProperties = ({
 
   useEffect(() => {
     (async () => {
-      const _buildings = await getAllBuildings();
-      setBuildings(_buildings);
-      setSearchBuildings(_buildings);
+      setBuildings(await getAllBuildings());
     })();
   }, []);
 
@@ -121,7 +119,7 @@ export const SelectProperties = ({
                     padding: '0.5rem',
                   }}
                 >
-                  {searchBuildings.map((building: Building) => (
+                  {filteredBuildings.map((building: Building) => (
                     <div
                       key={building.building_id}
                       className="flex-row"

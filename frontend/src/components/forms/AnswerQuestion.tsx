@@ -1,16 +1,23 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Question } from '../../../interfaces/Question';
-import { Answer } from '../../../interfaces/Answer';
+import { Question } from '../../interfaces/Question';
+import { Answer } from '../../interfaces/Answer';
 
 type Props = {
   question: Partial<Question>;
   index: number;
   answers: Partial<Answer>[];
   setAnswers: Dispatch<SetStateAction<Partial<Answer>[]>>;
+  isPreview?: boolean;
 };
 
-const AnswerQuestion = ({ question, index, answers, setAnswers }: Props) => {
+const AnswerQuestion = ({
+  question,
+  index,
+  answers,
+  setAnswers,
+  isPreview,
+}: Props) => {
   const [answer, setAnswer] = useState<string>();
 
   // Update answers array whem answer is selected from radio buttons
@@ -36,6 +43,7 @@ const AnswerQuestion = ({ question, index, answers, setAnswers }: Props) => {
           <input
             type="radio"
             name={question.question}
+            disabled={isPreview}
             value={question.option_1}
             // onChange={() => setAnswer(question.answer1)}
             onChange={() => changeAnswer(question.option_1 ?? '')}
@@ -48,6 +56,7 @@ const AnswerQuestion = ({ question, index, answers, setAnswers }: Props) => {
           <input
             type="radio"
             name={question.question}
+            disabled={isPreview}
             value={question.option_2}
             // onChange={() => setAnswer(question.answer2)}
             onChange={() => changeAnswer(question.option_2 ?? '')}
@@ -60,22 +69,16 @@ const AnswerQuestion = ({ question, index, answers, setAnswers }: Props) => {
           <input
             type="radio"
             name={question.question}
+            disabled={isPreview}
             value={question.option_3}
-            // onChange={() => setAnswer(question.answer3)}
             onChange={() => changeAnswer(question.option_3 ?? '')}
-            // checked={answer === 3}
             required
           />{' '}
           {question.option_3}
         </div>
       </div>
-      {/* <h4>vastaus {answer}</h4> */}
     </>
   );
 };
-
-// AnswerQuestion.propTypes = {
-//   question: PropTypes.object.isRequired,
-// };
 
 export default AnswerQuestion;
