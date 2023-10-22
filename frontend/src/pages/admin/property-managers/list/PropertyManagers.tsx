@@ -10,25 +10,24 @@ import { SearchBar } from '../../../../components/SearchBar';
 export const PropertyManagers = () => {
   const navigate = useNavigate();
   const [userList, setUserList] = useState<User[]>([]);
-  const [fullList, setFullList] = useState<User[]>([]);
+  const [search, setSearch] = useState('');
   const { getUserList } = useUser();
+
+  const filteredUsers = userList.filter((user) => {
+    return (
+      user.full_name.toLowerCase().includes(search.toLowerCase()) ||
+      user.company.toLowerCase().includes(search.toLowerCase())
+    );
+  });
 
   const fetchUserList = async () => {
     const users = await getUserList();
     if (!users) return;
     setUserList(users);
-    setFullList(users);
   };
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const search = e.target.value;
-    const filteredUsers = fullList.filter(
-      (user) =>
-        user.full_name.toLowerCase().includes(search.toLowerCase()) ||
-        user.company.toLowerCase().includes(search.toLowerCase())
-    );
-    setUserList(filteredUsers);
-  };
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setSearch(e.target.value);
 
   useEffect(() => {
     fetchUserList();
@@ -55,7 +54,7 @@ export const PropertyManagers = () => {
       </div>
 
       <div className={styles.managersList}>
-        {userList.map((user: User) => (
+        {filteredUsers.map((user: User) => (
           <div key={user.user_id} className={styles.listItem}>
             <div
               style={{ gap: '0.5em', width: '20ch' }}

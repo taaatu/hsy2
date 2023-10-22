@@ -8,26 +8,23 @@ import { SearchBar } from '../../../components/SearchBar';
 export const PropertiesPage = () => {
   const { getAllBuildings } = useBuilding();
   const [buildings, setBuildings] = useState<Building[]>([]);
-  const [allBuildings, setAllBuildings] = useState<Building[]>([]);
-  const navigate = useNavigate();
+  const [search, setSearch] = useState('');
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const search = e.target.value;
-    const filteredUsers = allBuildings.filter(
-      (building) =>
-        building.name.toLowerCase().includes(search.toLowerCase()) ||
-        building.street.toLowerCase().includes(search.toLowerCase()) ||
-        building.city.toLowerCase().includes(search.toLowerCase()) ||
-        building.post_code.toLowerCase().includes(search.toLowerCase())
+  const filteredBuildings = buildings.filter((building) => {
+    return (
+      building.name.toLowerCase().includes(search.toLowerCase()) ||
+      building.street.toLowerCase().includes(search.toLowerCase()) ||
+      building.city.toLowerCase().includes(search.toLowerCase()) ||
+      building.post_code.toLowerCase().includes(search.toLowerCase())
     );
-    setBuildings(filteredUsers);
-  };
+  });
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setSearch(e.target.value);
 
   useEffect(() => {
     (async () => {
-      const _buildings = await getAllBuildings();
-      setBuildings(_buildings);
-      setAllBuildings(_buildings);
+      setBuildings(await getAllBuildings());
     })();
   }, []);
 
