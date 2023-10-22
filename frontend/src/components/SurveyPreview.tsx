@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { SurveyAnswerPage } from '../pages/resident/answer-survey/SurveyAnswerPage';
 import { Survey } from '../interfaces/Survey';
-import styles from './Components.module.css';
-import { GrClose } from 'react-icons/gr';
+import Modal from 'react-bootstrap/Modal';
+import { AnswerSurveyForm } from './forms/AnswerSurveyForm';
 
 type Props = {
   survey: Survey;
@@ -11,37 +10,28 @@ type Props = {
 export const SurveyPreview = ({ survey }: Props) => {
   const [showPreview, setShowPreview] = useState<boolean>(false);
 
-  const handleOpen = () => {
-    setShowPreview(true);
-    document.body.style.overflow = 'hidden';
-  };
+  const handleOpen = () => setShowPreview(true);
 
-  const handleClose = () => {
-    setShowPreview(false);
-    document.body.style.overflow = 'visible';
-  };
+  const handleClose = () => setShowPreview(false);
 
   return (
     <>
       <button type="button" onClick={handleOpen}>
         Esikatsele
       </button>
-      {showPreview && (
-        <>
-          <div className={styles.previewModal}>
-            <div className={styles.modalContent}>
-              <header style={{ padding: '5px' }}>
-                <button onClick={handleClose}>
-                  <GrClose />
-                </button>
-              </header>
-              <div className={styles.modalBody}>
-                <SurveyAnswerPage survey={survey} isPreview={true} />
-              </div>
-            </div>
-          </div>
-        </>
-      )}
+      <Modal
+        show={showPreview}
+        onHide={handleClose}
+        size="lg"
+        scrollable={true}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Kyselyn esikatselu</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <AnswerSurveyForm survey={survey} isPreview={true} />
+        </Modal.Body>
+      </Modal>
     </>
   );
 };
