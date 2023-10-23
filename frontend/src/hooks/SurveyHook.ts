@@ -1,7 +1,7 @@
 import { SelectLevel } from './../pages/admin/createsurvey/SelectProperties';
 import { useNavigate } from 'react-router-dom';
 import { MessageResponse } from '../interfaces/Response';
-import { Survey, SurveyHeader } from '../interfaces/Survey';
+import { AssignedSurvey, Survey, SurveyHeader } from '../interfaces/Survey';
 import { format } from 'date-fns';
 import useFetch from './DoFetch';
 import { Building } from '../interfaces/Building';
@@ -61,6 +61,16 @@ const useSurvey = () => {
     }
   };
 
+  const getAssignedSurveys = async () => {
+    try {
+      const response = await doFetch('survey/assignsurevey', 'GET');
+      console.log('Assigned surveys: ', response);
+      return response as AssignedSurvey[];
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  };
+
   const deleteSurvey = async (id: string) => {
     try {
       const response = await doFetch(`survey/surveybyid/${id}`, 'DELETE');
@@ -73,7 +83,13 @@ const useSurvey = () => {
     }
   };
 
-  return { getSurveys, getSurveyById, createSurvey, deleteSurvey };
+  return {
+    getSurveys,
+    getSurveyById,
+    createSurvey,
+    getAssignedSurveys,
+    deleteSurvey,
+  };
 };
 
 export default useSurvey;

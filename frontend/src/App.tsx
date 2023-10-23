@@ -26,6 +26,8 @@ import { ManagerProperties } from './pages/manager/buildings/ManagerProperties';
 import { ADD_PROPERTY_PATH, MANAGERS_PATH } from './variables/RoutePaths';
 import { MainProvider } from './context/MainContext';
 import { UserGroup } from './interfaces/User';
+import { ManagerSurveysPage } from './pages/manager/surveys/ManagerSurveysPage';
+import { ManagerSingleSurveyPage } from './pages/manager/surveys/ManagerSingleSurveyPage';
 
 function App() {
   return (
@@ -80,6 +82,10 @@ function App() {
                     </>
                   }
                 />
+              </Route>
+              <Route path="surveys">
+                <Route index element={<ManagerSurveysPage />} />
+                <Route path=":surveyid" element={<ManagerSingleSurveyPage />} />
               </Route>
               <Route path="profile">
                 <Route index element={<ProfilePage />} />
