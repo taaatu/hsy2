@@ -258,6 +258,23 @@ button.delete {
   animation: spin 2s linear infinite;
 }
 
+.list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: white;
+    border-radius: 0.5rem;
+}
+
+.list-item {
+  display: flex;
+    gap: 1em;
+    padding: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid lightgray;
+}
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }

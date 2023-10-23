@@ -86,7 +86,15 @@ const AdminLinks = () => (
 
 const ManagerLinks = () => (
   <>
-    <NavDropdown title="Taloyhtiö" id="basic-nav-dropdown">
+    <NavDropdown
+      id={styles.navDropdown}
+      title={
+        <>
+          <FaHome />
+          <p>Taloyhtiö</p>
+        </>
+      }
+    >
       <NavDropdown.Item>
         <Link to="/manager/properties">Taloyhtiöt</Link>
       </NavDropdown.Item>
@@ -94,7 +102,26 @@ const ManagerLinks = () => (
         <Link to="/manager/properties/add">Lisää taloyhtiö</Link>
       </NavDropdown.Item>
     </NavDropdown>
-    <NavDropdown title="Profiili" id="basic-nav-dropdown">
+    <NavDropdown
+      id={styles.navDropdown}
+      title={
+        <>
+          <FaClipboardList /> <p>Kysely</p>
+        </>
+      }
+    >
+      <NavDropdown.Item>
+        <Link to="/manager/surveys">Kyselyt</Link>
+      </NavDropdown.Item>
+    </NavDropdown>
+    <NavDropdown
+      id={styles.navDropdown}
+      title={
+        <>
+          <FaUserCircle /> <p>Profiili</p>
+        </>
+      }
+    >
       <NavDropdown.Item>
         <Link to="/manager/profile">Profiili</Link>
       </NavDropdown.Item>
