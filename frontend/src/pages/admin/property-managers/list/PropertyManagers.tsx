@@ -6,6 +6,7 @@ import { useUser } from '../../../../hooks/UserHook';
 import styles from '../Managers.module.css';
 import { FaUser, FaUserPlus } from 'react-icons/fa';
 import { SearchBar } from '../../../../components/SearchBar';
+import { LoadingList } from '../../../../components/lists/LoadingList';
 
 export const PropertyManagers = () => {
   const navigate = useNavigate();
@@ -53,7 +54,7 @@ export const PropertyManagers = () => {
         </button>
       </div>
 
-      <div className={styles.managersList}>
+      <LoadingList>
         {filteredUsers.map((user: User) => (
           <div key={user.user_id} className={styles.listItem}>
             <div
@@ -70,7 +71,7 @@ export const PropertyManagers = () => {
             </button>
           </div>
         ))}
-      </div>
+      </LoadingList>
     </div>
   );
 };

@@ -5,6 +5,7 @@ import { SurveyHeader } from '../../../interfaces/Survey';
 import { useNavigate } from 'react-router-dom';
 import styles from './Surveys.module.css';
 import { SearchBar } from '../../../components/SearchBar';
+import { LoadingList } from '../../../components/lists/LoadingList';
 
 export const SurveysPage = () => {
   const { getSurveys } = useSurvey();
@@ -42,7 +43,7 @@ export const SurveysPage = () => {
       </div>
 
       <h4>{`Kyselyt (${surveys.length})`}</h4>
-      <div className={styles.surveyList}>
+      <LoadingList>
         {filteredSurveys.map((survey) => (
           <div key={survey.survey_id} className={styles.listItem}>
             <div>{survey.survey_title}</div>
@@ -53,7 +54,7 @@ export const SurveysPage = () => {
             </button>
           </div>
         ))}
-      </div>
+      </LoadingList>
     </div>
   );
 };
