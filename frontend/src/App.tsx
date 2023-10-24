@@ -19,15 +19,15 @@ import {
   SinglePropertyPage,
   SingleSurveyPage,
   Logout,
+  ManagerSurveysPage,
+  ManagerSingleSurveyPage,
+  ManagerProperties,
 } from './pages';
 import { testSurvey } from './data/TestSurvey';
 import { ManagerHome } from './pages/manager/ManagerHome';
-import { ManagerProperties } from './pages/manager/buildings/ManagerProperties';
 import { ADD_PROPERTY_PATH, MANAGERS_PATH } from './variables/RoutePaths';
 import { MainProvider } from './context/MainContext';
 import { UserGroup } from './interfaces/User';
-import { ManagerSurveysPage } from './pages/manager/surveys/ManagerSurveysPage';
-import { ManagerSingleSurveyPage } from './pages/manager/surveys/ManagerSingleSurveyPage';
 
 function App() {
   return (
