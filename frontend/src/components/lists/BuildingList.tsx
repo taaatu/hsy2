@@ -4,6 +4,7 @@ import styles from './Lists.module.css';
 import { useContext } from 'react';
 import { MainContext } from '../../context/MainContext';
 import { UserGroup } from '../../interfaces/User';
+import { LoadingList } from './LoadingList';
 
 type Props = {
   buildings: Building[];
@@ -13,9 +14,9 @@ export const BuildingList = ({ buildings }: Props) => {
   const { curentUser } = useContext(MainContext);
   const navigate = useNavigate();
   return (
-    <div>
+    <LoadingList>
       {buildings.map((building) => (
-        <div className={styles.buildingListItem}>
+        <div className={styles.buildingListItem} key={building.building_id}>
           <div style={{ flex: 1 }}>
             {building.street}, {building.post_code}, {building.city}
           </div>
@@ -33,6 +34,6 @@ export const BuildingList = ({ buildings }: Props) => {
           </button>
         </div>
       ))}
-    </div>
+    </LoadingList>
   );
 };
