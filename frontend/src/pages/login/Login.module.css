@@ -5,21 +5,22 @@
     justify-content: center;
     font-weight: bolder;
 }
-
-.loginForm {
+.inputlogin{
     text-align: center;
 }
 
-.button{
-    font-size: larger;
+.loginForm {
+    
     text-align: center;
-    position: fixed;
-    left: 50%;
-    bottom: 25%;
-    transform: translate(-50%, -50%);
+    box-sizing: inherit;
+}
+
+.button{
+    font-size: large;
+    text-align: center;
+    justify-content: center;
     background: transparent;
-    padding: 4vh;
-    font-weight: bold;
-    width: 25vh;
     border-radius: 15%;
+    left: 50%;
+    width: max-content;
 }
