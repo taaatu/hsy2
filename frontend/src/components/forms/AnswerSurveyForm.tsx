@@ -29,7 +29,7 @@ export const AnswerSurveyForm = ({ survey, isPreview = false }: Props) => {
       <h2>{survey.survey_header?.survey_title ?? 'Ei nimeä'}</h2>
       <p>{survey.survey_header?.description ?? 'Ei kuvausta'}</p>
       <h4>{`Kysymyksiä (${survey.questions?.length})`}</h4>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} style={{ gap: '2rem' }}>
         {survey.questions !== undefined && (
           <>
             {survey.questions.map((question, index) => (
@@ -44,7 +44,12 @@ export const AnswerSurveyForm = ({ survey, isPreview = false }: Props) => {
             ))}
           </>
         )}
-        <input type="submit" value="Lähetä" disabled={isPreview} />
+        <input
+          style={{ width: 'fit-content' }}
+          type="submit"
+          value="Lähetä vastaukset"
+          disabled={isPreview}
+        />
       </form>
     </div>
   );

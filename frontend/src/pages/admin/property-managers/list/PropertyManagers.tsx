@@ -36,6 +36,7 @@ export const PropertyManagers = () => {
 
   return (
     <div className={styles.container}>
+      <h1>Isännöitsijät</h1>
       <div
         style={{ marginBottom: '1em', gap: '1rem', flexWrap: 'wrap' }}
         className="flex-row center-align"

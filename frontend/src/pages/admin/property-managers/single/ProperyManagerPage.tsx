@@ -42,6 +42,7 @@ export const PropertyManagerPage = () => {
 
   return (
     <div className={styles.container}>
+      <h1>Isännöitsijän tiedot</h1>
       <div>
         {isModifying ? (
           <ModifyUserForm user={user} setIsModifying={setIsModifying} />

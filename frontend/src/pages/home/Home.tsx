@@ -18,7 +18,6 @@ export const HomePage = () => {
       <div className={styles.main}>
         <AppName />
         <form onSubmit={handleSubmit}>
-          <h4 className="accesscode">Pääsykoodi</h4>
           <input
             type="text"
             required

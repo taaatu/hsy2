@@ -30,7 +30,7 @@ export const ManagerSurveysPage = () => {
 
   return (
     <main className="column">
-      <h1>ManagerSurveysPage</h1>
+      <h1>Kyselyt</h1>
       <SearchBar placeholder="Hae kyselyitä" handleSearch={handleSearch} />
 
       <div className="list">

@@ -13,6 +13,7 @@
     
     text-align: center;
     box-sizing: inherit;
+    align-items: center;
 }
 
 .button{
@@ -23,4 +24,5 @@
     border-radius: 15%;
     left: 50%;
     width: max-content;
+    margin-top: 1rem;
 }
