@@ -33,7 +33,7 @@ export const Login = () => {
       <form onSubmit={handleSubmit(onSubmit)} className={styles.loginForm}>
         <label className="loginlabel">
           Sähköposti
-          <input
+          <input className='inputlogin'
             type="email"
             {...register('email', { required: 'Sähköposti vaaditaan' })}
             placeholder="Email"
@@ -43,7 +43,7 @@ export const Login = () => {
 
         <label className="loginlabel">
           Salasana{' '}
-          <input
+          <input className='inputlogin'
             type="password"
             placeholder="Password"
             {...register('password', { required: 'Salasana vaaditaan' })}
