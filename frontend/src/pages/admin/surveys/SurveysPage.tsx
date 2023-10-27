@@ -32,6 +32,7 @@ export const SurveysPage = () => {
 
   return (
     <div className={styles.container}>
+      <h1>Kyselyt</h1>
       <div
         style={{ marginBottom: '1em', gap: '1rem', flexWrap: 'wrap' }}
         className="flex-row center-align"
@@ -42,7 +43,6 @@ export const SurveysPage = () => {
         </button>
       </div>
 
-      <h4>{`Kyselyt (${surveys.length})`}</h4>
       <LoadingList>
         {filteredSurveys.map((survey) => (
           <div key={survey.survey_id} className={styles.listItem}>

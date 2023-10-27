@@ -30,7 +30,7 @@ const AdminLinks = () => (
       title={
         <>
           <FaHome />
-          <p>Taloyhtiö</p>
+          <p>Taloyhtiöt</p>
         </>
       }
     >
@@ -42,7 +42,7 @@ const AdminLinks = () => (
       id={styles.navDropdown}
       title={
         <>
-          <FaClipboardList /> <p>Kysely</p>
+          <FaClipboardList /> <p>Kyselyt</p>
         </>
       }
     >
@@ -57,7 +57,7 @@ const AdminLinks = () => (
       id={styles.navDropdown}
       title={
         <>
-          <FaUsers /> <p>Isännöitsijä</p>
+          <FaUsers /> <p>Isännöitsijät</p>
         </>
       }
     >
@@ -91,7 +91,7 @@ const ManagerLinks = () => (
       title={
         <>
           <FaHome />
-          <p>Taloyhtiö</p>
+          <p>Taloyhtiöt</p>
         </>
       }
     >
@@ -106,7 +106,7 @@ const ManagerLinks = () => (
       id={styles.navDropdown}
       title={
         <>
-          <FaClipboardList /> <p>Kysely</p>
+          <FaClipboardList /> <p>Kyselyt</p>
         </>
       }
     >

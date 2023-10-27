@@ -1,23 +1,26 @@
 // import { Question } from './Question';
 import { Question } from '../interfaces/Question';
-import { Survey } from '../interfaces/Survey';
+import { Survey, SurveyHeader } from '../interfaces/Survey';
 
 const question1: Question = {
   question: 'Pyrin pitämään huonelämpötilan suositusten mukaisena',
-  answer1: 'Pidän tärkeänä tai toiminin näin',
-  answer2: 'Asialla ei ole merkitystä tai asia ei koske minua',
-  answer3: 'En pidä tärkeänä tai en toimi näin',
+  option_1: 'Pidän tärkeänä tai toiminin näin',
+  option_2: 'Asialla ei ole merkitystä tai asia ei koske minua',
+  option_3: 'En pidä tärkeänä tai en toimi näin',
 };
 const question2: Question = {
   question: 'Suljetko valot poistuessasi huoneesta?',
-  answer1: 'Pidän tärkeänä tai toiminin näin',
-  answer2: 'Asialla ei ole merkitystä tai asia ei koske minua',
-  answer3: 'En pidä tärkeänä tai en toimi näin',
+  option_1: 'Pidän tärkeänä tai toiminin näin',
+  option_2: 'Asialla ei ole merkitystä tai asia ei koske minua',
+  option_3: 'En pidä tärkeänä tai en toimi näin',
 };
-
+const sHeader: SurveyHeader = {
+  survey_title: 'Testi kysely',
+  survey_id: 1,
+  description: 'Tämä on testi kysely',
+};
 export const testSurvey: Survey = {
-  title: 'Test Survey',
-  description: 'This is a test survey',
+  survey_header: sHeader,
   startDate: '2021-01-01',
   endDate: '2021-01-31',
   questions: [question1, question2],
