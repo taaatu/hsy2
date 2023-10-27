@@ -5,27 +5,26 @@ import { SurveyHeader } from '../../../interfaces/Survey';
 import { useNavigate } from 'react-router-dom';
 import styles from './Surveys.module.css';
 import { SearchBar } from '../../../components/SearchBar';
+import { LoadingList } from '../../../components/lists/LoadingList';
 
 export const SurveysPage = () => {
   const { getSurveys } = useSurvey();
   const navigate = useNavigate();
   const [surveys, setSurveys] = useState<SurveyHeader[]>([]);
-  const [fullList, setFullList] = useState<SurveyHeader[]>([]);
+  const [search, setSearch] = useState('');
+
+  const filteredSurveys = surveys.filter((survey) => {
+    return survey.survey_title.toLowerCase().includes(search.toLowerCase());
+  });
 
   const fetchSurveys = async () => {
     const surveys = await getSurveys();
     if (!surveys) return;
     setSurveys(surveys);
-    setFullList(surveys);
   };
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const search = e.target.value;
-    const filteredSurveys = fullList.filter((survey) =>
-      survey.survey_title.toLowerCase().includes(search.toLowerCase())
-    );
-    setSurveys(filteredSurveys);
-  };
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setSearch(e.target.value);
 
   useEffect(() => {
     fetchSurveys();
@@ -33,6 +32,7 @@ export const SurveysPage = () => {
 
   return (
     <div className={styles.container}>
+      <h1>Kyselyt</h1>
       <div
         style={{ marginBottom: '1em', gap: '1rem', flexWrap: 'wrap' }}
         className="flex-row center-align"
@@ -43,9 +43,8 @@ export const SurveysPage = () => {
         </button>
       </div>
 
-      <h4>{`Kyselyt (${surveys.length})`}</h4>
-      <div className={styles.surveyList}>
-        {surveys.map((survey) => (
+      <LoadingList>
+        {filteredSurveys.map((survey) => (
           <div key={survey.survey_id} className={styles.listItem}>
             <div>{survey.survey_title}</div>
             <button
@@ -55,7 +54,7 @@ export const SurveysPage = () => {
             </button>
           </div>
         ))}
-      </div>
+      </LoadingList>
     </div>
   );
 };

@@ -30,42 +30,42 @@ const AdminLinks = () => (
       title={
         <>
           <FaHome />
-          <p>Taloyhtiö</p>
+          <p>Taloyhtiöt</p>
         </>
       }
     >
-      <NavDropdown.Item>
-        <Link to="/admin/properties">Taloyhtiöt</Link>
+      <NavDropdown.Item as={Link} to={'/admin/properties'}>
+        Taloyhtiöt
       </NavDropdown.Item>
     </NavDropdown>
     <NavDropdown
       id={styles.navDropdown}
       title={
         <>
-          <FaClipboardList /> <p>Kysely</p>
+          <FaClipboardList /> <p>Kyselyt</p>
         </>
       }
     >
-      <NavDropdown.Item>
-        <Link to="/admin/surveys">Kyselyt</Link>
+      <NavDropdown.Item as={Link} to={'/admin/surveys'}>
+        Kyselyt
       </NavDropdown.Item>
-      <NavDropdown.Item>
-        <Link to="/admin/surveys/create">Luo kysely</Link>
+      <NavDropdown.Item as={Link} to={'/admin/surveys/create'}>
+        Luo kysely
       </NavDropdown.Item>
     </NavDropdown>
     <NavDropdown
       id={styles.navDropdown}
       title={
         <>
-          <FaUsers /> <p>Isännöitsijä</p>
+          <FaUsers /> <p>Isännöitsijät</p>
         </>
       }
     >
-      <NavDropdown.Item>
-        <Link to="/admin/managers/add">Lisää isännöitsijä</Link>
+      <NavDropdown.Item as={Link} to={'/admin/managers/add'}>
+        Lisää isännöitsijä
       </NavDropdown.Item>
-      <NavDropdown.Item>
-        <Link to={MANAGERS_PATH}>Isännöitsijät</Link>
+      <NavDropdown.Item as={Link} to={MANAGERS_PATH}>
+        Isännöitsijät
       </NavDropdown.Item>
     </NavDropdown>
     <NavDropdown
@@ -77,8 +77,8 @@ const AdminLinks = () => (
       }
     >
       <NavDropdown.Divider />
-      <NavDropdown.Item>
-        <Link to="/logout">Kirjaudu ulos</Link>
+      <NavDropdown.Item as={Link} to={'/logout'}>
+        Kirjaudu ulos
       </NavDropdown.Item>
     </NavDropdown>
   </>
@@ -86,21 +86,48 @@ const AdminLinks = () => (
 
 const ManagerLinks = () => (
   <>
-    <NavDropdown title="Taloyhtiö" id="basic-nav-dropdown">
-      <NavDropdown.Item>
-        <Link to="/manager/properties">Taloyhtiöt</Link>
+    <NavDropdown
+      id={styles.navDropdown}
+      title={
+        <>
+          <FaHome />
+          <p>Taloyhtiöt</p>
+        </>
+      }
+    >
+      <NavDropdown.Item as={Link} to={'/manager/properties'}>
+        Taloyhtiöt
       </NavDropdown.Item>
-      <NavDropdown.Item>
-        <Link to="/manager/properties/add">Lisää taloyhtiö</Link>
+      <NavDropdown.Item as={Link} to={'/manager/properties/add'}>
+        Lisää taloyhtiö
       </NavDropdown.Item>
     </NavDropdown>
-    <NavDropdown title="Profiili" id="basic-nav-dropdown">
-      <NavDropdown.Item>
-        <Link to="/manager/profile">Profiili</Link>
+    <NavDropdown
+      id={styles.navDropdown}
+      title={
+        <>
+          <FaClipboardList /> <p>Kyselyt</p>
+        </>
+      }
+    >
+      <NavDropdown.Item as={Link} to={'/manager/surveys'}>
+        Kyselyt
+      </NavDropdown.Item>
+    </NavDropdown>
+    <NavDropdown
+      id={styles.navDropdown}
+      title={
+        <>
+          <FaUserCircle /> <p>Profiili</p>
+        </>
+      }
+    >
+      <NavDropdown.Item as={Link} to={'/manager/profile'}>
+        Profiili
       </NavDropdown.Item>
       <NavDropdown.Divider />
-      <NavDropdown.Item>
-        <Link to="/logout">Kirjaudu ulos</Link>
+      <NavDropdown.Item as={Link} to={'/logout'}>
+        Kirjaudu ulos
       </NavDropdown.Item>
     </NavDropdown>
   </>

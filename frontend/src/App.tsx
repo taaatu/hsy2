@@ -19,10 +19,12 @@ import {
   SinglePropertyPage,
   SingleSurveyPage,
   Logout,
+  ManagerSurveysPage,
+  ManagerSingleSurveyPage,
+  ManagerProperties,
 } from './pages';
 import { testSurvey } from './data/TestSurvey';
 import { ManagerHome } from './pages/manager/ManagerHome';
-import { MangerProperties } from './pages/manager/manager-properties/ManagerProperties';
 import { ADD_PROPERTY_PATH, MANAGERS_PATH } from './variables/RoutePaths';
 import { MainProvider } from './context/MainContext';
 import { UserGroup } from './interfaces/User';
@@ -70,8 +72,20 @@ function App() {
             >
               <Route index element={<ManagerHome />} />
               <Route path="properties">
-                <Route index element={<MangerProperties />} />
+                <Route index element={<ManagerProperties />} />
                 <Route path="add" element={<AddBuilding />} />
+                <Route
+                  path=":buildingid"
+                  element={
+                    <>
+                      <h1>Single building page</h1>
+                    </>
+                  }
+                />
+              </Route>
+              <Route path="surveys">
+                <Route index element={<ManagerSurveysPage />} />
+                <Route path=":surveyid" element={<ManagerSingleSurveyPage />} />
               </Route>
               <Route path="profile">
                 <Route index element={<ProfilePage />} />

@@ -34,11 +34,11 @@ a:hover {
   color: #535bf2;
 }
 .app-name{
-  margin-top: 2em;
+  
   background-image:url( " https://i.gyazo.com/39e1d12e262896fea16d5790e584c13c.png"); /* tulee icon tänne */
   background-position: center;
   width: 100%;
-  min-height: 20vh;
+  min-height: 30vh;
   background-repeat: no-repeat;
 }
 
@@ -170,17 +170,16 @@ label {
   transform: translate(0%, -50%);
 }
 .buttonloginandhome{
+  width: 50%;
   font-size: larger;
   text-align: center;
-  position: fixed;
-  left: 50%;
-  bottom: 25%;
-  transform: translate(-50%, -50%);
   background: transparent;
-  padding: 4vh;
+  margin-top: 2vh;
+  padding: vh;
   font-weight: bold;
-  width: 25vh;
   border-radius: 15%;
+  transform: translate(50%, 0%);
+
 }
 /* }
 ButtonLoading{
@@ -256,6 +255,23 @@ button.delete {
   height: 12px;
   -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: white;
+    border-radius: 0.5rem;
+}
+
+.list-item {
+  display: flex;
+    gap: 1em;
+    padding: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid lightgray;
 }
 
 @keyframes spin {

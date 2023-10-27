@@ -15,3 +15,6 @@ export { ProfilePage } from './manager/profile/ProfilePage';
 export { SingleSurveyPage } from './admin/surveys/SingleSurveyPage';
 export { SinglePropertyPage } from './admin/properties/SinglePropertyPage';
 export { Logout } from './Logout';
+export { ManagerSurveysPage } from './manager/surveys/ManagerSurveysPage';
+export { ManagerSingleSurveyPage } from './manager/surveys/ManagerSingleSurveyPage';
+export { ManagerProperties } from './manager/buildings/ManagerProperties';

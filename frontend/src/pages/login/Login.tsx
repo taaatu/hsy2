@@ -32,20 +32,20 @@ export const Login = () => {
       <AppName />
       <form onSubmit={handleSubmit(onSubmit)} className={styles.loginForm}>
         <label className="loginlabel">
-          Sähköposti
           <input
+            className="inputlogin"
             type="email"
             {...register('email', { required: 'Sähköposti vaaditaan' })}
-            placeholder="Email"
+            placeholder="Sähköposti"
           />
           <FormFieldError error={errors.email} />
         </label>
 
         <label className="loginlabel">
-          Salasana{' '}
           <input
+            className="inputlogin"
             type="password"
-            placeholder="Password"
+            placeholder="Salasana"
             {...register('password', { required: 'Salasana vaaditaan' })}
           />
           <FormFieldError error={errors.password} />
