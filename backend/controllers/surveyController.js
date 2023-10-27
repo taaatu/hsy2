@@ -125,10 +125,10 @@ const survey_get_by_key = async (req, res, next) => {
             next(err);
             return;
         }
-        const assigned_survey_info = await getAssignedSurveyInfoByKey(req.body.survey_key);
+        const assigned_survey_info = await getAssignedSurveyInfoByKey(req.params.key);
 
         if (!assigned_survey_info) {
-            const err = httpError(`Fail to fetch the survey, because key ${req.body.survey_key} is not valid.`, 400);
+            const err = httpError(`Fail to fetch the survey, because key ${req.params.key} is not valid.`, 400);
             next(err);
             return;
         } else {
@@ -216,14 +216,14 @@ const survey_question_answer_post = async (req, res, next) => {
             next(err);
             return;
         };
-        const key_status = await checkKeyStatus(req.body.answers[0].s_key)
+        const key_status = await checkKeyStatus(req.params.key)
         if (key_status.key_status == "unused") { 
             for (let answer of req.body.answers) {
-                await insertSurveyQuestionAnswer(answer);
+                await insertSurveyQuestionAnswer(answer,req.params.key);
             };
-            const savedAnswers = await getAllAssignedSurveyAnswersByKey(req.body.answers[0].s_key);
+            const savedAnswers = await getAllAssignedSurveyAnswersByKey(req.params.key);
             if (savedAnswers.length == req.body.answers.length) {
-                await updateKeyStatus(req.body.answers[0].s_key);
+                await updateKeyStatus(req.params.key);
                 res.json({ message: `Survey submitted.`, status: 200 });
             }
         } else {

@@ -194,11 +194,11 @@ const getSurveyInfoByAssignedSurveyId = async (assignedSurveyId) => {
     }
 };
 
-const insertSurveyQuestionAnswer = async (answer) => {
+const insertSurveyQuestionAnswer = async (answer,key) => {
     try {
         const [rows] = await promisePool.execute(
             "INSERT INTO question_answer (q_id, selected_option, s_key) VALUES (?,?,?)",
-            [answer.q_id, answer.selected_option, answer.s_key]
+            [answer.q_id, answer.selected_option,key]
         );
         console.log("model insert survey question answer", rows);
         return rows.insertId;
