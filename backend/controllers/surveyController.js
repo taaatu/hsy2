@@ -149,14 +149,7 @@ const survey_get_by_key = async (req, res, next) => {
 
 const assigned_survey_key_list_get = async (req, res, next) => {
     try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            console.error('assigned_survey_key_list_get validation', errors.array());
-            const err = httpError(errors.errors[0].msg, 400);
-            next(err);
-            return;
-        }
-        const keys = await getAllKeyByAssignedSurveyId(req.body.as_id, req.body.key_status);
+        const keys = await getAllKeyByAssignedSurveyId(req.params.as_id, req.params.key_status);
         res.json(keys);
     } catch(error) {
         next(error);

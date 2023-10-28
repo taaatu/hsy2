@@ -61,17 +61,14 @@ router
     );
     
 router
-    .route("/assignsureveykey")
-    .get(
-        body("as_id")
-            .isNumeric().withMessage('as_id must be a numeric value.'),
-        body('key_status')
-            .isIn(['all', 'used', 'unused']).withMessage('key_status value must be "all", "used", or "unused".'),
-        assigned_survey_key_list_get)
+    .route("/assignsureveykeypost")
     .post(
         body("as_id").isNumeric().withMessage('as_id must be a numeric value.'),
         assigned_survey_key_post
-    );
+);
+router
+    .route("/assignsureveykey/:as_id/:key_status")
+    .get(assigned_survey_key_list_get)
 router
     .route("/surveybykey")
     .get(
