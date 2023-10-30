@@ -61,6 +61,33 @@ const useSurvey = () => {
     }
   };
 
+  const createSurveyKeys = async (surveyId: number) => {
+    try {
+      const response = await doFetch('survey/assignsureveykeypost', 'POST', {
+        as_id: surveyId,
+      });
+      console.log('Create survey keys: ', response);
+      alert(response.message);
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  };
+
+  const getSurveyKeys = async (surveyId: number) => {
+    try {
+      const response = await doFetch(
+        `survey/assignsureveykey/${surveyId}/unused`,
+        'GET'
+      );
+      console.log('Get survey keys: ', response);
+      if (!response) return [];
+      // Map response to array of keys
+      const keys = response.map((obj: any) => obj.survey_key) as string[];
+      return keys as string[];
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  };
   const getAssignedSurveys = async () => {
     try {
       const response = await doFetch('survey/assignsurevey', 'GET');
