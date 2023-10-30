@@ -2,28 +2,38 @@ import { useEffect, useState } from 'react';
 import { Survey } from '../../interfaces/Survey';
 import { Answer } from '../../interfaces/Answer';
 import AnswerQuestion from './AnswerQuestion';
+import useSurvey from '../../hooks/SurveyHook';
 
 type Props = {
   survey: Partial<Survey>;
   isPreview?: boolean;
+  surveyKey?: string;
 };
 
-export const AnswerSurveyForm = ({ survey, isPreview = false }: Props) => {
+export const AnswerSurveyForm = ({
+  survey,
+  isPreview = false,
+  surveyKey,
+}: Props) => {
   const [answers, setAnswers] = useState<Partial<Answer>[]>([]);
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const { submitAnswers } = useSurvey();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (isPreview) return;
-    alert('Kysely lähetetty');
+    if (isPreview || !surveyKey) return;
     console.log('Answers: ', answers);
+    await submitAnswers(answers as Answer[], surveyKey);
   };
+
   useEffect(() => {
     if (isPreview) return;
     const _questions = survey.questions?.map((q) => ({
-      question: q.question,
+      q_id: q.question_id,
     })) as Partial<Answer>[];
     console.log('s: ', _questions);
     setAnswers(_questions);
   }, [survey]);
+
   return (
     <div className="survey-bg">
       <h2>{survey.survey_header?.survey_title ?? 'Ei nimeä'}</h2>

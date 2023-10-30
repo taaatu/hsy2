@@ -5,6 +5,7 @@ import { AssignedSurvey, Survey, SurveyHeader } from '../interfaces/Survey';
 import { format } from 'date-fns';
 import useFetch from './DoFetch';
 import { Building } from '../interfaces/Building';
+import { Answer } from '../interfaces/Answer';
 
 const useSurvey = () => {
   const navigate = useNavigate();
@@ -61,6 +62,59 @@ const useSurvey = () => {
     }
   };
 
+  const createSurveyKeys = async (surveyId: number) => {
+    try {
+      const response = await doFetch('survey/assignsureveykeypost', 'POST', {
+        as_id: surveyId,
+      });
+      console.log('Create survey keys: ', response);
+      alert(response.message);
+    } catch (error: any) {
+      alert('Koodin luominen epäonnistui: ' + error.message);
+      throw new Error(error.message);
+    }
+  };
+
+  const getSurveyKeys = async (surveyId: number) => {
+    try {
+      const response = await doFetch(
+        `survey/assignsureveykey/${surveyId}/unused`,
+        'GET'
+      );
+      console.log('Get survey keys: ', response);
+      if (!response) return [];
+      // Map response to array of keys
+      const keys = response.map((obj: any) => obj.survey_key) as string[];
+      return keys as string[];
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  };
+
+  const getSurveyByKey = async (key: string) => {
+    try {
+      const response = await doFetch(`submit/${key}`, 'GET');
+      console.log('Survey by key: ', response);
+      return response as Survey;
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  };
+
+  const submitAnswers = async (answers: Answer[], surveyKey: string) => {
+    try {
+      const response = await doFetch(`submit/${surveyKey}`, 'POST', {
+        answers: answers,
+      });
+      console.log('Submit answers: ', response);
+      alert('Kysely lähetetty');
+      navigate('/survey/results');
+    } catch (error: any) {
+      alert(`Kyselyn lähettäminen epäonnistui: ${error.message}`);
+      throw new Error(error.message);
+    }
+  };
+
   const getAssignedSurveys = async () => {
     try {
       const response = await doFetch('survey/assignsurevey', 'GET');
@@ -87,7 +141,11 @@ const useSurvey = () => {
     getSurveys,
     getSurveyById,
     createSurvey,
+    createSurveyKeys,
     getAssignedSurveys,
+    getSurveyByKey,
+    submitAnswers,
+    getSurveyKeys,
     deleteSurvey,
   };
 };

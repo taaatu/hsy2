@@ -38,9 +38,9 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route
               path="/survey/:surveyid"
-              element={<SurveyAnswerPage survey={testSurvey} />}
+              element={<SurveyAnswerPage isPreview={false} />}
             />
-            <Route path="/user-results" element={<UserResultsPage />} />
+            <Route path="/survey/results" element={<UserResultsPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
 
