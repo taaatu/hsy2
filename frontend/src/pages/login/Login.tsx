@@ -7,6 +7,7 @@ import useAuth from '../../hooks/AuthHook';
 import { ButtonLoading } from '../../components/ButtonLoading';
 import { useForm } from 'react-hook-form';
 import { FormFieldError } from '../../components/FormFieldError';
+import CustomError from '../../interfaces/CustomError';
 
 export const Login = () => {
   const { loginUser } = useAuth();
@@ -20,9 +21,14 @@ export const Login = () => {
 
   const onSubmit = async (data: LoginInput) => {
     const res = await loginUser(data);
-    if (!res) {
+
+    if (res instanceof CustomError) {
+      const message =
+        res.status === 401
+          ? 'Sähköposti tai salasana on virheellinen'
+          : 'Palvelinvirhe';
       setError('root.serverError', {
-        message: 'Sähköposti tai salasana on virheellinen',
+        message: message,
       });
     }
   };

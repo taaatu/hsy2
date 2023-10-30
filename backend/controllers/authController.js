@@ -6,8 +6,11 @@ const { httpError } = require('../utils/errors');
 const login = (req, res, next) => {
   passport.authenticate('local', { session: false }, (err, user, info) => {
     console.log('local params', err, user, info);
-    if (err || !user) {
-      next(httpError('email / password incorrect', 400));
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      next(httpError('email / password incorrect', 401));
       return;
     }
     req.login(user, { session: false }, (err) => {
@@ -22,4 +25,4 @@ const login = (req, res, next) => {
   })(req, res, next);
 };
 
-module.exports = { login }
+module.exports = { login };

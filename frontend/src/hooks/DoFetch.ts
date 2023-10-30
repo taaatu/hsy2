@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { BASE_URL } from '../variables/Constants';
 import { MainContext } from '../context/MainContext';
+import CustomError from '../interfaces/CustomError';
 
 const useFetch = () => {
   const { setIsLoading } = useContext(MainContext);
@@ -20,11 +21,11 @@ const useFetch = () => {
       const response = await fetch(BASE_URL + endPoint, options);
       const json = await response.json();
       if (!response.ok) {
-        throw new Error(json.message);
+        throw new CustomError(json.message, response.status);
       }
       return json;
     } catch (error: any) {
-      throw new Error(error.message);
+      throw new CustomError(error.message, error.status);
     } finally {
       setIsLoading(false);
     }
