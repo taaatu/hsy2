@@ -1,6 +1,6 @@
 interface Answer {
-  question: string;
-  answer: string;
+  q_id: number;
+  selected_option: string;
 }
 
 export { Answer };

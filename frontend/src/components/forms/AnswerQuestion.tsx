@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Question } from '../../interfaces/Question';
 import { Answer } from '../../interfaces/Answer';
 
@@ -18,15 +17,15 @@ const AnswerQuestion = ({
   setAnswers,
   isPreview,
 }: Props) => {
-  const [answer, setAnswer] = useState<string>();
+  // const [answer, setAnswer] = useState<string>();
 
   // Update answers array whem answer is selected from radio buttons
   const changeAnswer = (answer: string) => {
     console.log('answer: ', answer);
     setAnswers(
       answers.map((a, i) => {
-        if (a.question === question.question) {
-          return { ...a, answer: answer };
+        if (a.q_id === question.question_id) {
+          return { ...a, selected_option: answer };
         }
         return a;
       })
