@@ -37,7 +37,7 @@ const user_post = async (req, res, next) => {
     const uid = await insertUser(req.body);
     res.json({ message: `user added with id: ${uid}`, id: uid });
   } else {
-    res.status(400).json({ message: 'This user email already exist' });
+    res.status(409).json({ message: 'This user email already exist' });
   }
 };
 
@@ -87,7 +87,7 @@ const user_info_update_put = async (req, res, next) => {
     await updateUserInfo(req.body, req.user.user_id);
     res.json({ message: `User ${userById.full_name}'s info updated` });
   } else {
-    res.status(400).json({ message: 'This user email already exist' });
+    res.status(409).json({ message: 'This user email already exist' });
   }
 };
 

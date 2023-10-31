@@ -4,6 +4,7 @@ import { useUser } from '../../../hooks/UserHook';
 import { ButtonLoading } from '../../../components/ButtonLoading';
 import { useForm } from 'react-hook-form';
 import { FormFieldError } from '../../../components/FormFieldError';
+import CustomError from '../../../interfaces/CustomError';
 
 export const CreateUser = () => {
   const { addUser } = useUser();
@@ -18,10 +19,11 @@ export const CreateUser = () => {
   const onSubmit = async (data: User) => {
     console.log('data: ', data);
     const res = await addUser(data);
-    if (!res) {
-      console.log('add user: ', res);
+    if (res instanceof CustomError) {
+      const message =
+        res.status === 409 ? 'Sähköposti on jo käytössä' : 'Palvelinvirhe';
       setError('root.serverError', {
-        message: 'Käyttäjän luonti epäonnistui',
+        message: message,
       });
     }
   };

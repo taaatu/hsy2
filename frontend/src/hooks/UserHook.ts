@@ -4,6 +4,7 @@ import { User } from '../interfaces/User';
 import useFetch from './DoFetch';
 import { useContext } from 'react';
 import { MainContext } from '../context/MainContext';
+import CustomError from '../interfaces/CustomError';
 
 const useUser = () => {
   const { doFetch } = useFetch();
@@ -27,6 +28,7 @@ const useUser = () => {
       console.error('get user by id', error);
     }
   };
+
   const addUser = async (user: User) => {
     try {
       const response = await doFetch('user', 'POST', user);
@@ -34,9 +36,11 @@ const useUser = () => {
       alert('Käyttäjä lisätty');
       return response as MessageResponse;
     } catch (error: any) {
-      console.error('add user', error);
+      console.error('add user: ', error.message);
+      return new CustomError(error.message, error.status);
     }
   };
+
   const modifyUser = async (user: User) => {
     try {
       const response = await doFetch('user/update', 'PUT', user);
