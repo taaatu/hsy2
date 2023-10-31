@@ -33,7 +33,6 @@ const useUser = () => {
     try {
       const response = await doFetch('user', 'POST', user);
       console.log('add user: ', response);
-      alert('Käyttäjä lisätty');
       return response as MessageResponse;
     } catch (error: any) {
       console.error('add user: ', error.message);
