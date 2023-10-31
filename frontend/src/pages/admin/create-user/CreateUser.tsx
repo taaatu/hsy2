@@ -4,9 +4,13 @@ import { useUser } from '../../../hooks/UserHook';
 import { ButtonLoading } from '../../../components/ButtonLoading';
 import { useForm } from 'react-hook-form';
 import { FormFieldError } from '../../../components/FormFieldError';
+import CustomError from '../../../interfaces/CustomError';
+import { SuccessAlertModal } from '../../../components/SuccessAlertModal';
+import { useState } from 'react';
 
 export const CreateUser = () => {
   const { addUser } = useUser();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const {
     register,
@@ -18,16 +22,24 @@ export const CreateUser = () => {
   const onSubmit = async (data: User) => {
     console.log('data: ', data);
     const res = await addUser(data);
-    if (!res) {
-      console.log('add user: ', res);
+    if (res instanceof CustomError) {
+      const message =
+        res.status === 409 ? 'Sähköposti on jo käytössä' : 'Palvelinvirhe';
       setError('root.serverError', {
-        message: 'Käyttäjän luonti epäonnistui',
+        message: message,
       });
+      return;
     }
+    setShowSuccessModal(true);
   };
 
   return (
     <div className="centered-container">
+      <SuccessAlertModal
+        show={showSuccessModal}
+        message="Isännöitsijä lisätty onnistuneesti"
+        navRoute="/admin/managers"
+      />
       <h1>Lisää isännöitsijä</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>
