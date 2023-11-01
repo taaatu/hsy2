@@ -1,6 +1,4 @@
-import { SelectLevel } from './../pages/admin/createsurvey/SelectProperties';
 import { useNavigate } from 'react-router-dom';
-import { MessageResponse } from '../interfaces/Response';
 import { AssignedSurvey, Survey, SurveyHeader } from '../interfaces/Survey';
 import { format } from 'date-fns';
 import useFetch from './DoFetch';

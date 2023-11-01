@@ -1,14 +1,14 @@
 import { lazy } from 'react';
 
-export const AdminHome = lazy(() => import('./admin/admin-home/AdminHome'));
+export const AdminHome = lazy(() => import('./admin/AdminHome'));
 export const CreateUserPage = lazy(() =>
-  import('./admin/create-user/CreateUserPage')
+  import('./admin/property-managers/CreateUserPage')
 );
 export const CreateSurvey = lazy(() =>
-  import('./admin/createsurvey/CreateSurvey')
+  import('./admin/surveys/create/CreateSurvey')
 );
 export const EditSurveyPage = lazy(() =>
-  import('./admin/edit-survey/EditSurveyPage')
+  import('./admin/surveys/modify/EditSurveyPage')
 );
 export const PropertiesPage = lazy(() =>
   import('./admin/properties/PropertiesPage')

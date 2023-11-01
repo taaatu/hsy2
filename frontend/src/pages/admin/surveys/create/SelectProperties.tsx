@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { CITIES } from '../../../variables/Constants';
+import { CITIES } from '../../../../variables/Constants';
 import styles from './CreateSurvey.module.css';
-import { Building } from '../../../interfaces/Building';
-import useBuilding from '../../../hooks/BuildingHook';
+import { Building } from '../../../../interfaces/Building';
+import useBuilding from '../../../../hooks/BuildingHook';
 import Modal from 'react-bootstrap/Modal';
-import { SearchBar } from '../../../components/SearchBar';
+import { SearchBar } from '../../../../components/SearchBar';
 
 export enum SelectLevel {
   ALL = 'all',

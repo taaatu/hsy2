@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import styles from './CreateSurvey.module.css';
 import { Dispatch, SetStateAction } from 'react';
-import { ANSWER_1, ANSWER_2, ANSWER_3 } from '../../../variables/Constants';
-import { Question } from '../../../interfaces/Question';
+import { ANSWER_1, ANSWER_2, ANSWER_3 } from '../../../../variables/Constants';
+import { Question } from '../../../../interfaces/Question';
 import Card from 'react-bootstrap/Card';
 import { FaTrashAlt } from 'react-icons/fa';
 

@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import AddQuestion from './AddQuestion';
-import { ANSWER_1, ANSWER_2, ANSWER_3 } from '../../../variables/Constants';
+import { ANSWER_1, ANSWER_2, ANSWER_3 } from '../../../../variables/Constants';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Survey, SurveyHeader } from '../../../interfaces/Survey';
-import { Question } from '../../../interfaces/Question';
-import useSurvey from '../../../hooks/SurveyHook.js';
+import { Survey, SurveyHeader } from '../../../../interfaces/Survey';
+import { Question } from '../../../../interfaces/Question';
+import useSurvey from '../../../../hooks/SurveyHook.js';
 import { SelectLevel, SelectProperties } from './SelectProperties.js';
-import { SurveyPreview } from '../../../components/SurveyPreview.js';
-import { ButtonLoading } from '../../../components/ButtonLoading';
+import { SurveyPreview } from '../../../../components/SurveyPreview.js';
+import { ButtonLoading } from '../../../../components/ButtonLoading';
 import styles from './CreateSurvey.module.css';
-import { Building } from '../../../interfaces/Building';
+import { Building } from '../../../../interfaces/Building';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 
