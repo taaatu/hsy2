@@ -12,6 +12,7 @@ const useBuilding = () => {
       return response as Building[];
     } catch (error: any) {
       console.error('Get all buildings: ', error.message);
+      return [];
     }
   };
 
