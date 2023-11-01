@@ -1,11 +1,15 @@
-import { CITIES } from '../../../variables/Constants';
+import { CITIES, POST_CODE_REGEX } from '../../../variables/Constants';
 import { Building } from '../../../interfaces/Building';
 import useBuilding from '../../../hooks/BuildingHook';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { FormFieldError } from '../../../components/FormFieldError';
+import CustomError from '../../../interfaces/CustomError';
+import { SuccessAlertModal } from '../../../components/SuccessAlertModal';
+import { useState } from 'react';
 
 const AddBuildingPage = () => {
   const { addBuilding } = useBuilding();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const {
     register,
@@ -18,16 +22,26 @@ const AddBuildingPage = () => {
 
   const onSubmit: SubmitHandler<Building> = async (data) => {
     const res = await addBuilding(data);
-    if (!res) {
+    if (res instanceof CustomError) {
+      const message =
+        res.status === 409
+          ? 'Taloyhtiö tällä osoitteella tai nimellä on jo olemassa'
+          : 'Palvelinvirhe';
       setError('root.serverError', {
-        message: 'Taloyhtiön lisäys epäonnistui',
+        message: message,
       });
       return;
     }
+    setShowSuccessModal(true);
   };
 
   return (
     <div className="centered-container">
+      <SuccessAlertModal
+        show={showSuccessModal}
+        message="Taloyhtiö lisätty onnistuneesti"
+        navRoute="/manager/properties"
+      />
       <form onSubmit={handleSubmit(onSubmit)}>
         <h4>Taloyhtiö</h4>
         <label>
@@ -44,6 +58,10 @@ const AddBuildingPage = () => {
             placeholder="Postinumero"
             {...register('post_code', {
               required: 'Postinumero vaaditaan',
+              pattern: {
+                value: POST_CODE_REGEX,
+                message: 'Postinumeron tulee olla 5 numeroa',
+              },
             })}
           />
           <FormFieldError error={errors.post_code} />

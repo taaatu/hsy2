@@ -1,5 +1,5 @@
 import { Building, BuildingInput } from '../interfaces/Building';
-import { MessageResponse } from '../interfaces/Response';
+import CustomError from '../interfaces/CustomError';
 import useFetch from './DoFetch';
 
 const useBuilding = () => {
@@ -11,7 +11,7 @@ const useBuilding = () => {
       console.log('get all buildings', response);
       return response as Building[];
     } catch (error: any) {
-      throw new Error(error.message || error);
+      console.error('Get all buildings: ', error.message);
     }
   };
 
@@ -20,10 +20,9 @@ const useBuilding = () => {
       console.log('Add property: ', building);
       const response = await doFetch('building', 'POST', building);
       console.log('add property response: ', response);
-      alert('Taloyhtiö lisätty');
-      return response as MessageResponse;
     } catch (error: any) {
-      throw new Error(error.message || error);
+      console.error('Add building: ', error.message);
+      return new CustomError(error.message, error.status);
     }
   };
   return { getAllBuildings, addBuilding };
