@@ -4,7 +4,7 @@ import { Building } from '../../../interfaces/Building';
 import { SearchBar } from '../../../components/SearchBar';
 import { BuildingList } from '../../../components/lists/BuildingList';
 
-export const PropertiesPage = () => {
+const PropertiesPage = () => {
   const { getAllBuildings } = useBuilding();
   const [buildings, setBuildings] = useState<Building[]>([]);
   const [search, setSearch] = useState('');
@@ -35,3 +35,5 @@ export const PropertiesPage = () => {
     </main>
   );
 };
+
+export default PropertiesPage;

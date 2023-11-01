@@ -3,7 +3,7 @@ import { User } from '../../../interfaces/User';
 import { useUser } from '../../../hooks/UserHook';
 import { ModifyUserForm } from '../../../components/forms/ModifyUserForm';
 
-export const ProfilePage = () => {
+const ProfilePage = () => {
   const [user, setUser] = useState<User | null>(null);
   const [isModifying, setIsModifying] = useState<boolean>(false);
   const { getUserByToken, deleteUser } = useUser();
@@ -47,3 +47,5 @@ export const ProfilePage = () => {
       </div>
     );
 };
+
+export default ProfilePage;

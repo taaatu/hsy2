@@ -8,7 +8,7 @@ type Props = {
   isPreview: boolean;
 };
 
-export const SurveyAnswerPage = ({ isPreview }: Props) => {
+const SurveyAnswerPage = ({ isPreview }: Props) => {
   const [survey, setSurvey] = useState<Partial<Survey>>();
   const { surveyid } = useParams();
   const { getSurveyByKey } = useSurvey();
@@ -33,3 +33,5 @@ export const SurveyAnswerPage = ({ isPreview }: Props) => {
     </div>
   );
 };
+
+export default SurveyAnswerPage;

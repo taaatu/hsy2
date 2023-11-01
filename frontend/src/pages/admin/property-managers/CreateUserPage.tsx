@@ -8,7 +8,7 @@ import CustomError from '../../../interfaces/CustomError';
 import { SuccessAlertModal } from '../../../components/SuccessAlertModal';
 import { useState } from 'react';
 
-export const CreateUser = () => {
+const CreateUserPage = () => {
   const { addUser } = useUser();
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
@@ -88,3 +88,5 @@ export const CreateUser = () => {
     </div>
   );
 };
+
+export default CreateUserPage;

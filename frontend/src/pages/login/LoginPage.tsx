@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { FormFieldError } from '../../components/FormFieldError';
 import CustomError from '../../interfaces/CustomError';
 
-export const Login = () => {
+const LoginPage = () => {
   const { loginUser } = useAuth();
 
   const {
@@ -68,3 +68,5 @@ export const Login = () => {
     </div>
   );
 };
+
+export default LoginPage;

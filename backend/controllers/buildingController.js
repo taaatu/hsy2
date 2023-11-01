@@ -45,7 +45,9 @@ const building_post = async (req, res, next) => {
       const id = await insertBuilding(req.user, req.body);
       res.json({ building_id: `${id}`, message: `Building ${req.body.name} added`, status: 200 });
     } else {
-      res.status(400).json({ message: 'This building adress already exist' , status: 400});
+      res
+        .status(409)
+        .json({ message: 'This building adress already exist', status: 409 });
     }
   } catch (error) {
       next(error);

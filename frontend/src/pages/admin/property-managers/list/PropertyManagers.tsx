@@ -8,7 +8,7 @@ import { FaUser, FaUserPlus } from 'react-icons/fa';
 import { SearchBar } from '../../../../components/SearchBar';
 import { LoadingList } from '../../../../components/lists/LoadingList';
 
-export const PropertyManagers = () => {
+const PropertyManagers = () => {
   const navigate = useNavigate();
   const [userList, setUserList] = useState<User[]>([]);
   const [search, setSearch] = useState('');
@@ -76,3 +76,5 @@ export const PropertyManagers = () => {
     </div>
   );
 };
+
+export default PropertyManagers;
