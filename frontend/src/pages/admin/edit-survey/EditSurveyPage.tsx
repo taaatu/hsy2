@@ -1,4 +1,4 @@
-export const EditSurveyPage = () => {
+const EditSurveyPage = () => {
   const handleClose = (event) => {
     event.preventDefault();
     alert('Kysely päätetty');
@@ -11,3 +11,5 @@ export const EditSurveyPage = () => {
     </div>
   );
 };
+
+export default EditSurveyPage;

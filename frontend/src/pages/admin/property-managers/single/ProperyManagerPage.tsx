@@ -7,7 +7,7 @@ import { ModifyUserForm } from '../../../../components/forms/ModifyUserForm';
 import { ManagerProperties } from './ManagerProperties';
 import styles from '../Managers.module.css';
 
-export const PropertyManagerPage = () => {
+const PropertyManagerPage = () => {
   const { userid } = useParams();
   const navigate = useNavigate();
   const { getUserById, deleteUser } = useUser();
@@ -64,3 +64,5 @@ export const PropertyManagerPage = () => {
     </div>
   );
 };
+
+export default PropertyManagerPage;

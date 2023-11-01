@@ -3,7 +3,7 @@ import useBuilding from '../../../hooks/BuildingHook';
 import { Building } from '../../../interfaces/Building';
 import { BuildingList } from '../../../components/lists/BuildingList';
 
-export const ManagerProperties = () => {
+const ManagerProperties = () => {
   const [buildings, setBuildings] = useState<Building[]>([]);
   const { getAllBuildings } = useBuilding();
 
@@ -21,3 +21,5 @@ export const ManagerProperties = () => {
     </main>
   );
 };
+
+export default ManagerProperties;

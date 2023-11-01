@@ -13,7 +13,7 @@ import { Building } from '../../../interfaces/Building';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 
-export const CreateSurvey = () => {
+const CreateSurvey = () => {
   const navigate = useNavigate();
   const { surveyid } = useParams();
   const [nextId, setNextId] = useState<number>(1);
@@ -182,3 +182,5 @@ export const CreateSurvey = () => {
     </div>
   );
 };
+
+export default CreateSurvey;

@@ -4,7 +4,7 @@ import useBuilding from '../../../hooks/BuildingHook';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { FormFieldError } from '../../../components/FormFieldError';
 
-export const AddBuilding = () => {
+const AddBuildingPage = () => {
   const { addBuilding } = useBuilding();
 
   const {
@@ -74,3 +74,5 @@ export const AddBuilding = () => {
     </div>
   );
 };
+
+export default AddBuildingPage;

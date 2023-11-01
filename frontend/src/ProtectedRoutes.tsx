@@ -1,8 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { TopNavBar } from './components/nav-bar/TopNavBar';
-import { TOKEN } from './variables/Constants';
-import { useContext, useEffect, useState } from 'react';
-import { MainContext } from './context/MainContext';
+import { useEffect, useState } from 'react';
 import { User, UserGroup } from './interfaces/User';
 import { useUser } from './hooks/UserHook';
 

@@ -4,7 +4,7 @@ import useSurvey from '../../../hooks/SurveyHook';
 import { SearchBar } from '../../../components/SearchBar';
 import { useNavigate } from 'react-router-dom';
 
-export const ManagerSurveysPage = () => {
+const ManagerSurveysPage = () => {
   const [surveys, setSurveys] = useState<AssignedSurvey[]>([]);
   const { getAssignedSurveys } = useSurvey();
   const [search, setSearch] = useState('');
@@ -53,3 +53,5 @@ export const ManagerSurveysPage = () => {
     </main>
   );
 };
+
+export default ManagerSurveysPage;

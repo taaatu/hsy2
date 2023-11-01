@@ -7,7 +7,7 @@ import styles from './Surveys.module.css';
 import { SearchBar } from '../../../components/SearchBar';
 import { LoadingList } from '../../../components/lists/LoadingList';
 
-export const SurveysPage = () => {
+const SurveysPage = () => {
   const { getSurveys } = useSurvey();
   const navigate = useNavigate();
   const [surveys, setSurveys] = useState<SurveyHeader[]>([]);
@@ -58,3 +58,5 @@ export const SurveysPage = () => {
     </div>
   );
 };
+
+export default SurveysPage;

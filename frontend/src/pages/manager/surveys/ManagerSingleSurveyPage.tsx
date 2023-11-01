@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { AssignedSurvey } from '../../../interfaces/Survey';
 import { ButtonLoading } from '../../../components/ButtonLoading';
 
-export const ManagerSingleSurveyPage = () => {
+const ManagerSingleSurveyPage = () => {
   const { surveyid } = useParams();
   const [survey, setSurvey] = useState<AssignedSurvey>();
   const [surveyKeys, setSurveyKeys] = useState<string[]>([]);
@@ -41,3 +41,5 @@ export const ManagerSingleSurveyPage = () => {
     </main>
   );
 };
+
+export default ManagerSingleSurveyPage;
