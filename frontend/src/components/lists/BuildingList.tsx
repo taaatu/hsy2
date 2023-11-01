@@ -21,7 +21,7 @@ export const BuildingList = ({ buildings }: Props) => {
             {building.street}, {building.post_code}, {building.city}
           </div>
           <div style={{ flex: 1 }}>{building.name}</div>
-          <div style={{ flex: 1 }}>Full name</div>
+          <div style={{ flex: 1 }}>{building.manager_name}</div>
           <button
             onClick={() =>
               navigate(
