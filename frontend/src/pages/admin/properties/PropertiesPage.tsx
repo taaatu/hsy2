@@ -30,7 +30,10 @@ const PropertiesPage = () => {
   return (
     <main className="column">
       <h1>Taloyhtiöt</h1>
-      <SearchBar placeholder="Hae taloyhtiötä" handleSearch={handleSearch} />
+      <div className="sticky-header">
+        <SearchBar placeholder="Hae taloyhtiötä" handleSearch={handleSearch} />
+      </div>
+
       <BuildingList buildings={filteredBuildings} />
     </main>
   );
