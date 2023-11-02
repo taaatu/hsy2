@@ -45,9 +45,9 @@ const PropertyManagers = () => {
           placeholder="Hae isännöitsijää"
           handleSearch={handleSearch}
         />
-        <button
+        <button 
           className="center-align"
-          style={{ gap: '0.5em' }}
+          style={{ gap: '0.5em',  backgroundColor: 'aquamarine'  }}
           onClick={() => navigate('/admin/managers/add')}
         >
           <FaUserPlus size={20} />
@@ -66,6 +66,7 @@ const PropertyManagers = () => {
             </div>
             <div style={{ width: '30ch' }}>{user.company}</div>
             <button
+
               onClick={() => navigate(MANAGERS_PATH + '/' + user.user_id)}
             >
               Siirry profiiliin

@@ -35,7 +35,7 @@ const SingleSurveyPage = () => {
       <button className="delete" onClick={handleDelete}>
         Poista kysely
       </button>
-      <button
+      <button style={{ backgroundColor: 'aquamarine' }}
         onClick={() =>
           navigate('/admin/surveys/create/' + survey.survey_header.survey_id)
         }

@@ -107,7 +107,7 @@ const AddQuestion = ({ index, setQuestions, questions, question }: Props) => {
           <input type="radio" name="question" value={1} required /> 4
           <input type="radio" name="question" value={1} required /> 5 */}
       <Card.Footer>
-        <button onClick={removeQuestion}>
+        <button onClick={removeQuestion}style={{ backgroundColor: 'red' }}>
           <FaTrashAlt />
         </button>
       </Card.Footer>
