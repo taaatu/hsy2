@@ -38,7 +38,8 @@ const SurveysPage = () => {
         className="flex-row center-align"
       >
         <SearchBar placeholder="Hae kyselyitä" handleSearch={handleSearch} />
-        <button onClick={() => navigate('/admin/surveys/create')}>
+        <button onClick={() => navigate('/admin/surveys/create')}
+         style={{ backgroundColor: 'aquamarine' }}>
           Luo uusi kysely
         </button>
       </div>
@@ -47,7 +48,7 @@ const SurveysPage = () => {
         {filteredSurveys.map((survey) => (
           <div key={survey.survey_id} className={styles.listItem}>
             <div>{survey.survey_title}</div>
-            <button
+            <button 
               onClick={() => navigate(`/admin/surveys/${survey.survey_id}`)}
             >
               Siirry

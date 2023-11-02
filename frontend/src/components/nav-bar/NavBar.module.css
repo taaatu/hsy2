@@ -21,6 +21,7 @@
 
   .navLinks a {
     color: black;
+    
   }
   
   .topBarAppName {
@@ -44,11 +45,14 @@
     .navLinks {
       justify-content: flex-start;
       gap: 1rem;
+      
     }
     .topBarAppName {
+      position: relative;
       display: block;
     }
     #navDropdown > p {
       display: block;
+      float: right;
     }
   }

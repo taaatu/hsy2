@@ -55,12 +55,12 @@ const PropertyManagerPage = () => {
         )}
       </div>
       <div>
-        <button onClick={() => setIsModifying(true)}>Muokkaa</button>
+        <button style={{ backgroundColor: 'aquamarine' }} onClick={() => setIsModifying(true)}>Muokkaa</button>
         <button style={{ backgroundColor: 'red' }} onClick={handleDelete}>
           Poista
         </button>
-      </div>
-      <ManagerProperties user={user} />
+    </div>
+    <ManagerProperties user={user} />
     </div>
   );
 };

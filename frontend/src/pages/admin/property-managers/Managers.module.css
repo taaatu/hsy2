@@ -1,5 +1,7 @@
 .container {
-    padding: 1em;}
+    padding: 1em;
+}
+    
 .managersList {
     display: flex;
     flex-direction: column;

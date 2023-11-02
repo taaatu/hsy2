@@ -155,7 +155,7 @@ const CreateSurvey = () => {
                 ))}
               </div>
 
-              <button type="button" onClick={addQuestion} className="hehe">
+              <button type="button" style={{ backgroundColor: 'aquamarine' }} onClick={addQuestion} className="hehe">
                 Lisää kysymys
               </button>
             </div>
