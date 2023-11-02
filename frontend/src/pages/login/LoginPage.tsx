@@ -39,7 +39,7 @@ const LoginPage = () => {
       <form onSubmit={handleSubmit(onSubmit)} className={styles.loginForm}>
         <label className="loginlabel">
           <input
-            className="inputlogin"
+            className="inputlogin medium"
             type="email"
             {...register('email', { required: 'Sähköposti vaaditaan' })}
             placeholder="Sähköposti"
@@ -49,7 +49,7 @@ const LoginPage = () => {
 
         <label className="loginlabel">
           <input
-            className="inputlogin"
+            className="inputlogin medium"
             type="password"
             placeholder="Salasana"
             {...register('password', { required: 'Salasana vaaditaan' })}

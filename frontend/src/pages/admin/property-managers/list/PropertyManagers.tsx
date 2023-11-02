@@ -39,15 +39,15 @@ const PropertyManagers = () => {
       <h1>Isännöitsijät</h1>
       <div
         style={{ marginBottom: '1em', gap: '1rem', flexWrap: 'wrap' }}
-        className="flex-row center-align"
+        className="flex-row center-align sticky-header"
       >
         <SearchBar
           placeholder="Hae isännöitsijää"
           handleSearch={handleSearch}
         />
-        <button 
+        <button
           className="center-align"
-          style={{ gap: '0.5em',  backgroundColor: 'aquamarine'  }}
+          style={{ gap: '0.5em', backgroundColor: 'aquamarine' }}
           onClick={() => navigate('/admin/managers/add')}
         >
           <FaUserPlus size={20} />
@@ -66,7 +66,6 @@ const PropertyManagers = () => {
             </div>
             <div style={{ width: '30ch' }}>{user.company}</div>
             <button
-
               onClick={() => navigate(MANAGERS_PATH + '/' + user.user_id)}
             >
               Siirry profiiliin

@@ -33,22 +33,26 @@ const SurveysPage = () => {
   return (
     <div className={styles.container}>
       <h1>Kyselyt</h1>
-      <div
-        style={{ marginBottom: '1em', gap: '1rem', flexWrap: 'wrap' }}
-        className="flex-row center-align"
-      >
-        <SearchBar placeholder="Hae kyselyitä" handleSearch={handleSearch} />
-        <button onClick={() => navigate('/admin/surveys/create')}
-         style={{ backgroundColor: 'aquamarine' }}>
-          Luo uusi kysely
-        </button>
+      <div className="sticky-header">
+        <div
+          style={{ marginBottom: '1em', gap: '1rem', flexWrap: 'wrap' }}
+          className="flex-row center-align"
+        >
+          <SearchBar placeholder="Hae kyselyitä" handleSearch={handleSearch} />
+          <button
+            onClick={() => navigate('/admin/surveys/create')}
+            style={{ backgroundColor: 'aquamarine' }}
+          >
+            Luo uusi kysely
+          </button>
+        </div>
       </div>
 
       <LoadingList>
         {filteredSurveys.map((survey) => (
           <div key={survey.survey_id} className={styles.listItem}>
             <div>{survey.survey_title}</div>
-            <button 
+            <button
               onClick={() => navigate(`/admin/surveys/${survey.survey_id}`)}
             >
               Siirry

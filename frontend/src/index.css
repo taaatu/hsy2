@@ -21,7 +21,8 @@ body {
   min-width: 320px; */
   min-height: 100vh;
   background-color: beige;
-  background-image: url("https://i.gyazo.com/897cbc5bf70aad1f7ca32f031761f4ba.jpg");
+  /* background-image: url("https://i.gyazo.com/897cbc5bf70aad1f7ca32f031761f4ba.jpg"); */
+  background-image: url("https://i.imgur.com/XNRHL8q.jpg");
   background-size: cover;
   font-family: 'Montreal', sans-serif;
 }
@@ -36,7 +37,6 @@ a:hover {
 }
 .app-name{
   
-  background-image:url( " https://i.ibb.co/tDNQ3qg/hima.png"); /* tulee icon tänne */
   background-position: center;
   /* width: 100%; */
   /* min-height: 30vh; */
@@ -216,8 +216,8 @@ ButtonLoading{
 .loginlabel{
   color: black;
   font-size: larger;
-  width: 25vh;
-   padding: 1vh;
+  /* width: 25vh; */
+   padding-bottom: 1vh;
 
 }
 .loginlabel:focus{
@@ -241,10 +241,18 @@ input{
   gap: 1rem;
 }
 
+.sticky-header {
+  position: sticky;
+  top: 10vh;
+}
+
 button.delete {
   background-color: red;
 }
-
+input.medium {
+  width: 25ch;
+  text-align: center;
+}
 .search-bar {
   width: 30ch;
 }
