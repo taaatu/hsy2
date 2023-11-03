@@ -34,18 +34,19 @@ const CreateUserPage = () => {
   };
 
   return (
-    <div className="centered-container">
+    <main className="centered-container column">
       <SuccessAlertModal
         show={showSuccessModal}
         message="Isännöitsijä lisätty onnistuneesti"
         navRoute="/admin/managers"
       />
       <h1>Lisää isännöitsijä</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className="color3" onSubmit={handleSubmit(onSubmit)}>
         <label>
           Isännöitsijän nimi
           <input
             type="text"
+            className="line"
             {...register('full_name', { required: 'Nimi vaaditaan' })}
           />
           <FormFieldError error={errors.full_name} />
@@ -53,6 +54,7 @@ const CreateUserPage = () => {
         <label>
           Yrityksen nimi
           <input
+            className="line"
             {...register('company', { required: 'Yrityksen nimi vaaditaan' })}
           />
           <FormFieldError error={errors.company} />
@@ -61,6 +63,7 @@ const CreateUserPage = () => {
           Sähköposti
           <input
             type="email"
+            className="line"
             {...register('email', { required: 'Sähköposti vaaditaan' })}
           />
           <FormFieldError error={errors.email} />
@@ -68,6 +71,7 @@ const CreateUserPage = () => {
         <label>
           Salasana
           <input
+            className="line"
             type="password"
             {...register('password', {
               required: 'Salasana vaaditaan',
@@ -85,7 +89,7 @@ const CreateUserPage = () => {
         )}
         <ButtonLoading text="Lisää isännöitsijä" />
       </form>
-    </div>
+    </main>
   );
 };
 

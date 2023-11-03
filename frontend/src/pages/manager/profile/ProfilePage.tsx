@@ -29,9 +29,9 @@ const ProfilePage = () => {
             <ModifyUserForm user={user} setIsModifying={setIsModifying} />
           ) : (
             <>
-              <div>{user.full_name}</div>
-              <div>{user.email}</div>
-              <div>{user.company}</div>{' '}
+              <h4>Nimi: {user.full_name}</h4>
+              <h4>Sähköposti: {user.email}</h4>
+              <h4>Yritys: {user.company}</h4>{' '}
               <div>
                 <button onClick={() => setIsModifying(true)}>Muokkaa</button>
                 <button

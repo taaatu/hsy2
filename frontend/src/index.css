@@ -25,11 +25,13 @@ body {
   background-image: url("https://i.imgur.com/XNRHL8q.jpg");
   background-size: cover;
   font-family: 'Montreal', sans-serif;
+  background-position: center; 
+  resize: both;
 }
 
 
 a {
-  color: #646cff;
+  color: black;
   text-decoration: inherit;
 }
 a:hover {
@@ -83,6 +85,7 @@ button {
   padding: 0.6em 1.2em;
   border-radius: 10px;
   background-color: transparent;
+  font-size: large;
 }
 
 button:hover {
@@ -92,6 +95,22 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.color1 {
+  background-color: yellow;
+}
+
+.color2 {
+  background-color: white;
+}
+
+.color3 {
+  background-color: rgba(255,255,255, 0.9);
+}
+
+.padding1 {
+  padding: 1em;
 }
 
 @media (prefers-color-scheme: light) {
@@ -115,17 +134,17 @@ button:focus-visible {
 }
 
 .survey-bg {
-  background-color: #E4F0F0;
-  padding: 1em;
+  /* background-color: #E4F0F0; */
+  /* padding: 1em; */
 }
 
 form {
   display: flex;
   flex-direction: column;
   position:center;
-  margin: auto;
   padding: 2em;
   border-radius: 10px;
+  max-width: 70ch;
 }
 
 main {
@@ -234,6 +253,10 @@ input{
   border-bottom: 2px solid rgb(33, 28, 28);
 }
 
+input.line {
+  border-radius: 0;
+}
+
 
 .flex-row {
   display: flex;
@@ -271,7 +294,6 @@ input.medium {
     display: flex;
     flex-direction: column;
     width: 100%;
-    background-color: white;
     border-radius: 0.5rem;
 }
 
