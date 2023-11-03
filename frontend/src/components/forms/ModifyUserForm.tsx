@@ -32,11 +32,12 @@ export const ModifyUserForm = ({ user, setIsModifying }: Props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className="color3" onSubmit={handleSubmit(onSubmit)}>
       <label>
         Nimi
         <input
           type="text"
+          className="line"
           {...register('full_name', { required: 'Nimi vaaditaan' })}
         />
         <FormFieldError error={errors.full_name} />
@@ -46,13 +47,17 @@ export const ModifyUserForm = ({ user, setIsModifying }: Props) => {
         <input
           required
           type="email"
+          className="line"
           {...register('email', { required: 'Sähköposti vaaditaan' })}
         />
         <FormFieldError error={errors.email} />
       </label>
       <label>
         Yritys
-        <input {...register('company', { required: 'Yritys vaaditaan' })} />
+        <input
+          className="line"
+          {...register('company', { required: 'Yritys vaaditaan' })}
+        />
         <FormFieldError error={errors.company} />
       </label>
       <label>
@@ -60,6 +65,7 @@ export const ModifyUserForm = ({ user, setIsModifying }: Props) => {
         <input
           required
           type="password"
+          className="line"
           {...register('password', {
             required: 'Salasana vaaditaan',
             pattern: {

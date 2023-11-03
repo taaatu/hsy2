@@ -30,7 +30,6 @@ const ManagerProperties = () => {
   return (
     <main className="column">
       <h1>Omat taloyhtiöt {`(${buildings.length})`}</h1>
-      <h4>Search bar here</h4>
       <SearchBar placeholder="Hae taloyhtiöitä" handleSearch={handleSearch} />
       <BuildingList buildings={filteredBuildings} />
     </main>

@@ -24,13 +24,13 @@ const SurveyAnswerPage = ({ isPreview }: Props) => {
   if (!survey) return <h1>Kyselyä ei löytynyt</h1>;
 
   return (
-    <div>
+    <main style={{ maxWidth: '75ch', margin: 'auto' }}>
       <AnswerSurveyForm
         survey={survey}
         isPreview={isPreview}
         surveyKey={surveyid}
       />
-    </div>
+    </main>
   );
 };
 

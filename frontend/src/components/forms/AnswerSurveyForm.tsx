@@ -35,11 +35,20 @@ export const AnswerSurveyForm = ({
   }, [survey]);
 
   return (
-    <div className="survey-bg">
-      <h2>{survey.survey_header?.survey_title ?? 'Ei nimeä'}</h2>
-      <p>{survey.survey_header?.description ?? 'Ei kuvausta'}</p>
-      <h4>{`Kysymyksiä (${survey.questions?.length})`}</h4>
-      <form onSubmit={handleSubmit} style={{ gap: '2rem' }}>
+    <div className="color3">
+      <div className="color1 padding1">
+        <h2>{survey.survey_header?.survey_title ?? 'Ei nimeä'}</h2>
+        <p style={{ whiteSpace: 'pre-line' }}>
+          {survey.survey_header?.description ?? 'Ei kuvausta'}
+        </p>
+      </div>
+
+      <h4 className="padding1">{`Kysymyksiä (${survey.questions?.length})`}</h4>
+      <form
+        onSubmit={handleSubmit}
+        style={{ gap: '2rem' }}
+        className="padding1"
+      >
         {survey.questions !== undefined && (
           <>
             {survey.questions.map((question, index) => (

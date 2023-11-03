@@ -5,12 +5,15 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { FaHome, FaUsers, FaClipboardList, FaUserCircle } from 'react-icons/fa';
+import { useContext } from 'react';
+import { MainContext } from '../../context/MainContext';
 
 type Props = {
   isAdmin: boolean;
 };
 
 export const TopNavBar = ({ isAdmin }: Props) => {
+  const { curentUser } = useContext(MainContext);
   return (
     <Navbar id={styles.topnavBar}>
       <Navbar.Brand className={styles.topBarAppName}>HIMA</Navbar.Brand>
@@ -18,6 +21,9 @@ export const TopNavBar = ({ isAdmin }: Props) => {
         <Nav className={styles.navLinks}>
           {isAdmin ? <AdminLinks /> : <ManagerLinks />}
         </Nav>
+      </Navbar.Collapse>
+      <Navbar.Collapse className="justify-content-end">
+        <Navbar.Text>{curentUser?.full_name}</Navbar.Text>
       </Navbar.Collapse>
     </Navbar>
   );
@@ -123,7 +129,7 @@ const ManagerLinks = () => (
       }
     >
       <NavDropdown.Item as={Link} to={'/manager/profile'}>
-        Profiili
+        Omat tiedot
       </NavDropdown.Item>
       <NavDropdown.Divider />
       <NavDropdown.Item as={Link} to={'/logout'}>

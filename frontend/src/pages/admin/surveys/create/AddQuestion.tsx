@@ -20,7 +20,9 @@ const AddQuestion = ({ index, setQuestions, questions, question }: Props) => {
     );
 
   // Save input fields value on change to questions array state
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setQuestions(
       questions.map((q) => {
@@ -35,8 +37,7 @@ const AddQuestion = ({ index, setQuestions, questions, question }: Props) => {
     <Card>
       <Card.Header as="h4">Kysymys {index + 1}</Card.Header>
       <Card.Body>
-        <input
-          type="text"
+        <textarea
           placeholder="Kysymys"
           required
           name="question"
@@ -107,7 +108,7 @@ const AddQuestion = ({ index, setQuestions, questions, question }: Props) => {
           <input type="radio" name="question" value={1} required /> 4
           <input type="radio" name="question" value={1} required /> 5 */}
       <Card.Footer>
-        <button onClick={removeQuestion}style={{ backgroundColor: 'red' }}>
+        <button onClick={removeQuestion} style={{ backgroundColor: 'red' }}>
           <FaTrashAlt />
         </button>
       </Card.Footer>

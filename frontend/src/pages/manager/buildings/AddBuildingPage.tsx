@@ -36,17 +36,18 @@ const AddBuildingPage = () => {
   };
 
   return (
-    <div className="centered-container">
+    <main className="centered-container">
       <SuccessAlertModal
         show={showSuccessModal}
         message="Taloyhtiö lisätty onnistuneesti"
         navRoute="/manager/properties"
       />
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className="color3 column" onSubmit={handleSubmit(onSubmit)}>
         <h4>Taloyhtiö</h4>
         <label>
           Osoite
           <input
+            className="line"
             placeholder="Osoite"
             {...register('street', { required: 'Osoite vaaditaan' })}
           />
@@ -55,6 +56,7 @@ const AddBuildingPage = () => {
         <label>
           Postinumero
           <input
+            className="line"
             placeholder="Postinumero"
             {...register('post_code', {
               required: 'Postinumero vaaditaan',
@@ -79,6 +81,7 @@ const AddBuildingPage = () => {
         <label>
           Taloyhtiön nimi
           <input
+            className="line"
             {...register('name', { required: 'Nimi vaaditaan' })}
             placeholder="Taloyhtiön nimi"
           />
@@ -89,7 +92,7 @@ const AddBuildingPage = () => {
         )}
         <button>Lisää taloyhtiö</button>
       </form>
-    </div>
+    </main>
   );
 };
 

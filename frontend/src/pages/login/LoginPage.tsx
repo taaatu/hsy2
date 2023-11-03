@@ -39,7 +39,7 @@ const LoginPage = () => {
       <form onSubmit={handleSubmit(onSubmit)} className={styles.loginForm}>
         <label className="loginlabel">
           <input
-            className="inputlogin medium"
+            className="medium line"
             type="email"
             {...register('email', { required: 'Sähköposti vaaditaan' })}
             placeholder="Sähköposti"
@@ -49,7 +49,7 @@ const LoginPage = () => {
 
         <label className="loginlabel">
           <input
-            className="inputlogin medium"
+            className="medium line"
             type="password"
             placeholder="Salasana"
             {...register('password', { required: 'Salasana vaaditaan' })}
@@ -59,11 +59,21 @@ const LoginPage = () => {
         {errors.root?.serverError && (
           <FormFieldError error={errors.root?.serverError} />
         )}
+
         <ButtonLoading text="Kirjaudu sisään" classname={styles.button} />
+        <Link
+          style={{
+            color: 'black',
+            textDecoration: 'underline',
+            fontWeight: 'normal',
+            marginTop: '1rem',
+          }}
+          to="/"
+        >
+          Etusivulle
+        </Link>
       </form>
-      <Link to="/" className="homebutton">
-        Home
-      </Link>
+
       <HsyLogo />
     </div>
   );
