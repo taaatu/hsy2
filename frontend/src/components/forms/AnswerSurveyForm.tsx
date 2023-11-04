@@ -3,6 +3,7 @@ import { Survey } from '../../interfaces/Survey';
 import { Answer } from '../../interfaces/Answer';
 import AnswerQuestion from './AnswerQuestion';
 import useSurvey from '../../hooks/SurveyHook';
+import { SuccessAlertModal } from '../SuccessAlertModal';
 
 type Props = {
   survey: Partial<Survey>;
@@ -17,12 +18,18 @@ export const AnswerSurveyForm = ({
 }: Props) => {
   const [answers, setAnswers] = useState<Partial<Answer>[]>([]);
   const { submitAnswers } = useSurvey();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (isPreview || !surveyKey) return;
     console.log('Answers: ', answers);
-    await submitAnswers(answers as Answer[], surveyKey);
+    const res = await submitAnswers(answers as Answer[], surveyKey);
+    if (res) {
+      setShowSuccessModal(true);
+    } else {
+      alert('Vastauksien lähettäminen epäonnistui!');
+    }
   };
 
   useEffect(() => {
@@ -36,6 +43,11 @@ export const AnswerSurveyForm = ({
 
   return (
     <div className="color3">
+      <SuccessAlertModal
+        show={showSuccessModal}
+        message="Kysely on lähetetty"
+        navRoute="/survey/results"
+      />
       <div className="color1 padding1">
         <h2>{survey.survey_header?.survey_title ?? 'Ei nimeä'}</h2>
         <p style={{ whiteSpace: 'pre-line' }}>

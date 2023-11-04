@@ -44,7 +44,9 @@ const useSurvey = () => {
       const response = await doFetch('survey', 'POST', survey);
       console.log('Create survey: ', response);
       if (!response.survey_id) return;
-      if (buildings.length === 0) return alert('Kysely luotu');
+      if (buildings.length === 0) {
+        return 'Kysely luotu ilman lisättyjä taloyhtiöitä';
+      }
       await Promise.all(
         buildings.map(async (building) => {
           await doFetch(`survey/assignsurevey`, 'POST', {
@@ -53,7 +55,7 @@ const useSurvey = () => {
           });
         })
       );
-      alert('Kysely luotu ja taloyhtiöt lisätty');
+      return 'Kysely luotu ja taloyhtiöt lisätty';
     } catch (error: any) {
       alert('Kyselyn luominen epäonnistui');
       throw new Error(error.message);
@@ -105,11 +107,10 @@ const useSurvey = () => {
         answers: answers,
       });
       console.log('Submit answers: ', response);
-      alert('Kysely lähetetty');
-      navigate('/survey/results');
+      return true;
     } catch (error: any) {
-      alert(`Kyselyn lähettäminen epäonnistui: ${error.message}`);
-      throw new Error(error.message);
+      console.error('Submit answers', error.message);
+      return false;
     }
   };
 
