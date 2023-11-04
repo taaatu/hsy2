@@ -41,7 +41,7 @@ const CreateUserPage = () => {
         navRoute="/admin/managers"
       />
       <h1>Lisää isännöitsijä</h1>
-      <form className="color3" onSubmit={handleSubmit(onSubmit)}>
+      <form className="color3 column" onSubmit={handleSubmit(onSubmit)}>
         <label>
           Isännöitsijän nimi
           <input

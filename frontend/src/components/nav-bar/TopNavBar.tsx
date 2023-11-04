@@ -55,12 +55,14 @@ const AdminLinks = () => (
       <NavDropdown.Item as={Link} to={'/admin/surveys'}>
         Kyselyt
       </NavDropdown.Item>
+      <NavDropdown.Divider />
       <NavDropdown.Item as={Link} to={'/admin/surveys/create'}>
         Luo kysely
       </NavDropdown.Item>
     </NavDropdown>
     <NavDropdown
       id={styles.navDropdown}
+      className="nav-managers"
       title={
         <>
           <FaUsers /> <p>Isännöitsijät</p>
@@ -70,6 +72,7 @@ const AdminLinks = () => (
       <NavDropdown.Item as={Link} to={'/admin/managers/add'}>
         Lisää isännöitsijä
       </NavDropdown.Item>
+      <NavDropdown.Divider />
       <NavDropdown.Item as={Link} to={MANAGERS_PATH}>
         Isännöitsijät
       </NavDropdown.Item>
@@ -104,6 +107,7 @@ const ManagerLinks = () => (
       <NavDropdown.Item as={Link} to={'/manager/properties'}>
         Taloyhtiöt
       </NavDropdown.Item>
+      <NavDropdown.Divider />
       <NavDropdown.Item as={Link} to={'/manager/properties/add'}>
         Lisää taloyhtiö
       </NavDropdown.Item>
@@ -122,6 +126,7 @@ const ManagerLinks = () => (
     </NavDropdown>
     <NavDropdown
       id={styles.navDropdown}
+      className="nav-profile"
       title={
         <>
           <FaUserCircle /> <p>Profiili</p>

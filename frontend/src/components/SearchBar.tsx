@@ -10,7 +10,7 @@ export const SearchBar = ({ placeholder, handleSearch }: Props) => (
   <div style={{ position: 'relative', width: 'fit-content' }}>
     <FaSearch className={styles.searchIcon} />
     <input
-      className="search-bar"
+      className="search-bar line"
       placeholder={placeholder}
       onChange={handleSearch}
     />

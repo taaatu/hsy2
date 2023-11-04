@@ -12,6 +12,7 @@ import styles from './CreateSurvey.module.css';
 import { Building } from '../../../../interfaces/Building';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import { SuccessAlertModal } from '../../../../components/SuccessAlertModal';
 
 const CreateSurvey = () => {
   const navigate = useNavigate();
@@ -19,6 +20,8 @@ const CreateSurvey = () => {
   const [nextId, setNextId] = useState<number>(1);
   const [selectLevel, setSelectLevel] = useState<SelectLevel>(SelectLevel.NONE);
   const [selectedBuildings, setSelectedBuildings] = useState<Building[]>([]);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [succesMessage, setSuccesMessage] = useState('');
   const [questions, setQuestions] = useState<Partial<Question>[]>([
     {
       question_id: nextId,
@@ -66,7 +69,10 @@ const CreateSurvey = () => {
     console.log('questions: ', questions);
     console.log('surveyHeader: ', surveyHeader);
     console.log('nSurvey: ', nSurvey);
-    await createSurvey(nSurvey as Survey, selectedBuildings);
+    const _message = await createSurvey(nSurvey as Survey, selectedBuildings);
+    if (!_message) return;
+    setSuccesMessage(_message);
+    setShowSuccessModal(true);
   };
 
   useEffect(() => {
@@ -82,6 +88,11 @@ const CreateSurvey = () => {
 
   return (
     <div className={styles.createSurvey}>
+      <SuccessAlertModal
+        show={showSuccessModal}
+        message={succesMessage}
+        navRoute="/admin/surveys"
+      />
       <form onSubmit={handleSubmit} className={styles.form}>
         <Tabs className={styles.tabsBar}>
           <Tab eventKey="survey" title="Kysely">
@@ -155,7 +166,12 @@ const CreateSurvey = () => {
                 ))}
               </div>
 
-              <button type="button" style={{ backgroundColor: 'aquamarine' }} onClick={addQuestion} className="hehe">
+              <button
+                type="button"
+                style={{ backgroundColor: 'aquamarine' }}
+                onClick={addQuestion}
+                className="hehe"
+              >
                 Lisää kysymys
               </button>
             </div>
