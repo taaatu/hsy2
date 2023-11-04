@@ -45,7 +45,7 @@ const PropertyManagerPage = () => {
       <h1>Isännöitsijän tiedot</h1>
       <div>
         {isModifying ? (
-          <ModifyUserForm user={user} setIsModifying={setIsModifying} />
+          <ModifyUserForm user={user} />
         ) : (
           <>
             <h4>Nimi: {user.full_name}</h4>
@@ -55,12 +55,14 @@ const PropertyManagerPage = () => {
         )}
       </div>
       <div>
-        <button style={{ backgroundColor: 'aquamarine' }} onClick={() => setIsModifying(true)}>Muokkaa</button>
-        <button style={{ backgroundColor: 'red' }} onClick={handleDelete}>
+        <button className="colored" onClick={() => setIsModifying(true)}>
+          Muokkaa
+        </button>
+        <button className="delete" onClick={handleDelete}>
           Poista
         </button>
-    </div>
-    <ManagerProperties user={user} />
+      </div>
+      <ManagerProperties user={user} />
     </div>
   );
 };

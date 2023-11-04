@@ -46,8 +46,8 @@ const PropertyManagers = () => {
           handleSearch={handleSearch}
         />
         <button
-          className="center-align"
-          style={{ gap: '0.5em', backgroundColor: 'aquamarine' }}
+          className="center-align colored"
+          style={{ gap: '0.5em' }}
           onClick={() => navigate('/admin/managers/add')}
         >
           <FaUserPlus size={20} />

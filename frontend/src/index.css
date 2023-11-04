@@ -87,6 +87,12 @@ button {
   background-color: transparent;
   font-size: large;
 }
+button.colored {
+  background-color: aquamarine;
+}
+button.delete {
+  background-color: red;
+}
 
 button:hover {
   border-color: #646cff;
@@ -131,11 +137,6 @@ button:focus-visible {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-}
-
-.survey-bg {
-  /* background-color: #E4F0F0; */
-  /* padding: 1em; */
 }
 
 form {

@@ -5,7 +5,7 @@ export const WelcomeText = () => {
   const { curentUser } = useContext(MainContext);
   return (
     <div className="centered-container">
-      <h2 style={{ marginTop: '4rem' }}>
+      <h2 style={{ marginTop: '4rem', textAlign: 'center' }}>
         Tervetuloa Himaan {curentUser?.full_name}!
       </h2>
       <h4 style={{ textAlign: 'center', marginTop: '2rem' }}>

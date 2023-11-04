@@ -41,7 +41,7 @@ const SurveysPage = () => {
           <SearchBar placeholder="Hae kyselyitä" handleSearch={handleSearch} />
           <button
             onClick={() => navigate('/admin/surveys/create')}
-            style={{ backgroundColor: 'aquamarine' }}
+            className="colored"
           >
             Luo uusi kysely
           </button>

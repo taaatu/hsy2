@@ -4,14 +4,15 @@ import { PASSWORD_REGEX } from '../../variables/Constants';
 import { FormFieldError } from '../FormFieldError';
 import { useUser } from '../../hooks/UserHook';
 import { ButtonLoading } from '../ButtonLoading';
+import { useState } from 'react';
 
 type Props = {
   user: User;
-  setIsModifying: (value: boolean) => void;
 };
 
-export const ModifyUserForm = ({ user, setIsModifying }: Props) => {
-  const { modifyUser } = useUser();
+export const ModifyUserForm = ({ user }: Props) => {
+  const { modifyUser, deleteUser } = useUser();
+  const [isModifying, setIsModifying] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
@@ -31,14 +32,22 @@ export const ModifyUserForm = ({ user, setIsModifying }: Props) => {
     setIsModifying(false);
   };
 
+  const handleDelete = async () => {
+    if (!user?.user_id) return;
+    await deleteUser(user.user_id);
+  };
+
   return (
-    <form className="color3" onSubmit={handleSubmit(onSubmit)}>
+    <form className="color3 column" onSubmit={handleSubmit(onSubmit)}>
       <label>
         Nimi
         <input
           type="text"
           className="line"
-          {...register('full_name', { required: 'Nimi vaaditaan' })}
+          {...register('full_name', {
+            required: 'Nimi vaaditaan',
+            disabled: !isModifying,
+          })}
         />
         <FormFieldError error={errors.full_name} />
       </label>
@@ -48,7 +57,10 @@ export const ModifyUserForm = ({ user, setIsModifying }: Props) => {
           required
           type="email"
           className="line"
-          {...register('email', { required: 'Sähköposti vaaditaan' })}
+          {...register('email', {
+            required: 'Sähköposti vaaditaan',
+            disabled: !isModifying,
+          })}
         />
         <FormFieldError error={errors.email} />
       </label>
@@ -56,7 +68,10 @@ export const ModifyUserForm = ({ user, setIsModifying }: Props) => {
         Yritys
         <input
           className="line"
-          {...register('company', { required: 'Yritys vaaditaan' })}
+          {...register('company', {
+            required: 'Yritys vaaditaan',
+            disabled: !isModifying,
+          })}
         />
         <FormFieldError error={errors.company} />
       </label>
@@ -68,6 +83,7 @@ export const ModifyUserForm = ({ user, setIsModifying }: Props) => {
           className="line"
           {...register('password', {
             required: 'Salasana vaaditaan',
+            disabled: !isModifying,
             pattern: {
               value: PASSWORD_REGEX,
               message:
@@ -81,9 +97,23 @@ export const ModifyUserForm = ({ user, setIsModifying }: Props) => {
         <FormFieldError error={errors.root?.serverError} />
       )}
       <div className="flex-row">
-        <ButtonLoading text="Tallenna" />
-        <button type="button" onClick={() => setIsModifying(false)}>
-          Poistu
+        {isModifying ? (
+          <>
+            <ButtonLoading text="Tallenna" />
+            <button type="button" onClick={() => setIsModifying(false)}>
+              Poistu
+            </button>
+          </>
+        ) : (
+          <button onClick={() => setIsModifying(true)}>Muokkaa</button>
+        )}
+        <button
+          type="button"
+          className="delete"
+          style={{ marginLeft: 'auto' }}
+          onClick={handleDelete}
+        >
+          Poista käyttäjä
         </button>
       </div>
     </form>

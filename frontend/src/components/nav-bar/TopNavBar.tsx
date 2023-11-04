@@ -22,7 +22,7 @@ export const TopNavBar = ({ isAdmin }: Props) => {
           {isAdmin ? <AdminLinks /> : <ManagerLinks />}
         </Nav>
       </Navbar.Collapse>
-      <Navbar.Collapse className="justify-content-end">
+      <Navbar.Collapse id={styles.userName} className="justify-content-end">
         <Navbar.Text>{curentUser?.full_name}</Navbar.Text>
       </Navbar.Collapse>
     </Navbar>
