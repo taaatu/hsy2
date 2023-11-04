@@ -39,6 +39,10 @@
     margin: 0;
     display: none;
   }
+
+  #userName {
+    display: none !important;
+  }
  
   /* Wider screens */
   @media only screen and (min-width: 770px) {
@@ -54,5 +58,9 @@
     #navDropdown > p {
       display: block;
       float: right;
+    }
+
+    #userName {
+      display: flex !important;
     }
   }
