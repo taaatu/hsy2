@@ -12,7 +12,7 @@ export const SuccessAlertModal = ({ show, message, navRoute }: Props) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    if (navRoute) navigate(navRoute);
+    navRoute ? navigate(navRoute) : navigate(0);
   };
 
   return (

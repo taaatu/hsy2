@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './App.css';
+// import './App.css';
 // import ProtectedRoutes from './ProtectedRoutes';
 import { lazy } from 'react';
 const ProtectedRoutes = lazy(() => import('./ProtectedRoutes'));
@@ -25,6 +25,7 @@ import {
   ManagerSingleSurveyPage,
   ManagerProperties,
   ManagerHome,
+  ManagerBuildingPage,
 } from './pages';
 import { MainProvider } from './context/MainContext';
 import { UserGroup } from './interfaces/User';
@@ -66,6 +67,7 @@ function App() {
                   <Route index element={<PropertiesPage />} />
                   <Route path=":buildingid" element={<SinglePropertyPage />} />
                 </Route>
+                <Route path="profile" element={<ProfilePage />} />
               </Route>
 
               <Route
@@ -76,14 +78,7 @@ function App() {
                 <Route path="properties">
                   <Route index element={<ManagerProperties />} />
                   <Route path="add" element={<AddBuildingPage />} />
-                  <Route
-                    path=":buildingid"
-                    element={
-                      <>
-                        <h1>Single building page</h1>
-                      </>
-                    }
-                  />
+                  <Route path=":buildingid" element={<ManagerBuildingPage />} />
                 </Route>
                 <Route path="surveys">
                   <Route index element={<ManagerSurveysPage />} />
