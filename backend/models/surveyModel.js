@@ -3,12 +3,20 @@ const pool = require("../database/db");
 const { httpError } = require("../utils/errors");
 const promisePool = pool.promise();
 
-const getAllSurvey = async () => {
+const getAllSurvey = async (user) => {
     try {
-        const [rows] = await promisePool.query(
-            "SELECT * FROM survey"
-        );
-        return rows;
+        if (user.user_group == 0) {
+            const [rows] = await promisePool.query(
+                "SELECT * FROM survey"
+            );
+            return rows;
+        } else { 
+            const [rows] = await promisePool.query(
+                "SELECT * FROM survey WHERE survey_status = 'published'"
+            );
+            return rows;
+        }
+
     } catch (e) {
         console.error('model get all survey', e.message);
         throw httpError(e.message, 400);
@@ -18,8 +26,8 @@ const getAllSurvey = async () => {
 const insertSurvey = async (survey) => {
     try {
         const [rows] = await promisePool.execute(
-            "INSERT INTO survey (u_id, survey_title, start_time, end_time, description) VALUES (?,?,?,?,?)",
-            [survey.u_id, survey.survey_title, survey.start_time, survey.end_time, survey.description]
+            "INSERT INTO survey (u_id, survey_title, start_time, end_time, description, survey_status) VALUES (?,?,?,?,?,?)",
+            [survey.u_id, survey.survey_title, survey.start_time, survey.end_time, survey.description, survey.survey_status]
         );
         console.log("model insert survey", rows);
         return rows.insertId;
@@ -67,6 +75,20 @@ const getSurveyQuestionsBySurveyId = async (surveyId) => {
         return rows;
     } catch (e) {
         console.error("model get survey questions by survey id", e.message);
+        throw httpError(e.message, 400);
+    }
+};
+
+const getSurveyQuestionByQuestionId = async (questionId) => {
+    try {
+        const [rows] = await promisePool.execute(
+            "SELECT * FROM survey_question WHERE question_id = ?",
+            [questionId]
+        );
+        console.log("Get survey question by question id?", rows);
+        return rows[0];
+    } catch (e) {
+        console.error("model get survey question by question id", e.message);
         throw httpError(e.message, 400);
     }
 };
@@ -166,11 +188,11 @@ const getAllKeyByAssignedSurveyId = async (assgnedSurveyId,keyStatus) => {
     }
 };
 
-const getAssignedSurveyInfoByKey = async (surveyKey) => {
+const getAssignedSurveyInfoByKey = async (keyStatus,surveyKey) => {
     try {
         const [rows] = await promisePool.execute(
-            "SELECT * FROM assigned_survey JOIN assigned_survey_key ON assigned_survey.assigned_survey_id = assigned_survey_key.as_id WHERE assigned_survey_key.key_status = 'unused' AND assigned_survey_key.survey_key = ? ",
-            [surveyKey]
+            "SELECT * FROM assigned_survey JOIN assigned_survey_key ON assigned_survey.assigned_survey_id = assigned_survey_key.as_id WHERE assigned_survey_key.key_status = ? AND assigned_survey_key.survey_key = ? ",
+            [keyStatus,surveyKey]
         );
         console.log("Get by survey key result?", rows);
         return rows[0];
@@ -237,7 +259,9 @@ const checkKeyStatus = async (key) => {
 const getAllAssignedSurveyAnswersByKey = async (surveyKey) => {
     try {
         const [rows] = await promisePool.query(
-            "SELECT * FROM question_answer WHERE s_key = ?",
+            "SELECT  q_id, question, selected_option\
+            FROM ( SELECT * FROM question_answer WHERE s_key = ? ) AS qa \
+            JOIN survey_question ON qa.q_id = survey_question.question_id;",
             [surveyKey]
         );
         return rows;
@@ -246,6 +270,21 @@ const getAllAssignedSurveyAnswersByKey = async (surveyKey) => {
         throw httpError(e.message, 400);
     }
 };
+
+const updateSurveyStatus = async (surveyId) => {
+    try {
+        const [rows] = await promisePool.execute(
+            "UPDATE survey SET survey_status = 'published' WHERE survey_id = ?",
+            [surveyId]
+        );
+        return rows.affectedRows === 1;
+    } catch (e) {
+        console.error("model update survey status", e.message);
+        throw httpError(e.message, 400);
+    }
+}; 
+
+
 
 module.exports = {
     insertSurvey,
@@ -263,5 +302,7 @@ module.exports = {
     insertSurveyQuestionAnswer,
     updateKeyStatus,
     checkKeyStatus,
-    getAllAssignedSurveyAnswersByKey
+    getAllAssignedSurveyAnswersByKey,
+    getSurveyQuestionByQuestionId,
+    updateSurveyStatus
 }; 

@@ -7,6 +7,7 @@ const { body } = require("express-validator");
 const {
     survey_list_get,
     survey_post,
+    survey_publish_post,
     survey_delete,
     survey_get_by_id,
     assign_survey_post,
@@ -14,8 +15,11 @@ const {
     assigned_survey_key_list_get,
     assigned_survey_key_post,
     survey_get_by_key,
-    survey_question_answer_post
+    survey_question_answer_post,
+    survey_answer_get_by_key,
+    assigned_survey_answer_list_get
 } = require("../controllers/surveyController");
+
 
 router
     .route("/")
@@ -33,6 +37,8 @@ router
             .matches(/^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\d{4}$/).withMessage('End time must be in DD-MM-YYYY format!'),
         body("survey_header.description")
             .notEmpty().withMessage("Survey description can't be empty!"),
+        body("survey_header.survey_status")
+            .isIn(['published', 'unpublished']).withMessage("Invalid 'survey_status'. It must be 'published' or 'unpublished'."),
         body("questions[*].question")
             .notEmpty().withMessage("Survey question can't be empty!"),
         body("questions[*].option_1")
@@ -42,7 +48,15 @@ router
         body("questions[*].option_3")
             .notEmpty().withMessage("Qestion option_1 can't be empty!"),
         survey_post
-    );
+);
+    
+router
+    .route("/surveystatusupdate")
+    .post(
+        body("survey_id")
+            .isNumeric().withMessage("Survey ID must be a number!"),
+        survey_publish_post
+);
 
 router
     .route("/surveybyid/:surveyId")
@@ -69,6 +83,7 @@ router
 router
     .route("/assignsureveykey/:as_id/:key_status")
     .get(assigned_survey_key_list_get)
+
 router
     .route("/surveybykey")
     .get(
@@ -83,5 +98,9 @@ router
         body("answers[*].s_key")
             .matches(/^\d{6}$/).withMessage('Survey Key must be a 6 digits number.'),
         survey_question_answer_post
-    );
+);
+
+router
+    .route("/surveyanswerlist/:as_id")
+    .get(assigned_survey_answer_list_get)
 module.exports = router;

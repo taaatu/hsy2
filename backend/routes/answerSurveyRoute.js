@@ -6,7 +6,8 @@ const { body } = require("express-validator");
 
 const {
     survey_get_by_key,
-    survey_question_answer_post
+    survey_question_answer_post,
+    survey_answer_get_by_key
 } = require("../controllers/surveyController");
 
 router
@@ -19,5 +20,9 @@ router
             .notEmpty().withMessage("Seleced option can't be empty!"),
         survey_question_answer_post
 );
+
+router
+    .route("/surveyanswer/:key")
+    .get(survey_answer_get_by_key)
     
 module.exports = router;
