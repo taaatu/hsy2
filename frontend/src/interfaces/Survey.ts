@@ -16,6 +16,7 @@ interface Survey {
 
 type AssignedSurvey = {
   assigned_survey_id: number;
+  b_id: number;
   survey_id: number;
   survey_creator_id: number;
   survey_title: string;

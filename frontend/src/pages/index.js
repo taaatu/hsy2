@@ -47,3 +47,7 @@ export const ManagerProperties = lazy(() =>
   import('./manager/buildings/ManagerProperties')
 );
 export const ManagerHome = lazy(() => import('./manager/ManagerHome'));
+
+export const ManagerBuildingPage = lazy(() =>
+  import('./manager/buildings/ManagerBuildingPage')
+);

@@ -85,6 +85,9 @@ const AdminLinks = () => (
         </>
       }
     >
+      <NavDropdown.Item as={Link} to={'/admin/profile'}>
+        Omat tiedot
+      </NavDropdown.Item>
       <NavDropdown.Divider />
       <NavDropdown.Item as={Link} to={'/logout'}>
         Kirjaudu ulos

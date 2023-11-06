@@ -107,7 +107,7 @@ const building_info_update_put = async (req, res, next) => {
       await updateBuilding(req.body,req.params.buildingId);
       res.json({ building_id: `${req.params.buildingId}`, message: `Building ${req.body.name} updated`, status: 200 });
     } else {
-      res.status(400).json({ message: 'This building adress already exist' , status: 400});
+      res.status(409).json({ message: 'This building adress already exist' , status: 409});
     }
   } catch (error) {
     next(error);

@@ -16,6 +16,16 @@ const useBuilding = () => {
     }
   };
 
+  const getBuildingById = async (id: string) => {
+    try {
+      const response = await doFetch(`building/buildingid/${id}`, 'GET');
+      console.log('get building by id', response);
+      return response as Building;
+    } catch (error: any) {
+      console.error('Get building by id: ', error.message);
+    }
+  };
+
   const addBuilding = async (building: BuildingInput) => {
     try {
       console.log('Add property: ', building);
@@ -26,7 +36,22 @@ const useBuilding = () => {
       return new CustomError(error.message, error.status);
     }
   };
-  return { getAllBuildings, addBuilding };
+
+  const modifyBuilding = async (building: Building) => {
+    try {
+      console.log('Modify building: ', building);
+      const response = await doFetch(
+        `building/buildingid/${building.building_id}`,
+        'PUT',
+        building
+      );
+      console.log('modify building response: ', response);
+    } catch (error: any) {
+      console.error('Modify building: ', error.message);
+      return new CustomError(error.message, error.status);
+    }
+  };
+  return { getAllBuildings, getBuildingById, addBuilding, modifyBuilding };
 };
 
 export default useBuilding;
