@@ -37,13 +37,6 @@ a {
 a:hover {
   color: #535bf2;
 }
-.app-name{
-  
-  background-position: center;
-  /* width: 100%; */
-  /* min-height: 30vh; */
-  background-repeat: no-repeat;
-}
 
 h1 {
   font-size: 3.2em;
@@ -72,10 +65,6 @@ textarea {
   border-width: 1px;
 }
 
-.hima{
- height: 6vh;
-  
-}
 
 h3{
 
@@ -116,7 +105,7 @@ button:focus-visible {
 }
 
 .padding1 {
-  padding: 1em;
+  padding: 1rem;
 }
 
 @media (prefers-color-scheme: light) {
@@ -177,51 +166,6 @@ p.error {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-/* 
-label {
-  display: flex;
-  flex-direction: column;
-} */
-
-.linktologin{
-  top: 75%;
-  position: fixed;
-  font-weight: bolder;
-  color: black;
-  transform: translate(0%, -50%);
-}
-.buttonloginandhome{
-  font-weight: bolder;
-  font-family: 'Montreal', sans-serif;  
-  width: 70%;
-  text-align: center;
-  background: transparent;
-  margin-top: 2vh;
-  padding: 1vh;
-  border-radius: 15%;
-  transform: translate(20%, 0%);
-
-}
-/* }
-ButtonLoading{
-  position: fixed;
-  left: 50%;
-  bottom: 25%;
-  transform: translate(-50%, -50%);
-  background: transparent;
-  padding: 4vh;
-  font-weight: bold;
-  width: 25vh;
-  border-radius: 15%;
-} */
-.homebutton{
-  bottom: 15%;
-  left: 15%;
-  position: fixed;
-  font-weight: bolder;
-  color: black;
-  border: #00AAA3;
 }
 
 ::placeholder {
