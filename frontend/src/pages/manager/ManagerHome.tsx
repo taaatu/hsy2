@@ -1,15 +1,11 @@
-import { useNavigate } from 'react-router-dom';
+import { WelcomeText } from '../../components/WelcomeText';
 
-export const ManagerHome = () => {
-  const navigate = useNavigate();
+const ManagerHome = () => {
   return (
     <div className="centered-container">
-      <h1>Property Manager home</h1>
-      <button>Kyselyt</button>
-      <button>Kiinteistöt</button>
-      <button onClick={() => navigate('/manager/addproperty')}>
-        Lisää kiinteistö
-      </button>
+      <WelcomeText />
     </div>
   );
 };
+
+export default ManagerHome;

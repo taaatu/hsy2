@@ -1,10 +1,9 @@
-import { SelectLevel } from './../pages/admin/createsurvey/SelectProperties';
 import { useNavigate } from 'react-router-dom';
-import { MessageResponse } from '../interfaces/Response';
 import { AssignedSurvey, Survey, SurveyHeader } from '../interfaces/Survey';
 import { format } from 'date-fns';
 import useFetch from './DoFetch';
 import { Building } from '../interfaces/Building';
+import { Answer } from '../interfaces/Answer';
 
 const useSurvey = () => {
   const navigate = useNavigate();
@@ -45,7 +44,9 @@ const useSurvey = () => {
       const response = await doFetch('survey', 'POST', survey);
       console.log('Create survey: ', response);
       if (!response.survey_id) return;
-      if (buildings.length === 0) return alert('Kysely luotu');
+      if (buildings.length === 0) {
+        return 'Kysely luotu ilman lisättyjä taloyhtiöitä';
+      }
       await Promise.all(
         buildings.map(async (building) => {
           await doFetch(`survey/assignsurevey`, 'POST', {
@@ -54,10 +55,62 @@ const useSurvey = () => {
           });
         })
       );
-      alert('Kysely luotu ja taloyhtiöt lisätty');
+      return 'Kysely luotu ja taloyhtiöt lisätty';
     } catch (error: any) {
       alert('Kyselyn luominen epäonnistui');
       throw new Error(error.message);
+    }
+  };
+
+  const createSurveyKeys = async (surveyId: number) => {
+    try {
+      const response = await doFetch('survey/assignsureveykeypost', 'POST', {
+        as_id: surveyId,
+      });
+      console.log('Create survey keys: ', response);
+      alert(response.message);
+    } catch (error: any) {
+      alert('Koodin luominen epäonnistui: ' + error.message);
+      throw new Error(error.message);
+    }
+  };
+
+  const getSurveyKeys = async (surveyId: number) => {
+    try {
+      const response = await doFetch(
+        `survey/assignsureveykey/${surveyId}/unused`,
+        'GET'
+      );
+      console.log('Get survey keys: ', response);
+      if (!response) return [];
+      // Map response to array of keys
+      const keys = response.map((obj: any) => obj.survey_key) as string[];
+      return keys as string[];
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  };
+
+  const getSurveyByKey = async (key: string) => {
+    try {
+      const response = await doFetch(`submit/${key}`, 'GET');
+      console.log('Survey by key: ', response);
+      return response as Survey;
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  };
+
+  const submitAnswers = async (answers: Answer[], surveyKey: string) => {
+    try {
+      const response = await doFetch(`submit/${surveyKey}`, 'POST', {
+        answers: answers,
+      });
+      console.log('Submit answers: ', response);
+      return true;
+    } catch (error: any) {
+      console.error('Submit answers', error.message);
+      return false;
     }
   };
 
@@ -87,7 +140,11 @@ const useSurvey = () => {
     getSurveys,
     getSurveyById,
     createSurvey,
+    createSurveyKeys,
     getAssignedSurveys,
+    getSurveyByKey,
+    submitAnswers,
+    getSurveyKeys,
     deleteSurvey,
   };
 };

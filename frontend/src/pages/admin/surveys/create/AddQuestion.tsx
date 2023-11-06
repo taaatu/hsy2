@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import styles from './CreateSurvey.module.css';
 import { Dispatch, SetStateAction } from 'react';
-import { ANSWER_1, ANSWER_2, ANSWER_3 } from '../../../variables/Constants';
-import { Question } from '../../../interfaces/Question';
+import { ANSWER_1, ANSWER_2, ANSWER_3 } from '../../../../variables/Constants';
+import { Question } from '../../../../interfaces/Question';
 import Card from 'react-bootstrap/Card';
 import { FaTrashAlt } from 'react-icons/fa';
 
@@ -20,7 +20,9 @@ const AddQuestion = ({ index, setQuestions, questions, question }: Props) => {
     );
 
   // Save input fields value on change to questions array state
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setQuestions(
       questions.map((q) => {
@@ -35,8 +37,7 @@ const AddQuestion = ({ index, setQuestions, questions, question }: Props) => {
     <Card>
       <Card.Header as="h4">Kysymys {index + 1}</Card.Header>
       <Card.Body>
-        <input
-          type="text"
+        <textarea
           placeholder="Kysymys"
           required
           name="question"
@@ -48,7 +49,7 @@ const AddQuestion = ({ index, setQuestions, questions, question }: Props) => {
           <div className="center-align">
             <span className={styles.dot} />
             <input
-              className={styles.optionInput}
+              className={`${styles.optionInput} line`}
               type="text"
               defaultValue={ANSWER_1}
               placeholder="Vastaus 1"
@@ -61,7 +62,7 @@ const AddQuestion = ({ index, setQuestions, questions, question }: Props) => {
           <div className="center-align">
             <span className={styles.dot} />
             <input
-              className={styles.optionInput}
+              className={`${styles.optionInput} line`}
               type="text"
               defaultValue={ANSWER_2}
               placeholder="Vastaus 2"
@@ -74,7 +75,7 @@ const AddQuestion = ({ index, setQuestions, questions, question }: Props) => {
           <div className="center-align">
             <span className={styles.dot} />
             <input
-              className={styles.optionInput}
+              className={`${styles.optionInput} line`}
               type="text"
               defaultValue={ANSWER_3}
               placeholder="Vastaus 3"
@@ -107,7 +108,7 @@ const AddQuestion = ({ index, setQuestions, questions, question }: Props) => {
           <input type="radio" name="question" value={1} required /> 4
           <input type="radio" name="question" value={1} required /> 5 */}
       <Card.Footer>
-        <button onClick={removeQuestion}>
+        <button onClick={removeQuestion} className="delete">
           <FaTrashAlt />
         </button>
       </Card.Footer>

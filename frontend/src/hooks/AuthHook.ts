@@ -5,6 +5,7 @@ import { ADMIN_HOME, MANAGER_HOME } from '../variables/RoutePaths';
 import { useContext } from 'react';
 import { MainContext } from '../context/MainContext';
 import useFetch from './DoFetch';
+import CustomError from '../interfaces/CustomError';
 
 const useAuth = () => {
   const navigate = useNavigate();
@@ -27,8 +28,9 @@ const useAuth = () => {
         ? navigate(ADMIN_HOME)
         : navigate(MANAGER_HOME);
       return response;
-    } catch (error) {
-      console.error('login user', error);
+    } catch (error: any) {
+      console.error('Login user: ', error.message);
+      return new CustomError(error.message, error.status);
     }
   };
 

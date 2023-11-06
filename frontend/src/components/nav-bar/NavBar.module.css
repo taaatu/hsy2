@@ -21,6 +21,7 @@
 
   .navLinks a {
     color: black;
+    
   }
   
   .topBarAppName {
@@ -38,17 +39,28 @@
     margin: 0;
     display: none;
   }
+
+  #userName {
+    display: none !important;
+  }
  
   /* Wider screens */
   @media only screen and (min-width: 770px) {
     .navLinks {
       justify-content: flex-start;
       gap: 1rem;
+      
     }
     .topBarAppName {
+      position: relative;
       display: block;
     }
     #navDropdown > p {
       display: block;
+      float: right;
+    }
+
+    #userName {
+      display: flex !important;
     }
   }

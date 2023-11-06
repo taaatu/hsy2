@@ -5,6 +5,7 @@ interface Building {
   city: string;
   post_code: string;
   name: string;
+  manager_name: string;
 }
 
 type BuildingInput = Omit<Building, 'building_id' | 'u_id'>;

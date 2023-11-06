@@ -4,7 +4,7 @@ import useSurvey from '../../../hooks/SurveyHook';
 import { Survey } from '../../../interfaces/Survey';
 import { SurveyPreview } from '../../../components/SurveyPreview';
 
-export const SingleSurveyPage = () => {
+const SingleSurveyPage = () => {
   const { surveyid } = useParams();
   const { getSurveyById, deleteSurvey } = useSurvey();
   const [survey, setSurvey] = useState<Survey>();
@@ -36,6 +36,7 @@ export const SingleSurveyPage = () => {
         Poista kysely
       </button>
       <button
+        className="colored"
         onClick={() =>
           navigate('/admin/surveys/create/' + survey.survey_header.survey_id)
         }
@@ -45,3 +46,5 @@ export const SingleSurveyPage = () => {
     </div>
   );
 };
+
+export default SingleSurveyPage;

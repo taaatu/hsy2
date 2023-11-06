@@ -1,11 +1,9 @@
 .hsyLogo {
-    position: fixed;
-    left: 50%;
-    bottom: 10px;
-    transform: translate(-50%, -50%);
-    margin: 0 auto;
+    position: absolute;
+    left: 0;
+    bottom: 0;
     max-width: 200px;
-    width: 80%;
+    width: 100%;
 }
 
 .previewModal {

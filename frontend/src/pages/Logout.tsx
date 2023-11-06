@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import useAuth from '../hooks/AuthHook';
 
-export const Logout = () => {
+const Logout = () => {
   const { logoutUser } = useAuth();
 
   useEffect(() => {
@@ -10,3 +10,5 @@ export const Logout = () => {
 
   return <div>Logout</div>;
 };
+
+export default Logout;

@@ -4,9 +4,13 @@ import { useUser } from '../../../hooks/UserHook';
 import { ButtonLoading } from '../../../components/ButtonLoading';
 import { useForm } from 'react-hook-form';
 import { FormFieldError } from '../../../components/FormFieldError';
+import CustomError from '../../../interfaces/CustomError';
+import { SuccessAlertModal } from '../../../components/SuccessAlertModal';
+import { useState } from 'react';
 
-export const CreateUser = () => {
+const CreateUserPage = () => {
   const { addUser } = useUser();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const {
     register,
@@ -18,22 +22,31 @@ export const CreateUser = () => {
   const onSubmit = async (data: User) => {
     console.log('data: ', data);
     const res = await addUser(data);
-    if (!res) {
-      console.log('add user: ', res);
+    if (res instanceof CustomError) {
+      const message =
+        res.status === 409 ? 'Sähköposti on jo käytössä' : 'Palvelinvirhe';
       setError('root.serverError', {
-        message: 'Käyttäjän luonti epäonnistui',
+        message: message,
       });
+      return;
     }
+    setShowSuccessModal(true);
   };
 
   return (
-    <div className="centered-container">
+    <main className="centered-container column">
+      <SuccessAlertModal
+        show={showSuccessModal}
+        message="Isännöitsijä lisätty onnistuneesti"
+        navRoute="/admin/managers"
+      />
       <h1>Lisää isännöitsijä</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className="color3 column" onSubmit={handleSubmit(onSubmit)}>
         <label>
           Isännöitsijän nimi
           <input
             type="text"
+            className="line"
             {...register('full_name', { required: 'Nimi vaaditaan' })}
           />
           <FormFieldError error={errors.full_name} />
@@ -41,6 +54,7 @@ export const CreateUser = () => {
         <label>
           Yrityksen nimi
           <input
+            className="line"
             {...register('company', { required: 'Yrityksen nimi vaaditaan' })}
           />
           <FormFieldError error={errors.company} />
@@ -49,6 +63,7 @@ export const CreateUser = () => {
           Sähköposti
           <input
             type="email"
+            className="line"
             {...register('email', { required: 'Sähköposti vaaditaan' })}
           />
           <FormFieldError error={errors.email} />
@@ -56,6 +71,7 @@ export const CreateUser = () => {
         <label>
           Salasana
           <input
+            className="line"
             type="password"
             {...register('password', {
               required: 'Salasana vaaditaan',
@@ -73,6 +89,8 @@ export const CreateUser = () => {
         )}
         <ButtonLoading text="Lisää isännöitsijä" />
       </form>
-    </div>
+    </main>
   );
 };
+
+export default CreateUserPage;

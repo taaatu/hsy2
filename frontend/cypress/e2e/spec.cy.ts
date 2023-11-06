@@ -1,0 +1,50 @@
+import { User } from '../../src/interfaces/User';
+
+const testUser: User = {
+  email: 'testuser@test.com',
+  password: 'Test1234',
+  full_name: 'John Doe',
+  company: 'Test Company',
+};
+
+describe('template spec', () => {
+  it('open home page', () => {
+    cy.visit('http://localhost:5173/');
+  });
+
+  it('admin add property manager', () => {
+    cy.visit('http://localhost:5173/login');
+    cy.get('input[name="email"]').type(Cypress.env('ADMIN_EMAIL'), {
+      log: false,
+    });
+    cy.get('input[name="password"]').type(Cypress.env('ADMIN_PW'), {
+      log: false,
+    });
+    cy.get('button').click();
+    cy.url().should('include', '/admin');
+    cy.get('.nav-managers').click();
+    cy.get('a[href="/admin/managers/add"]').click();
+    cy.url().should('include', '/admin/managers/add');
+    cy.get('input[name="email"]').type(testUser.email);
+    cy.get('input[name="password"]').type(testUser.password);
+    cy.get('input[name="full_name"]').type(testUser.full_name);
+    cy.get('input[name="company"]').type(testUser.company);
+    cy.get('button').click();
+    cy.get('button').contains('OK').click();
+    cy.url().should('include', '/admin/managers');
+  });
+
+  it('login with test user', () => {
+    cy.visit('http://localhost:5173/login');
+    cy.get('input[name="email"]').type(testUser.email);
+    cy.get('input[name="password"]').type(testUser.password);
+    cy.get('button').click();
+    cy.url().should('include', '/manager');
+    cy.get('.nav-profile').click();
+    cy.get('a[href="/manager/profile"]').click();
+    cy.url().should('include', '/manager/profile');
+
+    // Remove test user
+    cy.get('button').contains('Poista').click();
+  });
+});

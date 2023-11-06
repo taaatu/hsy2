@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import useBuilding from '../../../hooks/BuildingHook';
 import { useEffect } from 'react';
 
-export const SinglePropertyPage = () => {
+const SinglePropertyPage = () => {
   const { buildingid } = useParams();
 
   useEffect(() => {
@@ -17,3 +17,5 @@ export const SinglePropertyPage = () => {
     </div>
   );
 };
+
+export default SinglePropertyPage;

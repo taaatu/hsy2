@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { MainContext } from '../context/MainContext';
+import Spinner from 'react-bootstrap/Spinner';
 
 type Props = {
   text: string;
@@ -16,7 +17,7 @@ export const ButtonLoading = ({ text, onClick, classname }: Props) => {
       disabled={isLoading}
       onClick={onClick}
     >
-      {text} {isLoading && <div className="loader"></div>}
+      {text} {isLoading && <Spinner size="sm" />}
     </button>
   );
 };

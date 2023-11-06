@@ -4,7 +4,7 @@ import { Building } from '../../../interfaces/Building';
 import { SearchBar } from '../../../components/SearchBar';
 import { BuildingList } from '../../../components/lists/BuildingList';
 
-export const PropertiesPage = () => {
+const PropertiesPage = () => {
   const { getAllBuildings } = useBuilding();
   const [buildings, setBuildings] = useState<Building[]>([]);
   const [search, setSearch] = useState('');
@@ -30,8 +30,13 @@ export const PropertiesPage = () => {
   return (
     <main className="column">
       <h1>Taloyhtiöt</h1>
-      <SearchBar placeholder="Hae taloyhtiötä" handleSearch={handleSearch} />
+      <div className="sticky-header">
+        <SearchBar placeholder="Hae taloyhtiötä" handleSearch={handleSearch} />
+      </div>
+
       <BuildingList buildings={filteredBuildings} />
     </main>
   );
 };
+
+export default PropertiesPage;

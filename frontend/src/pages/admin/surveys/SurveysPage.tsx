@@ -7,7 +7,7 @@ import styles from './Surveys.module.css';
 import { SearchBar } from '../../../components/SearchBar';
 import { LoadingList } from '../../../components/lists/LoadingList';
 
-export const SurveysPage = () => {
+const SurveysPage = () => {
   const { getSurveys } = useSurvey();
   const navigate = useNavigate();
   const [surveys, setSurveys] = useState<SurveyHeader[]>([]);
@@ -33,14 +33,19 @@ export const SurveysPage = () => {
   return (
     <div className={styles.container}>
       <h1>Kyselyt</h1>
-      <div
-        style={{ marginBottom: '1em', gap: '1rem', flexWrap: 'wrap' }}
-        className="flex-row center-align"
-      >
-        <SearchBar placeholder="Hae kyselyitä" handleSearch={handleSearch} />
-        <button onClick={() => navigate('/admin/surveys/create')}>
-          Luo uusi kysely
-        </button>
+      <div className="sticky-header">
+        <div
+          style={{ marginBottom: '1em', gap: '1rem', flexWrap: 'wrap' }}
+          className="flex-row center-align"
+        >
+          <SearchBar placeholder="Hae kyselyitä" handleSearch={handleSearch} />
+          <button
+            onClick={() => navigate('/admin/surveys/create')}
+            className="colored"
+          >
+            Luo uusi kysely
+          </button>
+        </div>
       </div>
 
       <LoadingList>
@@ -58,3 +63,5 @@ export const SurveysPage = () => {
     </div>
   );
 };
+
+export default SurveysPage;

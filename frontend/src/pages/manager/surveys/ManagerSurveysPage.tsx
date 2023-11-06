@@ -3,8 +3,9 @@ import { AssignedSurvey } from '../../../interfaces/Survey';
 import useSurvey from '../../../hooks/SurveyHook';
 import { SearchBar } from '../../../components/SearchBar';
 import { useNavigate } from 'react-router-dom';
+import { LoadingList } from '../../../components/lists/LoadingList';
 
-export const ManagerSurveysPage = () => {
+const ManagerSurveysPage = () => {
   const [surveys, setSurveys] = useState<AssignedSurvey[]>([]);
   const { getAssignedSurveys } = useSurvey();
   const [search, setSearch] = useState('');
@@ -33,7 +34,7 @@ export const ManagerSurveysPage = () => {
       <h1>Kyselyt</h1>
       <SearchBar placeholder="Hae kyselyitä" handleSearch={handleSearch} />
 
-      <div className="list">
+      <LoadingList>
         {filteredSurveys.map((survey) => (
           <div key={survey.assigned_survey_id} className="list-item">
             <h4 style={{ flex: 1 }}>{survey.survey_title}</h4>
@@ -49,7 +50,9 @@ export const ManagerSurveysPage = () => {
             </button>
           </div>
         ))}
-      </div>
+      </LoadingList>
     </main>
   );
 };
+
+export default ManagerSurveysPage;

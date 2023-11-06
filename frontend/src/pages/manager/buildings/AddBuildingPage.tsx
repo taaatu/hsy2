@@ -1,11 +1,15 @@
-import { CITIES } from '../../../variables/Constants';
+import { CITIES, POST_CODE_REGEX } from '../../../variables/Constants';
 import { Building } from '../../../interfaces/Building';
 import useBuilding from '../../../hooks/BuildingHook';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { FormFieldError } from '../../../components/FormFieldError';
+import CustomError from '../../../interfaces/CustomError';
+import { SuccessAlertModal } from '../../../components/SuccessAlertModal';
+import { useState } from 'react';
 
-export const AddBuilding = () => {
+const AddBuildingPage = () => {
   const { addBuilding } = useBuilding();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const {
     register,
@@ -18,21 +22,32 @@ export const AddBuilding = () => {
 
   const onSubmit: SubmitHandler<Building> = async (data) => {
     const res = await addBuilding(data);
-    if (!res) {
+    if (res instanceof CustomError) {
+      const message =
+        res.status === 409
+          ? 'Taloyhtiö tällä osoitteella tai nimellä on jo olemassa'
+          : 'Palvelinvirhe';
       setError('root.serverError', {
-        message: 'Taloyhtiön lisäys epäonnistui',
+        message: message,
       });
       return;
     }
+    setShowSuccessModal(true);
   };
 
   return (
-    <div className="centered-container">
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <main className="centered-container">
+      <SuccessAlertModal
+        show={showSuccessModal}
+        message="Taloyhtiö lisätty onnistuneesti"
+        navRoute="/manager/properties"
+      />
+      <form className="color3 column" onSubmit={handleSubmit(onSubmit)}>
         <h4>Taloyhtiö</h4>
         <label>
           Osoite
           <input
+            className="line"
             placeholder="Osoite"
             {...register('street', { required: 'Osoite vaaditaan' })}
           />
@@ -41,9 +56,14 @@ export const AddBuilding = () => {
         <label>
           Postinumero
           <input
+            className="line"
             placeholder="Postinumero"
             {...register('post_code', {
               required: 'Postinumero vaaditaan',
+              pattern: {
+                value: POST_CODE_REGEX,
+                message: 'Postinumeron tulee olla 5 numeroa',
+              },
             })}
           />
           <FormFieldError error={errors.post_code} />
@@ -61,6 +81,7 @@ export const AddBuilding = () => {
         <label>
           Taloyhtiön nimi
           <input
+            className="line"
             {...register('name', { required: 'Nimi vaaditaan' })}
             placeholder="Taloyhtiön nimi"
           />
@@ -71,6 +92,8 @@ export const AddBuilding = () => {
         )}
         <button>Lisää taloyhtiö</button>
       </form>
-    </div>
+    </main>
   );
 };
+
+export default AddBuildingPage;

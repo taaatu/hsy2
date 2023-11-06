@@ -8,7 +8,7 @@ import { FaUser, FaUserPlus } from 'react-icons/fa';
 import { SearchBar } from '../../../../components/SearchBar';
 import { LoadingList } from '../../../../components/lists/LoadingList';
 
-export const PropertyManagers = () => {
+const PropertyManagers = () => {
   const navigate = useNavigate();
   const [userList, setUserList] = useState<User[]>([]);
   const [search, setSearch] = useState('');
@@ -39,14 +39,14 @@ export const PropertyManagers = () => {
       <h1>Isännöitsijät</h1>
       <div
         style={{ marginBottom: '1em', gap: '1rem', flexWrap: 'wrap' }}
-        className="flex-row center-align"
+        className="flex-row center-align sticky-header"
       >
         <SearchBar
           placeholder="Hae isännöitsijää"
           handleSearch={handleSearch}
         />
         <button
-          className="center-align"
+          className="center-align colored"
           style={{ gap: '0.5em' }}
           onClick={() => navigate('/admin/managers/add')}
         >
@@ -76,3 +76,5 @@ export const PropertyManagers = () => {
     </div>
   );
 };
+
+export default PropertyManagers;

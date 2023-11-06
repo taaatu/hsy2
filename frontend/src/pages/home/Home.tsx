@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './Home.module.css';
 import { useState } from 'react';
 import { AppName } from '../../components/AppName';
@@ -14,24 +14,33 @@ export const HomePage = () => {
   };
 
   return (
-    <div style={{}}>
+    <div>
       <div className={styles.main}>
         <AppName />
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="center-align">
           <input
             type="text"
             required
+            className="medium line"
             placeholder="Pääsykoodi"
             onChange={(e) => setSurveyKey(e.target.value)}
           />
 
-          <button className="buttonloginandhome">Siirry kyselyyn</button>
+          <button style={{ marginTop: '1rem' }}>Siirry kyselyyn</button>
+          <Link
+            to="/login"
+            style={{
+              color: 'black',
+              textDecoration: 'underline',
+              fontWeight: 'normal',
+              marginTop: '1rem',
+            }}
+          >
+            Oletko isännöitsijä?
+          </Link>
         </form>
         <HsyLogo />
       </div>
-      <Link to="/login" className="linktologin">
-        Kirjaudu/Login
-      </Link>
     </div>
   );
 };

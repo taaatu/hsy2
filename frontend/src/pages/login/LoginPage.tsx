@@ -7,8 +7,9 @@ import useAuth from '../../hooks/AuthHook';
 import { ButtonLoading } from '../../components/ButtonLoading';
 import { useForm } from 'react-hook-form';
 import { FormFieldError } from '../../components/FormFieldError';
+import CustomError from '../../interfaces/CustomError';
 
-export const Login = () => {
+const LoginPage = () => {
   const { loginUser } = useAuth();
 
   const {
@@ -20,9 +21,14 @@ export const Login = () => {
 
   const onSubmit = async (data: LoginInput) => {
     const res = await loginUser(data);
-    if (!res) {
+
+    if (res instanceof CustomError) {
+      const message =
+        res.status === 401
+          ? 'Sähköposti tai salasana on virheellinen'
+          : 'Palvelinvirhe';
       setError('root.serverError', {
-        message: 'Sähköposti tai salasana on virheellinen',
+        message: message,
       });
     }
   };
@@ -33,7 +39,7 @@ export const Login = () => {
       <form onSubmit={handleSubmit(onSubmit)} className={styles.loginForm}>
         <label className="loginlabel">
           <input
-            className="inputlogin"
+            className="medium line"
             type="email"
             {...register('email', { required: 'Sähköposti vaaditaan' })}
             placeholder="Sähköposti"
@@ -43,7 +49,7 @@ export const Login = () => {
 
         <label className="loginlabel">
           <input
-            className="inputlogin"
+            className="medium line"
             type="password"
             placeholder="Salasana"
             {...register('password', { required: 'Salasana vaaditaan' })}
@@ -53,12 +59,24 @@ export const Login = () => {
         {errors.root?.serverError && (
           <FormFieldError error={errors.root?.serverError} />
         )}
+
         <ButtonLoading text="Kirjaudu sisään" classname={styles.button} />
+        <Link
+          style={{
+            color: 'black',
+            textDecoration: 'underline',
+            fontWeight: 'normal',
+            marginTop: '1rem',
+          }}
+          to="/"
+        >
+          Etusivulle
+        </Link>
       </form>
-      <Link to="/" className="homebutton">
-        Home
-      </Link>
+
       <HsyLogo />
     </div>
   );
 };
+
+export default LoginPage;

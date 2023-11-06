@@ -5,12 +5,15 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { FaHome, FaUsers, FaClipboardList, FaUserCircle } from 'react-icons/fa';
+import { useContext } from 'react';
+import { MainContext } from '../../context/MainContext';
 
 type Props = {
   isAdmin: boolean;
 };
 
 export const TopNavBar = ({ isAdmin }: Props) => {
+  const { curentUser } = useContext(MainContext);
   return (
     <Navbar id={styles.topnavBar}>
       <Navbar.Brand className={styles.topBarAppName}>HIMA</Navbar.Brand>
@@ -18,6 +21,9 @@ export const TopNavBar = ({ isAdmin }: Props) => {
         <Nav className={styles.navLinks}>
           {isAdmin ? <AdminLinks /> : <ManagerLinks />}
         </Nav>
+      </Navbar.Collapse>
+      <Navbar.Collapse id={styles.userName} className="justify-content-end">
+        <Navbar.Text>{curentUser?.full_name}</Navbar.Text>
       </Navbar.Collapse>
     </Navbar>
   );
@@ -49,12 +55,14 @@ const AdminLinks = () => (
       <NavDropdown.Item as={Link} to={'/admin/surveys'}>
         Kyselyt
       </NavDropdown.Item>
+      <NavDropdown.Divider />
       <NavDropdown.Item as={Link} to={'/admin/surveys/create'}>
         Luo kysely
       </NavDropdown.Item>
     </NavDropdown>
     <NavDropdown
       id={styles.navDropdown}
+      className="nav-managers"
       title={
         <>
           <FaUsers /> <p>Isännöitsijät</p>
@@ -64,6 +72,7 @@ const AdminLinks = () => (
       <NavDropdown.Item as={Link} to={'/admin/managers/add'}>
         Lisää isännöitsijä
       </NavDropdown.Item>
+      <NavDropdown.Divider />
       <NavDropdown.Item as={Link} to={MANAGERS_PATH}>
         Isännöitsijät
       </NavDropdown.Item>
@@ -76,6 +85,9 @@ const AdminLinks = () => (
         </>
       }
     >
+      <NavDropdown.Item as={Link} to={'/admin/profile'}>
+        Omat tiedot
+      </NavDropdown.Item>
       <NavDropdown.Divider />
       <NavDropdown.Item as={Link} to={'/logout'}>
         Kirjaudu ulos
@@ -98,6 +110,7 @@ const ManagerLinks = () => (
       <NavDropdown.Item as={Link} to={'/manager/properties'}>
         Taloyhtiöt
       </NavDropdown.Item>
+      <NavDropdown.Divider />
       <NavDropdown.Item as={Link} to={'/manager/properties/add'}>
         Lisää taloyhtiö
       </NavDropdown.Item>
@@ -116,6 +129,7 @@ const ManagerLinks = () => (
     </NavDropdown>
     <NavDropdown
       id={styles.navDropdown}
+      className="nav-profile"
       title={
         <>
           <FaUserCircle /> <p>Profiili</p>
@@ -123,7 +137,7 @@ const ManagerLinks = () => (
       }
     >
       <NavDropdown.Item as={Link} to={'/manager/profile'}>
-        Profiili
+        Omat tiedot
       </NavDropdown.Item>
       <NavDropdown.Divider />
       <NavDropdown.Item as={Link} to={'/logout'}>

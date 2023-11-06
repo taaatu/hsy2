@@ -1,24 +1,27 @@
 import { useEffect, useState } from 'react';
 import AddQuestion from './AddQuestion';
-import { ANSWER_1, ANSWER_2, ANSWER_3 } from '../../../variables/Constants';
+import { ANSWER_1, ANSWER_2, ANSWER_3 } from '../../../../variables/Constants';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Survey, SurveyHeader } from '../../../interfaces/Survey';
-import { Question } from '../../../interfaces/Question';
-import useSurvey from '../../../hooks/SurveyHook.js';
+import { Survey, SurveyHeader } from '../../../../interfaces/Survey';
+import { Question } from '../../../../interfaces/Question';
+import useSurvey from '../../../../hooks/SurveyHook.js';
 import { SelectLevel, SelectProperties } from './SelectProperties.js';
-import { SurveyPreview } from '../../../components/SurveyPreview.js';
-import { ButtonLoading } from '../../../components/ButtonLoading';
+import { SurveyPreview } from '../../../../components/SurveyPreview.js';
+import { ButtonLoading } from '../../../../components/ButtonLoading';
 import styles from './CreateSurvey.module.css';
-import { Building } from '../../../interfaces/Building';
+import { Building } from '../../../../interfaces/Building';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import { SuccessAlertModal } from '../../../../components/SuccessAlertModal';
 
-export const CreateSurvey = () => {
+const CreateSurvey = () => {
   const navigate = useNavigate();
   const { surveyid } = useParams();
   const [nextId, setNextId] = useState<number>(1);
   const [selectLevel, setSelectLevel] = useState<SelectLevel>(SelectLevel.NONE);
   const [selectedBuildings, setSelectedBuildings] = useState<Building[]>([]);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [succesMessage, setSuccesMessage] = useState('');
   const [questions, setQuestions] = useState<Partial<Question>[]>([
     {
       question_id: nextId,
@@ -66,7 +69,10 @@ export const CreateSurvey = () => {
     console.log('questions: ', questions);
     console.log('surveyHeader: ', surveyHeader);
     console.log('nSurvey: ', nSurvey);
-    await createSurvey(nSurvey as Survey, selectedBuildings);
+    const _message = await createSurvey(nSurvey as Survey, selectedBuildings);
+    if (!_message) return;
+    setSuccesMessage(_message);
+    setShowSuccessModal(true);
   };
 
   useEffect(() => {
@@ -82,6 +88,11 @@ export const CreateSurvey = () => {
 
   return (
     <div className={styles.createSurvey}>
+      <SuccessAlertModal
+        show={showSuccessModal}
+        message={succesMessage}
+        navRoute="/admin/surveys"
+      />
       <form onSubmit={handleSubmit} className={styles.form}>
         <Tabs className={styles.tabsBar}>
           <Tab eventKey="survey" title="Kysely">
@@ -155,7 +166,7 @@ export const CreateSurvey = () => {
                 ))}
               </div>
 
-              <button type="button" onClick={addQuestion} className="hehe">
+              <button type="button" onClick={addQuestion} className="colored">
                 Lisää kysymys
               </button>
             </div>
@@ -182,3 +193,5 @@ export const CreateSurvey = () => {
     </div>
   );
 };
+
+export default CreateSurvey;

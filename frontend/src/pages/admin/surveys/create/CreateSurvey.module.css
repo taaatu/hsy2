@@ -31,10 +31,7 @@
     background-color: white;
 
 }
-.createsurveystuff{
-}
-.creatsurveything{
-}
+
 .createsurveybuttons{
     flex-direction: row;
     margin: auto;
@@ -56,6 +53,10 @@
 
 .input {
     background-color: white;
+    max-width: 50ch;
+    width: 100%;
+    height: 3rem;
+    resize: both;
 }
 
 .dates {

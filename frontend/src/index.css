@@ -21,25 +21,21 @@ body {
   min-width: 320px; */
   min-height: 100vh;
   background-color: beige;
-  background-image: url("https://i.gyazo.com/897cbc5bf70aad1f7ca32f031761f4ba.jpg");
+  /* background-image: url("https://i.gyazo.com/897cbc5bf70aad1f7ca32f031761f4ba.jpg"); */
+  background-image: url("https://i.imgur.com/XNRHL8q.jpg");
   background-size: cover;
+  font-family: 'Montreal', sans-serif;
+  background-position: center; 
+  resize: both;
 }
 
 
 a {
-  color: #646cff;
+  color: black;
   text-decoration: inherit;
 }
 a:hover {
   color: #535bf2;
-}
-.app-name{
-  
-  background-image:url( " https://i.gyazo.com/39e1d12e262896fea16d5790e584c13c.png"); /* tulee icon tänne */
-  background-position: center;
-  width: 100%;
-  min-height: 30vh;
-  background-repeat: no-repeat;
 }
 
 h1 {
@@ -69,10 +65,6 @@ textarea {
   border-width: 1px;
 }
 
-.hima{
- height: 6vh;
-  
-}
 
 h3{
 
@@ -81,8 +73,16 @@ button {
   width: fit-content;
   padding: 0.6em 1.2em;
   border-radius: 10px;
-  background-color: #00AAA3;
+  background-color: transparent;
+  font-size: large;
 }
+button.colored {
+  background-color: aquamarine;
+}
+button.delete {
+  background-color: red;
+}
+
 button:hover {
   border-color: #646cff;
   background-color: #00AAA3;
@@ -90,6 +90,22 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.color1 {
+  background-color: yellow;
+}
+
+.color2 {
+  background-color: white;
+}
+
+.color3 {
+  background-color: rgba(255,255,255, 0.9);
+}
+
+.padding1 {
+  padding: 1rem;
 }
 
 @media (prefers-color-scheme: light) {
@@ -112,18 +128,13 @@ button:focus-visible {
   gap: 1rem;
 }
 
-.survey-bg {
-  background-color: #E4F0F0;
-  padding: 1em;
-}
-
 form {
   display: flex;
   flex-direction: column;
   position:center;
-  margin: auto;
   padding: 2em;
   border-radius: 10px;
+  max-width: 70ch;
 }
 
 main {
@@ -156,51 +167,6 @@ p.error {
   align-items: center;
   justify-content: center;
 }
-/* 
-label {
-  display: flex;
-  flex-direction: column;
-} */
-
-.linktologin{
-  top: 75%;
-  position: fixed;
-  font-weight: bolder;
-  color: black;
-  transform: translate(0%, -50%);
-}
-.buttonloginandhome{
-  width: 50%;
-  font-size: larger;
-  text-align: center;
-  background: transparent;
-  margin-top: 2vh;
-  padding: vh;
-  font-weight: bold;
-  border-radius: 15%;
-  transform: translate(50%, 0%);
-
-}
-/* }
-ButtonLoading{
-  position: fixed;
-  left: 50%;
-  bottom: 25%;
-  transform: translate(-50%, -50%);
-  background: transparent;
-  padding: 4vh;
-  font-weight: bold;
-  width: 25vh;
-  border-radius: 15%;
-} */
-.homebutton{
-  bottom: 15%;
-  left: 15%;
-  position: fixed;
-  font-weight: bolder;
-  color: black;
-  border: #00AAA3;
-}
 
 ::placeholder {
   color: black;
@@ -214,8 +180,8 @@ ButtonLoading{
 .loginlabel{
   color: black;
   font-size: larger;
-  width: 25vh;
-   padding: 1vh;
+  /* width: 25vh; */
+   padding-bottom: 1vh;
 
 }
 .loginlabel:focus{
@@ -232,6 +198,10 @@ input{
   border-bottom: 2px solid rgb(33, 28, 28);
 }
 
+input.line {
+  border-radius: 0;
+}
+
 
 .flex-row {
   display: flex;
@@ -239,10 +209,18 @@ input{
   gap: 1rem;
 }
 
+.sticky-header {
+  position: sticky;
+  top: 10vh;
+}
+
 button.delete {
   background-color: red;
 }
-
+input.medium {
+  width: 25ch;
+  text-align: center;
+}
 .search-bar {
   width: 30ch;
 }
@@ -261,7 +239,6 @@ button.delete {
     display: flex;
     flex-direction: column;
     width: 100%;
-    background-color: white;
     border-radius: 0.5rem;
 }
 

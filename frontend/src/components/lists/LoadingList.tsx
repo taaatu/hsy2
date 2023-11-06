@@ -10,7 +10,9 @@ export const LoadingList = ({ children }: Props) => {
   const { isLoading } = useContext(MainContext);
   return (
     <>
-      <div className="list">{isLoading ? <ListSkeleton /> : children}</div>
+      <div className="list color3">
+        {isLoading ? <ListSkeleton /> : children}
+      </div>
     </>
   );
 };

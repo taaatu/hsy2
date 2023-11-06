@@ -3,15 +3,9 @@ import { User } from '../../../interfaces/User';
 import { useUser } from '../../../hooks/UserHook';
 import { ModifyUserForm } from '../../../components/forms/ModifyUserForm';
 
-export const ProfilePage = () => {
+const ProfilePage = () => {
   const [user, setUser] = useState<User | null>(null);
-  const [isModifying, setIsModifying] = useState<boolean>(false);
-  const { getUserByToken, deleteUser } = useUser();
-
-  const handleDelete = async () => {
-    if (!user?.user_id) return;
-    await deleteUser(user.user_id);
-  };
+  const { getUserByToken } = useUser();
 
   useEffect(() => {
     (async () => {
@@ -25,25 +19,12 @@ export const ProfilePage = () => {
     return (
       <div style={{ padding: '1em' }}>
         <main>
-          {isModifying ? (
-            <ModifyUserForm user={user} setIsModifying={setIsModifying} />
-          ) : (
-            <>
-              <div>{user.full_name}</div>
-              <div>{user.email}</div>
-              <div>{user.company}</div>{' '}
-              <div>
-                <button onClick={() => setIsModifying(true)}>Muokkaa</button>
-                <button
-                  style={{ backgroundColor: 'red' }}
-                  onClick={handleDelete}
-                >
-                  Poista
-                </button>
-              </div>
-            </>
-          )}
+          <>
+            <ModifyUserForm user={user} />
+          </>
         </main>
       </div>
     );
 };
+
+export default ProfilePage;

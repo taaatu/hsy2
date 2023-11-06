@@ -125,7 +125,7 @@ const getAllAssignedSurveyByUserId = async (user) => {
     try {
         if (user.user_group == 0) {
             const [rows] = await promisePool.query(
-                "SELECT assigned_survey_id,survey_id, survey_creator_id, survey_title, \
+                "SELECT b_id, assigned_survey_id,survey_id, survey_creator_id, survey_title, \
                 start_time, end_time, description, u_id as assigned_perperty_manager_u_id, street, \
                 post_code, city, name as building_name FROM(SELECT assigned_survey_id, survey.survey_id, \
                 survey.u_id as survey_creator_id, survey_title, start_time, end_time, \
@@ -136,7 +136,7 @@ const getAllAssignedSurveyByUserId = async (user) => {
             return rows;
         } else {
             const [rows] = await promisePool.query(
-                "SELECT assigned_survey_id,survey_id, survey_creator_id, survey_title, \
+                "SELECT b_id, assigned_survey_id,survey_id, survey_creator_id, survey_title, \
                 start_time, end_time, description, u_id as assigned_perperty_manager_u_id, street, \
                 post_code, city, name as building_name FROM(SELECT assigned_survey_id, survey.survey_id, \
                 survey.u_id as survey_creator_id, survey_title, start_time, end_time, \

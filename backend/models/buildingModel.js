@@ -3,19 +3,25 @@ const pool = require("../database/db");
 const { httpError } = require("../utils/errors");
 const promisePool = pool.promise();
 
-const getAllBuilding = async (userGroup,userId) => {
-    try {
-        if (userGroup == 0) {
-            const [rows] = await promisePool.execute("SELECT * FROM building");
-            return rows;
-        } else {
-            const [rows] = await promisePool.execute("SELECT * FROM building WHERE u_id = ? ", [userId]);
-            return rows;
-        }
-    } catch (e) {
-        console.error('model get all buildings', e.message);
-        throw httpError(e.message, 400);
+const getAllBuilding = async (userGroup, userId) => {
+  const sql = `SELECT u_id, building_id, city, name, post_code, street, user.full_name as manager_name
+  FROM building 
+  INNER JOIN user ON building.u_id = user.user_id`;
+
+  try {
+    if (userGroup == 0) {
+      const [rows] = await promisePool.execute(sql);
+      return rows;
+    } else {
+      const [rows] = await promisePool.execute(sql + ' WHERE u_id = ?', [
+        userId,
+      ]);
+      return rows;
     }
+  } catch (e) {
+    console.error('model get all buildings', e.message);
+    throw httpError(e.message, 400);
+  }
 };
 
 const insertBuilding = async (user,building) => {
