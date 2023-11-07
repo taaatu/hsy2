@@ -51,7 +51,27 @@ const useBuilding = () => {
       return new CustomError(error.message, error.status);
     }
   };
-  return { getAllBuildings, getBuildingById, addBuilding, modifyBuilding };
+
+  const deleteBuilding = async (id: string) => {
+    try {
+      console.log('Delete building: ', id);
+      const response = await doFetch(`building/buildingid/${id}`, 'DELETE');
+      console.log('delete building response: ', response);
+      alert('Taloyhtiö poistettu');
+      return true;
+    } catch (error: any) {
+      console.error('Delete building: ', error.message);
+      alert(error.message);
+      return new CustomError(error.message, error.status);
+    }
+  };
+  return {
+    getAllBuildings,
+    getBuildingById,
+    addBuilding,
+    modifyBuilding,
+    deleteBuilding,
+  };
 };
 
 export default useBuilding;

@@ -6,6 +6,7 @@ import { FormFieldError } from '../FormFieldError';
 import useBuilding from '../../hooks/BuildingHook';
 import CustomError from '../../interfaces/CustomError';
 import { SuccessAlertModal } from '../SuccessAlertModal';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   building: Building;
@@ -14,7 +15,8 @@ type Props = {
 export const ModifyBuildingForm = ({ building }: Props) => {
   const [isModifying, setIsModifying] = useState<boolean>(false);
   const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
-  const { modifyBuilding } = useBuilding();
+  const navigate = useNavigate();
+  const { modifyBuilding, deleteBuilding } = useBuilding();
   const {
     register,
     handleSubmit,
@@ -24,7 +26,15 @@ export const ModifyBuildingForm = ({ building }: Props) => {
   } = useForm<Building>({ defaultValues: building });
 
   const handleDelete = async () => {
-    alert('TODO: delete building');
+    const res = await deleteBuilding(String(building.building_id));
+    if (res instanceof CustomError) {
+      setError('root', {
+        type: 'serverError',
+        message: 'Taloyhtiön poistaminen epäonnistui',
+      });
+      return;
+    }
+    navigate('/manager/properties');
   };
 
   const onSubmit = async (data: Building) => {

@@ -1,49 +1,40 @@
-import PropTypes from 'prop-types';
 import styles from './CreateSurvey.module.css';
-import { Dispatch, SetStateAction } from 'react';
-import { ANSWER_1, ANSWER_2, ANSWER_3 } from '../../../../variables/Constants';
-import { Question } from '../../../../interfaces/Question';
 import Card from 'react-bootstrap/Card';
 import { FaTrashAlt } from 'react-icons/fa';
+import {
+  Control,
+  UseFieldArrayRemove,
+  UseFormRegister,
+  useWatch,
+} from 'react-hook-form';
+import { Survey } from '../../../../interfaces/Survey';
 
 type Props = {
   index: number;
-  setQuestions: Dispatch<SetStateAction<any>>;
-  questions: Question[];
-  question: Partial<Question>;
+  register: UseFormRegister<Survey>;
+  control: Control<Survey>;
+  remove: UseFieldArrayRemove;
 };
 // Component for adding questions to survey
-const AddQuestion = ({ index, setQuestions, questions, question }: Props) => {
-  const removeQuestion = () =>
-    setQuestions(
-      questions.filter((q) => q.question_id !== question.question_id)
-    );
+const AddQuestion = ({ index, register, control, remove }: Props) => {
+  const output = useWatch({
+    name: 'questions',
+    control,
+  });
 
-  // Save input fields value on change to questions array state
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setQuestions(
-      questions.map((q) => {
-        if (q.question_id === question.question_id) {
-          return { ...q, [name]: value };
-        }
-        return q;
-      })
-    );
-  };
   return (
     <Card>
       <Card.Header as="h4">Kysymys {index + 1}</Card.Header>
       <Card.Body>
         <textarea
           placeholder="Kysymys"
-          required
-          name="question"
           className={styles.input}
-          defaultValue={question.question}
-          onChange={handleInputChange}
+          {...register(`questions.${index}.question`, {
+            required: {
+              value: true,
+              message: 'Kysymys vaaditaan',
+            },
+          })}
         />
         <div className="column" style={{ gap: '0.5rem' }}>
           <div className="center-align">
@@ -51,11 +42,13 @@ const AddQuestion = ({ index, setQuestions, questions, question }: Props) => {
             <input
               className={`${styles.optionInput} line`}
               type="text"
-              defaultValue={ANSWER_1}
               placeholder="Vastaus 1"
-              required
-              name="option_1"
-              onChange={handleInputChange}
+              {...register(`questions.${index}.option_1`, {
+                required: {
+                  value: true,
+                  message: '1. vastausvaihtoehto vaaditaan',
+                },
+              })}
             />
             <div>+1</div>
           </div>
@@ -64,11 +57,13 @@ const AddQuestion = ({ index, setQuestions, questions, question }: Props) => {
             <input
               className={`${styles.optionInput} line`}
               type="text"
-              defaultValue={ANSWER_2}
               placeholder="Vastaus 2"
-              required
-              name="option_2"
-              onChange={handleInputChange}
+              {...register(`questions.${index}.option_2`, {
+                required: {
+                  value: true,
+                  message: '2. vastausvaihtoehto vaaditaan',
+                },
+              })}
             />
             <div>+0,5</div>
           </div>
@@ -77,11 +72,13 @@ const AddQuestion = ({ index, setQuestions, questions, question }: Props) => {
             <input
               className={`${styles.optionInput} line`}
               type="text"
-              defaultValue={ANSWER_3}
               placeholder="Vastaus 3"
-              required
-              name="option_3"
-              onChange={handleInputChange}
+              {...register(`questions.${index}.option_3`, {
+                required: {
+                  value: true,
+                  message: '3. vastausvaihtoehto vaaditaan',
+                },
+              })}
             />
             <div>0</div>
           </div>
@@ -108,20 +105,12 @@ const AddQuestion = ({ index, setQuestions, questions, question }: Props) => {
           <input type="radio" name="question" value={1} required /> 4
           <input type="radio" name="question" value={1} required /> 5 */}
       <Card.Footer>
-        <button onClick={removeQuestion} className="delete">
+        <button onClick={() => remove(index)} className="delete">
           <FaTrashAlt />
         </button>
       </Card.Footer>
-
-      {/* </div> */}
     </Card>
   );
-};
-
-AddQuestion.propTypes = {
-  setQuestions: PropTypes.func.isRequired,
-  questions: PropTypes.array.isRequired,
-  question: PropTypes.object.isRequired,
 };
 
 export default AddQuestion;
