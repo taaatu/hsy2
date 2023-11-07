@@ -4,10 +4,13 @@ import { format } from 'date-fns';
 import useFetch from './DoFetch';
 import { Building } from '../interfaces/Building';
 import { Answer } from '../interfaces/Answer';
+import { useContext } from 'react';
+import { MainContext } from '../context/MainContext';
 
 const useSurvey = () => {
   const navigate = useNavigate();
   const { doFetch } = useFetch();
+  const { curentUser } = useContext(MainContext);
 
   const getSurveys = async () => {
     try {
@@ -31,6 +34,7 @@ const useSurvey = () => {
 
   const createSurvey = async (survey: Survey, buildings: Building[]) => {
     try {
+      survey.survey_header.u_id = curentUser?.user_id as number;
       // Format dates
       survey.survey_header.start_time = format(
         new Date(survey.survey_header.start_time),
