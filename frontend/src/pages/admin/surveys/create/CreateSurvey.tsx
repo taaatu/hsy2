@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import AddQuestion from './AddQuestion';
 import { ANSWER_1, ANSWER_2, ANSWER_3 } from '../../../../variables/Constants';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Survey, SurveyHeader } from '../../../../interfaces/Survey';
+import { useParams } from 'react-router-dom';
+import { Survey, SurveyStatus } from '../../../../interfaces/Survey';
 import { Question } from '../../../../interfaces/Question';
 import useSurvey from '../../../../hooks/SurveyHook.js';
 import { SelectLevel, SelectProperties } from './SelectProperties.js';
@@ -13,65 +13,56 @@ import { Building } from '../../../../interfaces/Building';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { SuccessAlertModal } from '../../../../components/SuccessAlertModal';
+import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import { FormFieldError } from '../../../../components/FormFieldError';
+import { FormErrorList } from './FormErrorList';
+
+const defaultQuestion: Question = {
+  question: '',
+  option_1: ANSWER_1,
+  option_2: ANSWER_2,
+  option_3: ANSWER_3,
+};
 
 const CreateSurvey = () => {
-  const navigate = useNavigate();
   const { surveyid } = useParams();
-  const [nextId, setNextId] = useState<number>(1);
   const [selectLevel, setSelectLevel] = useState<SelectLevel>(SelectLevel.NONE);
   const [selectedBuildings, setSelectedBuildings] = useState<Building[]>([]);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [succesMessage, setSuccesMessage] = useState('');
-  const [questions, setQuestions] = useState<Partial<Question>[]>([
-    {
-      question_id: nextId,
-      option_1: ANSWER_1,
-      option_2: ANSWER_2,
-      option_3: ANSWER_3,
-    },
-  ]);
-  // const [survey, setSurvey] = useState({});
-  const [surveyHeader, setSurveyHeader] = useState<Partial<SurveyHeader>>({
-    u_id: 27,
-    start_time: new Date().toISOString().slice(0, 10),
-  });
 
   const { createSurvey, getSurveyById } = useSurvey();
-  const addQuestion = () => {
-    setQuestions([
-      ...questions,
-      {
-        question_id: nextId + 1,
-        option_1: ANSWER_1,
-        option_2: ANSWER_2,
-        option_3: ANSWER_3,
+  const {
+    register,
+    control,
+    handleSubmit,
+    reset,
+    getValues,
+    setError,
+    formState: { errors },
+  } = useForm<Survey>({
+    defaultValues: {
+      survey_header: {
+        survey_status: SurveyStatus.UNPUBLISHED,
+        start_time: new Date().toISOString().slice(0, 10),
       },
-    ]);
-    setNextId(nextId + 1);
-  };
+      questions: [defaultQuestion],
+    },
+  });
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'questions',
+  });
 
-  const handleHeaderChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setSurveyHeader({
-      ...surveyHeader,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const nSurvey: Survey = {
-      survey_header: surveyHeader as SurveyHeader,
-      questions: questions as Question[],
-    };
-    console.log('questions: ', questions);
-    console.log('surveyHeader: ', surveyHeader);
-    console.log('nSurvey: ', nSurvey);
-    const _message = await createSurvey(nSurvey as Survey, selectedBuildings);
-    if (!_message) return;
-    setSuccesMessage(_message);
+  const onSubmit = async (data: Survey) => {
+    data.survey_header.survey_status =
+      data.survey_header.survey_status === true
+        ? SurveyStatus.PUBLISHED
+        : SurveyStatus.UNPUBLISHED;
+    console.log('data: ', data);
+    const res = await createSurvey(data, selectedBuildings);
+    if (!res) return;
+    setSuccesMessage(res);
     setShowSuccessModal(true);
   };
 
@@ -81,8 +72,7 @@ const CreateSurvey = () => {
     (async () => {
       const _survey = await getSurveyById(surveyid);
       if (!_survey) return;
-      setSurveyHeader(_survey.survey_header);
-      setQuestions(_survey.questions);
+      reset(_survey);
     })();
   }, []);
 
@@ -93,7 +83,7 @@ const CreateSurvey = () => {
         message={succesMessage}
         navRoute="/admin/surveys"
       />
-      <form onSubmit={handleSubmit} className={styles.form}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <Tabs className={styles.tabsBar}>
           <Tab eventKey="survey" title="Kysely">
             <div className="column" style={{ maxWidth: '60ch', gap: '1rem' }}>
@@ -104,11 +94,14 @@ const CreateSurvey = () => {
                   className={styles.input}
                   type="text"
                   placeholder="Kyselyn nimi"
-                  required
-                  name="survey_title"
-                  defaultValue={surveyHeader.survey_title}
-                  onChange={handleHeaderChange}
+                  {...register('survey_header.survey_title', {
+                    required: {
+                      value: true,
+                      message: 'Kyselyn nimi vaaditaan',
+                    },
+                  })}
                 />
+                <FormFieldError error={errors.survey_header?.survey_title} />
               </label>
               <div className={styles.dates}>
                 <label className="createsurveything">
@@ -117,11 +110,14 @@ const CreateSurvey = () => {
                     type="date"
                     placeholder="Alkaa"
                     className={styles.input}
-                    required
-                    name="start_time"
-                    defaultValue={surveyHeader.start_time}
-                    onChange={handleHeaderChange}
+                    {...register('survey_header.start_time', {
+                      required: {
+                        value: true,
+                        message: 'Alkamispäivä vaaditaan',
+                      },
+                    })}
                   />
+                  <FormFieldError error={errors.survey_header?.start_time} />
                 </label>
                 <label className="createsurveything">
                   Päättyy
@@ -129,11 +125,14 @@ const CreateSurvey = () => {
                     type="date"
                     placeholder="Päättyy"
                     className={styles.input}
-                    required
-                    name="end_time"
-                    defaultValue={surveyHeader.end_time}
-                    onChange={handleHeaderChange}
+                    {...register('survey_header.end_time', {
+                      required: {
+                        value: true,
+                        message: 'Päättymispäivä vaaditaan',
+                      },
+                    })}
                   />
+                  <FormFieldError error={errors.survey_header?.end_time} />
                 </label>
               </div>
 
@@ -141,32 +140,39 @@ const CreateSurvey = () => {
                 Kuvaus
                 <textarea
                   placeholder="Kuvaus"
-                  required
-                  name="description"
-                  defaultValue={surveyHeader.description}
-                  onChange={handleHeaderChange}
+                  {...register('survey_header.description', {
+                    required: {
+                      value: true,
+                      message: 'Kuvaus vaaditaan',
+                    },
+                  })}
                 />
+                <FormFieldError error={errors.survey_header?.description} />
               </label>
             </div>
-            {/* <AddQuestion /> */}
-
-            {/* <ButtonLoading text="Luo kysely" /> */}
           </Tab>
           <Tab eventKey="questions" title="Kysymykset" id="column">
             <div className="column">
-              <h3>{`Kysymyksiä (${questions.length})`}</h3>
+              <h3>{`Kysymyksiä (${fields.length})`}</h3>
               <div className="column" style={{ gap: '1rem' }}>
-                {questions.map((question, index) => (
-                  <AddQuestion
-                    index={index}
-                    setQuestions={setQuestions}
-                    questions={questions as Question[]}
-                    question={question}
-                  />
+                {fields.map((field, index) => (
+                  <>
+                    <AddQuestion
+                      key={field.id}
+                      index={index}
+                      register={register}
+                      control={control}
+                      remove={remove}
+                    />
+                  </>
                 ))}
               </div>
 
-              <button type="button" onClick={addQuestion} className="colored">
+              <button
+                type="button"
+                className="colored"
+                onClick={() => append(defaultQuestion)}
+              >
                 Lisää kysymys
               </button>
             </div>
@@ -180,13 +186,30 @@ const CreateSurvey = () => {
             />
           </Tab>
           <Tab eventKey="create" title="Luo kysely">
-            <SurveyPreview
-              survey={{
-                survey_header: surveyHeader as SurveyHeader,
-                questions: questions as Question[],
-              }}
-            />
-            <ButtonLoading text="Luo kysely" />
+            <div className="column color3 padding1">
+              <label className="flex-row center-align">
+                <Controller
+                  name="survey_header.survey_status"
+                  control={control}
+                  rules={{ required: false }}
+                  render={({ field }) => (
+                    <input
+                      style={{ height: '1rem', width: '1rem' }}
+                      type="checkbox"
+                      {...field}
+                    />
+                  )}
+                />
+                Jaa kysely isännöitsijöille
+              </label>
+
+              <SurveyPreview survey={getValues()} />
+              <ButtonLoading text="Luo kysely" />
+              <FormErrorList
+                errors={errors}
+                questions={getValues().questions}
+              />
+            </div>
           </Tab>
         </Tabs>
       </form>

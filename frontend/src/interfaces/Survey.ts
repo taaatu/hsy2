@@ -7,7 +7,13 @@ type SurveyHeader = {
   description: string;
   start_time: string;
   end_time: string;
+  survey_status?: SurveyStatus | boolean;
 };
+
+enum SurveyStatus {
+  PUBLISHED = 'published',
+  UNPUBLISHED = 'unpublished',
+}
 
 interface Survey {
   survey_header: SurveyHeader;
@@ -30,4 +36,4 @@ type AssignedSurvey = {
   building_name: number;
 };
 
-export { Survey, SurveyHeader, AssignedSurvey };
+export { Survey, SurveyHeader, AssignedSurvey, SurveyStatus };
