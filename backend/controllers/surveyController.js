@@ -20,7 +20,8 @@ const {
     updateKeyStatus,
     checkKeyStatus,
     getAllAssignedSurveyAnswersByKey,
-    getSurveyQuestionByQuestionId
+    getSurveyQuestionByQuestionId,
+    getAssigndSurveyIdByKey
 } = require('../models/surveyModel');
 const {
     generateSixDigitNumber,
@@ -240,11 +241,16 @@ const survey_question_answer_post = async (req, res, next) => {
 
 const survey_answer_get_by_key = async (req, res, next) => { 
     try {
-        const key_status = await checkKeyStatus(req.params.key)
-        if (key_status.key_status == "used") { 
+        const own_key_status = await checkKeyStatus(req.params.key)
+        if (own_key_status.key_status == "used") { 
             const assigned_survey_info = await getAssignedSurveyInfoByKey("used", req.params.key);
             const survey = await getSurveyById(assigned_survey_info.s_id);
             const saved_answers = await getAllAssignedSurveyAnswersByKey(req.params.key);
+            const key_status = "used"
+            const survey_point_list = [];
+            const assgned_survey_id = await getAssigndSurveyIdByKey(req.params.key)
+            const answered_survey_keys = await getAllKeyByAssignedSurveyId(assgned_survey_id.as_id, key_status);
+            let number_of_questions = 0
             let survey_points = 0
             for (let savedAnswer of saved_answers) {
                 const survey_question = await getSurveyQuestionByQuestionId(savedAnswer.q_id);
@@ -254,7 +260,30 @@ const survey_answer_get_by_key = async (req, res, next) => {
                     survey_points += 0.5
                 }
             }
-            res.json({ survey_head: survey, survey_answers: saved_answers, survey_points: survey_points});
+
+            for (let answered_survey_key of answered_survey_keys) {
+                const saved_answers = await getAllAssignedSurveyAnswersByKey(answered_survey_key.survey_key);
+                let survey_points = 0
+                number_of_questions = saved_answers.length
+                for (let savedAnswer of saved_answers) {
+                    const survey_question = await getSurveyQuestionByQuestionId(savedAnswer.q_id);
+                    if (survey_question.option_1 == savedAnswer.selected_option) {
+                        survey_points += 1
+                    } else if (survey_question.option_2 == savedAnswer.selected_option) {
+                        survey_points += 0.5
+                    }
+                }
+                survey_point_list.push(survey_points)
+            }
+
+            const total_point = survey_point_list.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+            const rounded_average_point = (total_point / survey_point_list.length).toFixed(2);
+            const average_percentage = (total_point / (number_of_questions * survey_point_list.length)) * 100;
+            const formatted_average_percentage = average_percentage.toFixed(1) + "%";
+            const own_percentage = (survey_points / saved_answers.length) * 100;
+            const formatted_own_percentage = own_percentage.toFixed(1) + "%";
+
+            res.json({ survey_head: survey, survey_answers: saved_answers, average_percentage: formatted_average_percentage, average_survey_point: rounded_average_point, own_percentage: formatted_own_percentage, own_survey_points: survey_points});
         } else {
             throw httpError("Fail to check survey anwser, because this has not yet been submited.", 400);
         }
@@ -272,13 +301,15 @@ const assigned_survey_answer_list_get = async (req, res, next) => {
         const merged_statics = [];
         const answered_survey_keys = await getAllKeyByAssignedSurveyId(req.params.as_id, key_status);
         const number_of_answers = answered_survey_keys.length
+        let number_of_questions = 0
 
         for (let answered_survey_key of answered_survey_keys) {
-            req.params.key = answered_survey_key.survey_key
-            const assigned_survey_info = await getAssignedSurveyInfoByKey(key_status, req.params.key);
+            const assigned_survey_info = await getAssignedSurveyInfoByKey(key_status, answered_survey_key.survey_key);
             const survey = await getSurveyById(assigned_survey_info.s_id);
-            const saved_answers = await getAllAssignedSurveyAnswersByKey(req.params.key);
+            const saved_answers = await getAllAssignedSurveyAnswersByKey(answered_survey_key.survey_key);
             let survey_points = 0
+            let percentage = 0
+            number_of_questions = saved_answers.length
 
             for (let savedAnswer of saved_answers) {
                 let number_option_1 = 0
@@ -302,11 +333,14 @@ const assigned_survey_answer_list_get = async (req, res, next) => {
                 }
                 survey_statistics_list.push(survey_question_statistics) 
             }
+            percentage = (survey_points / number_of_questions) * 100;
+            const formatted_percentage = percentage.toFixed(1) + "%";
 
             const survey_answer = {
                 survey_head: survey,
                 survey_answers: saved_answers,
-                survey_points: survey_points
+                survey_points: survey_points,
+                percentage: formatted_percentage
             }
             survey_answer_list.push(survey_answer)
             survey_point_list.push(survey_points)
@@ -314,6 +348,8 @@ const assigned_survey_answer_list_get = async (req, res, next) => {
 
         const total_point = survey_point_list.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
         const rounded_average_point = (total_point / survey_point_list.length).toFixed(2);
+        const average_percentage = (total_point / (number_of_questions * survey_point_list.length)) * 100;
+        const formatted_average_percentage = average_percentage.toFixed(1) + "%";
 
         survey_statistics_list.forEach((survey_statistics) => {
             const existing_survey_statistics = merged_statics.find((mergedItem) => mergedItem.question === survey_statistics.question);
@@ -326,7 +362,7 @@ const assigned_survey_answer_list_get = async (req, res, next) => {
             }
         });
 
-        res.json({number_of_answers: number_of_answers, survey_point_list: survey_point_list, average_survey_point: rounded_average_point, survey_questions_statistics: merged_statics, survey_answers: survey_answer_list});
+        res.json({number_of_answers: number_of_answers, survey_point_list: survey_point_list, average_percentage: formatted_average_percentage, average_survey_point: rounded_average_point, survey_questions_statistics: merged_statics, survey_answers: survey_answer_list});
     } catch(error) {
         next(error);
     };

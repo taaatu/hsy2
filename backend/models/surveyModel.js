@@ -284,6 +284,19 @@ const updateSurveyStatus = async (surveyId) => {
     }
 }; 
 
+const getAssigndSurveyIdByKey = async (key) => {
+    try {
+        const [rows] = await promisePool.execute(
+            "SELECT * FROM assigned_survey_key WHERE survey_key = ?",
+            [key]
+        );
+        return rows[0];
+    } catch (e) {
+        console.error("model get assigned survey id by key", e.message);
+        throw httpError(e.message, 400);
+    }
+};
+
 
 
 module.exports = {
@@ -304,5 +317,6 @@ module.exports = {
     checkKeyStatus,
     getAllAssignedSurveyAnswersByKey,
     getSurveyQuestionByQuestionId,
-    updateSurveyStatus
+    updateSurveyStatus,
+    getAssigndSurveyIdByKey
 }; 
