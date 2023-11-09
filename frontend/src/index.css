@@ -24,7 +24,7 @@ body {
   /* background-image: url("https://i.gyazo.com/897cbc5bf70aad1f7ca32f031761f4ba.jpg"); */
   background-image: url("https://i.imgur.com/XNRHL8q.jpg");
   background-size: cover;
-  font-family: 'Montreal', sans-serif;
+  font-family: 'Montserrat';  
   background-position: center; 
   resize: both;
 }
@@ -73,7 +73,7 @@ button {
   width: fit-content;
   padding: 0.6em 1.2em;
   border-radius: 10px;
-  background-color: transparent;
+  background-color: #dccbbd;
   font-size: large;
 }
 button.colored {
@@ -84,8 +84,8 @@ button.delete {
 }
 
 button:hover {
-  border-color: #646cff;
-  background-color: #00AAA3;
+  border-color:  #3b4042;
+  background-color:#aaa5a0  ;
 }
 button:focus,
 button:focus-visible {

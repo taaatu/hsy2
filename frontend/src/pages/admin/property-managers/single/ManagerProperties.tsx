@@ -25,6 +25,11 @@ export const ManagerProperties = ({ user }: Props) => {
   return (
     <div>
       <h4>Taloyhtiöt {`(${buildings.length})`}</h4>
+      <div className='ManagerPropertiesTitles'>
+      <h5>Osoite</h5>
+      <h5>Rakennus</h5>
+      <h5>Isännöitsijä</h5>
+      </div>
       <BuildingList buildings={buildings} />
     </div>
   );

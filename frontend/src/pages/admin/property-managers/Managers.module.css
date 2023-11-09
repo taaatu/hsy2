@@ -1,5 +1,6 @@
 .container {
     padding: 1em;
+    background-color: rgb(125, 125, 125, 0.5);
 }
     
 .managersList {
@@ -7,6 +8,7 @@
     flex-direction: column;
     width: 100%;
     background-color: white;
+    
 }
 
 .listItem {
@@ -23,4 +25,10 @@
     top:50%;
     right:0.5rem;
     transform: translateY(-50%);
+}
+.ManagerPropertiesTitles{
+}
+
+label{
+    font-weight: bold;
 }
