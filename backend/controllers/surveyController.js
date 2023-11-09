@@ -277,11 +277,11 @@ const survey_answer_get_by_key = async (req, res, next) => {
             }
 
             const total_point = survey_point_list.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-            const rounded_average_point = (total_point / survey_point_list.length).toFixed(2);
+            const rounded_average_point = Number((total_point / survey_point_list.length).toFixed(2));
             const average_percentage = (total_point / (number_of_questions * survey_point_list.length)) * 100;
-            const formatted_average_percentage = average_percentage.toFixed(1) + "%";
+            const formatted_average_percentage = Number(average_percentage.toFixed(1));
             const own_percentage = (survey_points / saved_answers.length) * 100;
-            const formatted_own_percentage = own_percentage.toFixed(1) + "%";
+            const formatted_own_percentage = Number(own_percentage.toFixed(1));
 
             res.json({ survey_head: survey, survey_answers: saved_answers, average_percentage: formatted_average_percentage, average_survey_point: rounded_average_point, own_percentage: formatted_own_percentage, own_survey_points: survey_points});
         } else {
