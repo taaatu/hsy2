@@ -178,7 +178,7 @@ const assigned_survey_key_post = async (req, res, next) => {
             next(err);
             return;
         }
-        const assigned_survey_info = await getSurveyInfoByAssignedSurveyId("unused",req.body.as_id);
+        const assigned_survey_info = await getSurveyInfoByAssignedSurveyId(req.body.as_id);
         const survey_info = await getSurveyById(assigned_survey_info.s_id);
         const currentDate = getCurrentDate();
 
