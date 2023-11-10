@@ -26,6 +26,7 @@ import {
   ManagerProperties,
   ManagerHome,
   ManagerBuildingPage,
+  ManagerBaseSurveyPage,
 } from './pages';
 import { MainProvider } from './context/MainContext';
 import { UserGroup } from './interfaces/User';
@@ -82,8 +83,9 @@ function App() {
                 </Route>
                 <Route path="surveys">
                   <Route index element={<ManagerSurveysPage />} />
+                  <Route path=":surveyid" element={<ManagerBaseSurveyPage />} />
                   <Route
-                    path=":surveyid"
+                    path=":surveyid/assigned/:id"
                     element={<ManagerSingleSurveyPage />}
                   />
                 </Route>
