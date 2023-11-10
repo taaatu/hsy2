@@ -4,6 +4,7 @@ import { Answer } from '../../interfaces/Answer';
 import AnswerQuestion from './AnswerQuestion';
 import useSurvey from '../../hooks/SurveyHook';
 import { SuccessAlertModal } from '../SuccessAlertModal';
+import { ButtonLoading } from '../ButtonLoading';
 
 type Props = {
   survey: Partial<Survey>;
@@ -42,13 +43,16 @@ export const AnswerSurveyForm = ({
   }, [survey]);
 
   return (
-    <div className="color3">
+    <div className="color3 rounded">
       <SuccessAlertModal
         show={showSuccessModal}
         message="Kysely on lähetetty"
-        navRoute="/survey/results"
+        navRoute={`/survey/${surveyKey}/results`}
       />
-      <div className="color1 padding1">
+      <div
+        style={{ borderRadius: '0.5rem 0.5rem 0 0' }}
+        className="color1 padding1"
+      >
         <h2>{survey.survey_header?.survey_title ?? 'Ei nimeä'}</h2>
         <p style={{ whiteSpace: 'pre-line' }}>
           {survey.survey_header?.description ?? 'Ei kuvausta'}
@@ -75,12 +79,10 @@ export const AnswerSurveyForm = ({
             ))}
           </>
         )}
-        <input
-          style={{ width: 'fit-content' }}
-          type="submit"
-          value="Lähetä vastaukset"
-          disabled={isPreview}
-        />
+
+        <div style={{ alignSelf: 'center' }}>
+          <ButtonLoading text="Lähetä vastaukset" />
+        </div>
       </form>
     </div>
   );
