@@ -44,7 +44,10 @@ function App() {
                 path="/survey/:surveyid"
                 element={<SurveyAnswerPage isPreview={false} />}
               />
-              <Route path="/survey/results" element={<UserResultsPage />} />
+              <Route
+                path="/survey/:key/results"
+                element={<UserResultsPage />}
+              />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/logout" element={<Logout />} />
 
@@ -66,7 +69,7 @@ function App() {
                 <Route path="survey/edit" element={<EditSurveyPage />} />
                 <Route path="properties">
                   <Route index element={<PropertiesPage />} />
-                  <Route path=":buildingid" element={<SinglePropertyPage />} />
+                  <Route path=":buildingid" element={<ManagerBuildingPage />} />
                 </Route>
                 <Route path="profile" element={<ProfilePage />} />
               </Route>

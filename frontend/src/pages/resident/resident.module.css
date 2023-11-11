@@ -1,0 +1,10 @@
+.lineBox {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    height: fit-content;
+    border-radius: 0.5rem;
+}
+.axis {
+    border-bottom: 5px solid black;
+}
