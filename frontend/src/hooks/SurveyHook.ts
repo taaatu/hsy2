@@ -66,6 +66,25 @@ const useSurvey = () => {
     }
   };
 
+  const assignSurveyToBuildings = async (
+    buildings: Building[],
+    surveyid: number
+  ) => {
+    try {
+      await Promise.all(
+        buildings.map(async (building) => {
+          await doFetch(`survey/assignsurevey`, 'POST', {
+            b_id: building.building_id,
+            s_id: surveyid,
+          });
+        })
+      );
+    } catch (error: any) {
+      console.error('Assign survey to buildings', error.message);
+      alert('Kyselyn lisääminen taloyhtiöihin epäonnistui');
+    }
+  };
+
   const createSurveyKeys = async (surveyId: number) => {
     try {
       const response = await doFetch('survey/assignsureveykeypost', 'POST', {
@@ -149,6 +168,7 @@ const useSurvey = () => {
     getSurveyByKey,
     submitAnswers,
     getSurveyKeys,
+    assignSurveyToBuildings,
     deleteSurvey,
   };
 };
