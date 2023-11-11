@@ -5,3 +5,12 @@
     padding: 0.5rem 1rem;
     border-bottom: 1px solid lightgray;
 }
+
+.listItem {
+    display: flex;
+    gap: 1em;
+    padding: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid lightgray;
+}

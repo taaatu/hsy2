@@ -29,6 +29,9 @@ body {
   resize: both;
 }
 
+p {
+  white-space: pre-line;
+}
 
 a {
   color: black;
@@ -75,12 +78,13 @@ button {
   border-radius: 10px;
   background-color: #dccbbd;
   font-size: large;
+  color: black !important;
 }
 button.colored {
-  background-color: aquamarine;
+  background-color: #dcdcd9;
 }
 button.delete {
-  background-color: red;
+  background-color: tomato;
 }
 
 button:hover {
@@ -93,7 +97,7 @@ button:focus-visible {
 }
 
 .color1 {
-  background-color: yellow;
+  background-color: #dcdcd9;
 }
 
 .color2 {
@@ -106,6 +110,10 @@ button:focus-visible {
 
 .padding1 {
   padding: 1rem;
+}
+
+.rounded {
+  border-radius: 0.5rem;
 }
 
 @media (prefers-color-scheme: light) {
@@ -214,9 +222,6 @@ input.line {
   top: 10vh;
 }
 
-button.delete {
-  background-color: red;
-}
 input.medium {
   width: 25ch;
   text-align: center;

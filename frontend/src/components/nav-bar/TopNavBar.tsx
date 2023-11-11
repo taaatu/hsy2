@@ -16,7 +16,9 @@ export const TopNavBar = ({ isAdmin }: Props) => {
   const { curentUser } = useContext(MainContext);
   return (
     <Navbar id={styles.topnavBar}>
-      <Navbar.Brand className={styles.topBarAppName}>HIMA</Navbar.Brand>
+      <Navbar.Brand className={styles.topBarAppName}>
+        <img style={{ width: '100px' }} src="https://i.imgur.com/DkIswJE.png" />
+      </Navbar.Brand>
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className={styles.navLinks}>
           {isAdmin ? <AdminLinks /> : <ManagerLinks />}
@@ -69,12 +71,12 @@ const AdminLinks = () => (
         </>
       }
     >
-      <NavDropdown.Item as={Link} to={'/admin/managers/add'}>
-        Lisää isännöitsijä
-      </NavDropdown.Item>
-      <NavDropdown.Divider />
       <NavDropdown.Item as={Link} to={MANAGERS_PATH}>
         Isännöitsijät
+      </NavDropdown.Item>
+      <NavDropdown.Divider />
+      <NavDropdown.Item as={Link} to={'/admin/managers/add'}>
+        Lisää isännöitsijä
       </NavDropdown.Item>
     </NavDropdown>
     <NavDropdown

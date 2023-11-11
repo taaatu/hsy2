@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom';
 import { Survey, SurveyStatus } from '../../../../interfaces/Survey';
 import { Question } from '../../../../interfaces/Question';
 import useSurvey from '../../../../hooks/SurveyHook.js';
-import { SelectLevel, SelectProperties } from './SelectProperties.js';
 import { SurveyPreview } from '../../../../components/SurveyPreview.js';
 import { ButtonLoading } from '../../../../components/ButtonLoading';
 import styles from './CreateSurvey.module.css';
@@ -26,7 +25,6 @@ const defaultQuestion: Question = {
 
 const CreateSurvey = () => {
   const { surveyid } = useParams();
-  const [selectLevel, setSelectLevel] = useState<SelectLevel>(SelectLevel.NONE);
   const [selectedBuildings, setSelectedBuildings] = useState<Building[]>([]);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [succesMessage, setSuccesMessage] = useState('');
@@ -177,14 +175,7 @@ const CreateSurvey = () => {
               </button>
             </div>
           </Tab>
-          <Tab eventKey="properties" title="Lisää taloyhtiöt">
-            <SelectProperties
-              selectLevel={selectLevel}
-              setSelectLevel={setSelectLevel}
-              selectedBuildings={selectedBuildings}
-              setSelectedBuildings={setSelectedBuildings}
-            />
-          </Tab>
+
           <Tab eventKey="create" title="Luo kysely">
             <div className="column color3 padding1">
               <label className="flex-row center-align">

@@ -22,7 +22,9 @@ export const SuccessAlertModal = ({ show, message, navRoute }: Props) => {
         <h4>{message}</h4>
       </Modal.Body>
       <Modal.Footer style={{ justifyContent: 'center' }}>
-        <button onClick={handleClick}>OK</button>
+        <button id="success-ok" onClick={handleClick}>
+          OK
+        </button>
       </Modal.Footer>
     </Modal>
   );

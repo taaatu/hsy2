@@ -15,6 +15,7 @@ export const ModifyUserForm = ({ user }: Props) => {
   const [isModifying, setIsModifying] = useState<boolean>(false);
   const {
     register,
+    reset,
     handleSubmit,
     setError,
     formState: { errors },
@@ -38,7 +39,11 @@ export const ModifyUserForm = ({ user }: Props) => {
   };
 
   return (
-    <form className="color3 column" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="color3 column"
+      style={{ margin: 'auto' }}
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <label>
         Nimi
         <input
@@ -100,7 +105,13 @@ export const ModifyUserForm = ({ user }: Props) => {
         {isModifying ? (
           <>
             <ButtonLoading text="Tallenna" />
-            <button type="button" onClick={() => setIsModifying(false)}>
+            <button
+              type="button"
+              onClick={() => {
+                setIsModifying(false);
+                reset();
+              }}
+            >
               Poistu
             </button>
           </>

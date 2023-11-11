@@ -19,7 +19,9 @@ export const LoginPage = lazy(() => import('./login/LoginPage'));
 export const SurveyAnswerPage = lazy(() =>
   import('./resident/SurveyAnswerPage')
 );
-export const UserResultsPage = lazy(() => import('./resident/UserResultsPage'));
+export const UserResultsPage = lazy(() =>
+  import('./resident/results/UserResultsPage')
+);
 export const AddBuildingPage = lazy(() =>
   import('./manager/buildings/AddBuildingPage')
 );
@@ -50,4 +52,7 @@ export const ManagerHome = lazy(() => import('./manager/ManagerHome'));
 
 export const ManagerBuildingPage = lazy(() =>
   import('./manager/buildings/ManagerBuildingPage')
+);
+export const ManagerBaseSurveyPage = lazy(() =>
+  import('./manager/surveys/ManagerBaseSurveyPage')
 );

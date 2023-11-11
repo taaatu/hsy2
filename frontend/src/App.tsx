@@ -26,6 +26,7 @@ import {
   ManagerProperties,
   ManagerHome,
   ManagerBuildingPage,
+  ManagerBaseSurveyPage,
 } from './pages';
 import { MainProvider } from './context/MainContext';
 import { UserGroup } from './interfaces/User';
@@ -43,7 +44,10 @@ function App() {
                 path="/survey/:surveyid"
                 element={<SurveyAnswerPage isPreview={false} />}
               />
-              <Route path="/survey/results" element={<UserResultsPage />} />
+              <Route
+                path="/survey/:key/results"
+                element={<UserResultsPage />}
+              />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/logout" element={<Logout />} />
 
@@ -65,7 +69,7 @@ function App() {
                 <Route path="survey/edit" element={<EditSurveyPage />} />
                 <Route path="properties">
                   <Route index element={<PropertiesPage />} />
-                  <Route path=":buildingid" element={<SinglePropertyPage />} />
+                  <Route path=":buildingid" element={<ManagerBuildingPage />} />
                 </Route>
                 <Route path="profile" element={<ProfilePage />} />
               </Route>
@@ -82,8 +86,9 @@ function App() {
                 </Route>
                 <Route path="surveys">
                   <Route index element={<ManagerSurveysPage />} />
+                  <Route path=":surveyid" element={<ManagerBaseSurveyPage />} />
                   <Route
-                    path=":surveyid"
+                    path=":surveyid/assigned/:id"
                     element={<ManagerSingleSurveyPage />}
                   />
                 </Route>

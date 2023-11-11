@@ -283,7 +283,7 @@ const survey_answer_get_by_key = async (req, res, next) => {
             const own_percentage = (survey_points / saved_answers.length) * 100;
             const formatted_own_percentage = Number(own_percentage.toFixed(1));
 
-            res.json({ survey_head: survey, survey_answers: saved_answers, average_percentage: formatted_average_percentage, average_survey_point: rounded_average_point, own_percentage: formatted_own_percentage, own_survey_points: survey_points});
+            res.json({ survey_head: survey, survey_answers: saved_answers, average_percentage: formatted_average_percentage, average_survey_point: rounded_average_point, own_percentage: formatted_own_percentage, own_survey_points: survey_points, answer_count: answered_survey_keys.length});
         } else {
             throw httpError("Fail to check survey anwser, because this has not yet been submited.", 400);
         }

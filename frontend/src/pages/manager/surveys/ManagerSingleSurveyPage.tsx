@@ -22,7 +22,7 @@ import Tabs from 'react-bootstrap/esm/Tabs';
 import { Tab } from 'react-bootstrap';
 
 const ManagerSingleSurveyPage = () => {
-  const { surveyid } = useParams();
+  const { id } = useParams();
   const [survey, setSurvey] = useState<AssignedSurvey>();
   const [surveyKeys, setSurveyKeys] = useState<string[]>([]);
   const { createSurveyKeys, getAssignedSurveys, getSurveyKeys } = useSurvey();
@@ -37,7 +37,7 @@ const ManagerSingleSurveyPage = () => {
     (async () => {
       const _surveys = await getAssignedSurveys();
       const _survey = _surveys?.find(
-        (survey) => survey.assigned_survey_id === Number(surveyid)
+        (survey) => survey.assigned_survey_id === Number(id)
       );
       if (!_survey) return;
       setSurvey(_survey);

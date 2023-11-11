@@ -6,6 +6,7 @@ import { Building } from '../interfaces/Building';
 import { Answer } from '../interfaces/Answer';
 import { useContext } from 'react';
 import { MainContext } from '../context/MainContext';
+import { ResidentResults } from '../interfaces/SurveyResults';
 
 const useSurvey = () => {
   const navigate = useNavigate();
@@ -63,6 +64,25 @@ const useSurvey = () => {
     } catch (error: any) {
       alert('Kyselyn luominen epäonnistui');
       throw new Error(error.message);
+    }
+  };
+
+  const assignSurveyToBuildings = async (
+    buildings: Building[],
+    surveyid: number
+  ) => {
+    try {
+      await Promise.all(
+        buildings.map(async (building) => {
+          await doFetch(`survey/assignsurevey`, 'POST', {
+            b_id: building.building_id,
+            s_id: surveyid,
+          });
+        })
+      );
+    } catch (error: any) {
+      console.error('Assign survey to buildings', error.message);
+      alert('Kyselyn lisääminen taloyhtiöihin epäonnistui');
     }
   };
 
@@ -128,6 +148,16 @@ const useSurvey = () => {
     }
   };
 
+  const getResidentAnwers = async (key: string) => {
+    try {
+      const response = await doFetch(`submit/surveyanswer/${key}`, 'GET');
+      console.log('Resident answers: ', response);
+      return response as ResidentResults;
+    } catch (error: any) {
+      console.error('Get resident answers', error.message);
+    }
+  };
+
   const deleteSurvey = async (id: string) => {
     try {
       const response = await doFetch(`survey/surveybyid/${id}`, 'DELETE');
@@ -149,6 +179,8 @@ const useSurvey = () => {
     getSurveyByKey,
     submitAnswers,
     getSurveyKeys,
+    getResidentAnwers,
+    assignSurveyToBuildings,
     deleteSurvey,
   };
 };
