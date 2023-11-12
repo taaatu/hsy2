@@ -108,12 +108,20 @@ button:focus-visible {
   background-color: rgba(255,255,255, 0.9);
 }
 
+.margin1 {
+  margin: 1rem;
+}
+
 .padding1 {
   padding: 1rem;
 }
 
 .rounded {
   border-radius: 0.5rem;
+}
+
+.bold {
+  font-weight: bolder;
 }
 
 @media (prefers-color-scheme: light) {
