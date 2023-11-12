@@ -14,3 +14,28 @@
     align-items: center;
     border-bottom: 1px solid lightgray;
 }
+
+.btnContainer {
+    width: 10%;
+}
+
+.btnContainer button {
+    float: right;
+}
+
+.buildingsHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1em;
+}
+
+.buildingsHeader > * {
+    flex: 1;
+}
+
+.buildingsHeader > .btnContainer {
+    flex: 0 1 auto;
+}
+
+
+
