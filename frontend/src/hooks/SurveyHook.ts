@@ -6,7 +6,10 @@ import { Building } from '../interfaces/Building';
 import { Answer } from '../interfaces/Answer';
 import { useContext } from 'react';
 import { MainContext } from '../context/MainContext';
-import { ResidentResults } from '../interfaces/SurveyResults';
+import {
+  AssignedSurveyResults,
+  ResidentResults,
+} from '../interfaces/SurveyResults';
 
 const useSurvey = () => {
   const navigate = useNavigate();
@@ -148,6 +151,16 @@ const useSurvey = () => {
     }
   };
 
+  const getAssignedSurveyResults = async (id: number) => {
+    try {
+      const response = await doFetch(`survey/surveyanswerlist/${id}`, 'GET');
+      console.log('Assigned survey results: ', response);
+      return response as AssignedSurveyResults;
+    } catch (error: any) {
+      console.error('Get assigned survey results: ', error.message);
+    }
+  };
+
   const getResidentAnwers = async (key: string) => {
     try {
       const response = await doFetch(`submit/surveyanswer/${key}`, 'GET');
@@ -181,6 +194,7 @@ const useSurvey = () => {
     getSurveyKeys,
     getResidentAnwers,
     assignSurveyToBuildings,
+    getAssignedSurveyResults,
     deleteSurvey,
   };
 };

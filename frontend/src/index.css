@@ -236,6 +236,7 @@ input.medium {
 }
 .search-bar {
   width: 30ch;
+  max-width: 100%;
 }
 
 .loader {
