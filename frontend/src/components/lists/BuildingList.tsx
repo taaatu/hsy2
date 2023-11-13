@@ -8,10 +8,14 @@ import { LoadingList } from './LoadingList';
 import { SearchBar } from '../SearchBar';
 import useBuilding from '../../hooks/BuildingHook';
 
-export const BuildingList = () => {
+type Props = {
+  userid?: number;
+};
+
+export const BuildingList = ({ userid }: Props) => {
   const { curentUser } = useContext(MainContext);
   const navigate = useNavigate();
-  const { getAllBuildings } = useBuilding();
+  const { getAllBuildings, getBuildingsByUserId } = useBuilding();
   const [buildings, setBuildings] = useState<Building[]>([]);
   const [search, setSearch] = useState('');
 
@@ -29,9 +33,12 @@ export const BuildingList = () => {
 
   useEffect(() => {
     (async () => {
-      setBuildings(await getAllBuildings());
+      const _buildings = userid
+        ? await getBuildingsByUserId(userid)
+        : await getAllBuildings();
+      setBuildings(_buildings);
     })();
-  }, []);
+  }, [userid]);
 
   return (
     <LoadingList>

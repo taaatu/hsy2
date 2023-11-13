@@ -122,7 +122,7 @@ const user_info_update_by_admin_put = async (req, res, next) => {
       await updateUserInfoByAdmin(req.body, req.params.userId);
       res.json({ message: `User ${req.body.full_name}'s info updated` });
     } else {
-      res.status(400).json({ message: 'This user email already exist' });
+      res.status(409).json({ message: 'This user email already exist' });
     }
   } catch (error) {
     next(error);
