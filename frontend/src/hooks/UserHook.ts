@@ -44,10 +44,10 @@ const useUser = () => {
     try {
       const response = await doFetch('user/update', 'PUT', user);
       console.log('modify user res: ', response);
-      alert('Käyttäjä päivitetty');
       return response as MessageResponse;
-    } catch (error) {
+    } catch (error: any) {
       console.error('modify user', error);
+      return new CustomError(error.message, error.status);
     }
   };
   const deleteUser = async (userid: number) => {
