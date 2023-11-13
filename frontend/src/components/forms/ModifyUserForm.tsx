@@ -10,10 +10,11 @@ import { SuccessAlertModal } from '../SuccessAlertModal';
 
 type Props = {
   user: User;
+  isAdmin?: boolean;
 };
 
-export const ModifyUserForm = ({ user }: Props) => {
-  const { modifyUser, deleteUser } = useUser();
+export const ModifyUserForm = ({ user, isAdmin = false }: Props) => {
+  const { modifyUser, deleteUser, modifyUserByAdmin } = useUser();
   const [isModifying, setIsModifying] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const {
@@ -26,7 +27,9 @@ export const ModifyUserForm = ({ user }: Props) => {
 
   const onSubmit = async (data: User) => {
     console.log('modify user data:', data);
-    const res = await modifyUser(data);
+    const res = isAdmin
+      ? await modifyUserByAdmin(data)
+      : await modifyUser(data);
     if (res instanceof CustomError) {
       const message =
         res.status === 409 ? 'Sähköposti on jo käytössä' : 'Palvelinvirhe';

@@ -50,6 +50,21 @@ const useUser = () => {
       return new CustomError(error.message, error.status);
     }
   };
+
+  const modifyUserByAdmin = async (user: User) => {
+    try {
+      const response = await doFetch(
+        `user/adminupdate/${user.user_id}`,
+        'PUT',
+        user
+      );
+      console.log('modify user res: ', response);
+    } catch (error: any) {
+      console.error('modify user by admin: ', error.message);
+      return new CustomError(error.message, error.status);
+    }
+  };
+
   const deleteUser = async (userid: number) => {
     try {
       if (!confirm('Haluatko varmasti poistaa käyttäjän?')) return;
@@ -78,6 +93,7 @@ const useUser = () => {
     getUserById,
     addUser,
     modifyUser,
+    modifyUserByAdmin,
     deleteUser,
     getUserByToken,
   };

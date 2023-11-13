@@ -16,6 +16,14 @@ const useBuilding = () => {
     }
   };
 
+  const getBuildingsByUserId = async (id: number) => {
+    const buildings = await getAllBuildings();
+    const filteredBuildings = buildings.filter(
+      (building) => building.u_id === id
+    );
+    return filteredBuildings;
+  };
+
   const getBuildingById = async (id: string) => {
     try {
       const response = await doFetch(`building/buildingid/${id}`, 'GET');
@@ -67,6 +75,7 @@ const useBuilding = () => {
   };
   return {
     getAllBuildings,
+    getBuildingsByUserId,
     getBuildingById,
     addBuilding,
     modifyBuilding,
