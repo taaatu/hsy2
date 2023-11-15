@@ -36,7 +36,7 @@ const useSurvey = () => {
     }
   };
 
-  const createSurvey = async (survey: Survey, buildings: Building[]) => {
+  const createSurvey = async (survey: Survey) => {
     try {
       survey.survey_header.u_id = curentUser?.user_id as number;
       // Format dates
@@ -52,18 +52,7 @@ const useSurvey = () => {
       const response = await doFetch('survey', 'POST', survey);
       console.log('Create survey: ', response);
       if (!response.survey_id) return;
-      if (buildings.length === 0) {
-        return 'Kysely luotu ilman lisättyjä taloyhtiöitä';
-      }
-      await Promise.all(
-        buildings.map(async (building) => {
-          await doFetch(`survey/assignsurevey`, 'POST', {
-            b_id: building.building_id,
-            s_id: response.survey_id,
-          });
-        })
-      );
-      return 'Kysely luotu ja taloyhtiöt lisätty';
+      return 'Kysely luotu';
     } catch (error: any) {
       alert('Kyselyn luominen epäonnistui');
       throw new Error(error.message);
@@ -89,13 +78,15 @@ const useSurvey = () => {
     }
   };
 
-  const createSurveyKeys = async (surveyId: number) => {
+  const createSurveyKeys = async (surveyId: number, count: number) => {
     try {
-      const response = await doFetch('survey/assignsureveykeypost', 'POST', {
-        as_id: surveyId,
-      });
-      console.log('Create survey keys: ', response);
-      alert(response.message);
+      await Promise.all(
+        Array.from(Array(count).keys()).map(async () => {
+          await doFetch('survey/assignsureveykeypost', 'POST', {
+            as_id: surveyId,
+          });
+        })
+      );
     } catch (error: any) {
       alert('Koodin luominen epäonnistui: ' + error.message);
       throw new Error(error.message);
