@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { lazy } from 'react';
 const ProtectedRoutes = lazy(() => import('./ProtectedRoutes'));
 import {
-  CreateSurvey,
+  CreateSurveyPage,
   EditSurveyPage,
   HomePage,
   LoginPage,
@@ -59,7 +59,10 @@ function App() {
                 <Route path="surveys">
                   <Route index element={<SurveysPage />} />
                   <Route path=":surveyid" element={<SingleSurveyPage />} />
-                  <Route path="create/:surveyid?" element={<CreateSurvey />} />
+                  <Route
+                    path="create/:surveyid?"
+                    element={<CreateSurveyPage />}
+                  />
                 </Route>
                 <Route path="managers">
                   <Route index element={<PropertyManagers />} />

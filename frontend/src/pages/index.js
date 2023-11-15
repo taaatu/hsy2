@@ -1,11 +1,12 @@
 import { lazy } from 'react';
+// Lazy load all the pages in the application
 
 export const AdminHome = lazy(() => import('./admin/AdminHome'));
 export const CreateUserPage = lazy(() =>
   import('./admin/property-managers/CreateUserPage')
 );
-export const CreateSurvey = lazy(() =>
-  import('./admin/surveys/create/CreateSurvey')
+export const CreateSurveyPage = lazy(() =>
+  import('./admin/surveys/create/CreateSurveyPage')
 );
 export const EditSurveyPage = lazy(() =>
   import('./admin/surveys/modify/EditSurveyPage')

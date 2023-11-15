@@ -16,6 +16,12 @@
     align-items: center;
 }
 
+.loginLabel {
+    color: black;
+    font-size: larger;
+    padding-bottom: 1vh;
+}
+
 .button{
     font-size: large;
     text-align: center;

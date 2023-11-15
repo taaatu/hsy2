@@ -2,9 +2,9 @@ import { WelcomeText } from '../../components/WelcomeText';
 
 const AdminHome = () => {
   return (
-    <div className="centered-container">
+    <main className="centered-container">
       <WelcomeText />
-    </div>
+    </main>
   );
 };
 

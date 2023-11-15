@@ -14,33 +14,31 @@ export const HomePage = () => {
   };
 
   return (
-    <div>
-      <div className={styles.main}>
-        <AppName />
-        <form onSubmit={handleSubmit} className="center-align">
-          <input
-            type="text"
-            required
-            className="medium line"
-            placeholder="Pääsykoodi"
-            onChange={(e) => setSurveyKey(e.target.value)}
-          />
+    <main className={styles.main}>
+      <AppName />
+      <form onSubmit={handleSubmit} className="center-align">
+        <input
+          type="text"
+          required
+          className="medium line"
+          placeholder="Pääsykoodi"
+          onChange={(e) => setSurveyKey(e.target.value)}
+        />
 
-          <button style={{ marginTop: '1rem' }}>Siirry kyselyyn</button>
-          <Link
-            to="/login"
-            style={{
-              color: 'black',
-              textDecoration: 'underline',
-              fontWeight: 'normal',
-              marginTop: '1rem',
-            }}
-          >
-            Oletko isännöitsijä?
-          </Link>
-        </form>
-        <HsyLogo />
-      </div>
-    </div>
+        <button style={{ marginTop: '1rem' }}>Siirry kyselyyn</button>
+        <Link
+          to="/login"
+          style={{
+            color: 'black',
+            textDecoration: 'underline',
+            fontWeight: 'normal',
+            marginTop: '1rem',
+          }}
+        >
+          Oletko isännöitsijä?
+        </Link>
+      </form>
+      <HsyLogo />
+    </main>
   );
 };
