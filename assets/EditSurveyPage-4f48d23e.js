@@ -1,0 +1,1 @@
+import{j as e}from"./index-e95d5965.js";const l=()=>{const t=r=>{r.preventDefault(),alert("Kysely päätetty")};return e.jsxs("div",{children:[e.jsx("h1",{children:"Edit Survey Page"}),e.jsx("button",{onClick:t,children:"Päätä kysely"})]})};export{l as default};

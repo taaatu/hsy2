@@ -1,0 +1,1 @@
+import{r as o,j as r}from"./index-e95d5965.js";import{u as s}from"./AuthHook-763c02fa.js";import"./RoutePaths-7db3249f.js";import"./DoFetch-a9cf7fe3.js";const p=()=>{const{logoutUser:t}=s();return o.useEffect(()=>{t()},[]),r.jsx("div",{children:"Logout"})};export{p as default};
