@@ -1,25 +1,53 @@
+// {
+//   "compilerOptions": {
+//     /* Visit https://aka.ms/tsconfig to read more about this file */
+
+//     "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+//     "module": "commonjs",                                /* Specify what module code is generated. */
+//     "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
+//     "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+
+//     "strict": true, 
+//       "jsx": "react-jsx",
+//       "plugins": [{ "name": "typescript-plugin-css-modules" }],
+//       "types": ["vite/client"]
+
+//   },
+//   "include": [
+//     "src/**/*"
+//   ],
+//   "ts-node": {
+//     "transpileOnly": true,
+//     "compilerOptions": {
+//       "module": "ES2015", 
+//     }
+//   },
+//   "allowImportingTsExtensions": true,
+// } 
+
+
+
 {
   "compilerOptions": {
-    /* Visit https://aka.ms/tsconfig to read more about this file */
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "ESNext",
+    "skipLibCheck": true,
 
-    "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
-    "module": "commonjs",                                /* Specify what module code is generated. */
-    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
-    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
 
-    "strict": true, 
-      "jsx": "react-jsx",
-      "plugins": [{ "name": "typescript-plugin-css-modules" }],
-      "types": ["vite/client"]
-
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    "src/**/*"
-  ],
-  "ts-node": {
-    "transpileOnly": true,
-    "compilerOptions": {
-      "module": "ES2015", 
-    }
-  }
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
