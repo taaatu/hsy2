@@ -8,11 +8,13 @@
     "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
 
     "strict": true, 
-      "jsx": "react-jsx"
+      "jsx": "react-jsx",
+      "plugins": [{ "name": "typescript-plugin-css-modules" }],
+      "types": ["vite/client"]
 
   },
   "include": [
-    "src"
+    "src/**/*"
   ],
   "ts-node": {
     "transpileOnly": true,

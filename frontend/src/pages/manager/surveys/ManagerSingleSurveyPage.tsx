@@ -25,7 +25,7 @@ const ManagerSingleSurveyPage = () => {
 
   if (survey)
     return (
-      <main className="color3 margin1">
+      <main className="color3 margin1 column">
         <h4>{survey?.survey_title}</h4>
         <div>{survey?.building_name}</div>
         <div>
@@ -68,15 +68,21 @@ const CreateKey = ({ surveyid }: { surveyid: number }) => {
 
   return (
     <>
-      <form onSubmit={handleCreateKey}>
-        <input
-          placeholder="Koodien määrä"
-          defaultValue={keyAmount}
-          min={1}
-          max={100}
-          onChange={(e) => setKeyAmount(Number(e.target.value))}
-          type="number"
-        />
+      <form onSubmit={handleCreateKey} className="flex-row">
+        <label>
+          Koodien määrä
+          <input
+            placeholder="Koodien määrä"
+            className="line"
+            style={{ width: '10ch' }}
+            defaultValue={keyAmount}
+            min={1}
+            max={100}
+            onChange={(e) => setKeyAmount(Number(e.target.value))}
+            type="number"
+          />
+        </label>
+
         <ButtonLoading text="Luo koodi" />
       </form>
 

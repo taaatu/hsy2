@@ -60,6 +60,10 @@ function App() {
                   <Route index element={<SurveysPage />} />
                   <Route path=":surveyid" element={<SingleSurveyPage />} />
                   <Route
+                    path=":surveyid/assigned/:id"
+                    element={<ManagerSingleSurveyPage />}
+                  />
+                  <Route
                     path="create/:surveyid?"
                     element={<CreateSurveyPage />}
                   />

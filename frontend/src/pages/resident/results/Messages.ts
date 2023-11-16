@@ -57,8 +57,6 @@ Pitkän aikavälin edut
 Aseta elinkaarikustannukset etusijalle verrattuna alkuperäisiin hankintakustannuksiin taloyhtiön päätöksissä, ymmärtäen, että kestävät investoinnit usein johtavat pitkäaikaisiin taloudellisiin ja ympäristöllisiin hyötyihin.
 
 
-
-
 Osallistu keskusteluihin
 Osallistu keskusteluihin ylläpito maksujen korotusten syiden paremmasta ymmärtämisestä ja tutki tapoja tasapainottaa taloudellisia tarpeita kestävyyt tavoitteiden kanssa.
 

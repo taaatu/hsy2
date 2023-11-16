@@ -7,6 +7,7 @@ import { FaPersonHiking } from 'react-icons/fa6';
 import { BsFillBuildingFill } from 'react-icons/bs';
 import { ResidentResults } from '../../../interfaces/SurveyResults';
 import { ResultsMessage } from './ResultsMessage';
+import { getPropertyColor } from '../../../utils/Functions';
 
 const UserResultsPage = () => {
   const { getResidentAnwers } = useSurvey();
@@ -36,8 +37,15 @@ const UserResultsPage = () => {
         </h4>
 
         <p style={{ textAlign: 'center' }}>Jotain tekstiä prosentin mukaan</p>
-        <div className="padding1">
-          Kyselyyn vastanneita: {results?.answer_count}
+        <div
+          style={{
+            height: '10px',
+            width: '10px',
+            backgroundColor: getPropertyColor(results?.average_percentage || 2),
+          }}
+        ></div>
+        <div className="padding1" style={{ textAlign: 'center' }}>
+          Taloyhtiöstänne {results?.answer_count} on vastannut kyselyyn
         </div>
 
         <div className={`${styles.lineBox} padding1`}>

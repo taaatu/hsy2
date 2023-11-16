@@ -1,5 +1,5 @@
 const EditSurveyPage = () => {
-  const handleClose = (event) => {
+  const handleClose = (event: any) => {
     event.preventDefault();
     alert('Kysely päätetty');
   };

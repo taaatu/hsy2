@@ -23,6 +23,7 @@ import {
   QuestionStatistics,
 } from '../../../../interfaces/SurveyResults';
 import useSurvey from '../../../../hooks/SurveyHook';
+import styles from './Results.module.css';
 
 type Props = {
   surveyId: number;
@@ -44,20 +45,29 @@ export const SurveyResults = ({ surveyId }: Props) => {
 
   return (
     <div className="padding1">
-      <h4>Vastauksia: {surveyResults?.number_of_answers}</h4>
-
-      <h4>Pisteet keskiarvo: {surveyResults?.average_survey_point}</h4>
-      <h4>Keskiverto prosentti: {surveyResults?.average_percentage} %</h4>
-
-      {surveyResults?.average_percentage && (
-        <BsFillBuildingFill
-          size={50}
-          color={getPropertyColor(surveyResults?.average_percentage)}
-        />
-      )}
+      <div className={styles.data}>
+        <div>
+          <h5>Vastaajien määrä </h5>
+          <h4>{surveyResults?.number_of_answers}</h4>
+        </div>
+        <div>
+          <h5>Keskiarvo pisteet</h5>
+          <h4>{surveyResults?.average_survey_point}</h4>
+        </div>
+        <div>
+          <h5>Taloyhtiön tahtotila </h5>
+          <h4>{surveyResults?.average_percentage} %</h4>
+          {surveyResults?.average_percentage && (
+            <BsFillBuildingFill
+              size={50}
+              color={getPropertyColor(surveyResults?.average_percentage)}
+            />
+          )}
+        </div>
+      </div>
 
       <div className="flex-row">
-        <PieChart width={300} height={350}>
+        <PieChart width={300} height={500}>
           <Legend verticalAlign="top" height={30} />
           <Pie
             data={pieData(surveyResults.survey_questions_statistics)}
@@ -75,7 +85,7 @@ export const SurveyResults = ({ surveyId }: Props) => {
             )}
           </Pie>
         </PieChart>
-        <ComposedChart width={400} height={250} data={data01}>
+        <ComposedChart width={400} height={300} data={data01}>
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
@@ -92,17 +102,17 @@ export const SurveyResults = ({ surveyId }: Props) => {
 
 const pieData = (data: QuestionStatistics[]) => [
   {
-    name: 'Option 1',
+    name: 'Pidän tärkeänä tai toimin näin',
     value: getSelectedOptionsCount(data, 1),
     color: 'red',
   },
   {
-    name: 'Option 2',
+    name: 'Asialla ei ole merkitystä tai asia ei koske minua',
     value: getSelectedOptionsCount(data, 2),
     color: 'blue',
   },
   {
-    name: 'Option 3',
+    name: 'En pidä tärkeänä tai en toimi näin',
     value: getSelectedOptionsCount(data, 3),
     color: 'green',
   },
