@@ -11,6 +11,9 @@
       "jsx": "react-jsx"
 
   },
+  "include": [
+    "src"
+  ],
   "ts-node": {
     "transpileOnly": true,
     "compilerOptions": {
