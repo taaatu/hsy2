@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom';
-import useBuilding from '../../../hooks/BuildingHook';
 import { useEffect } from 'react';
 
 const SinglePropertyPage = () => {

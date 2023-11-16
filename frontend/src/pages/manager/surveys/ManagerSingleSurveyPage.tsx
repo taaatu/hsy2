@@ -11,6 +11,7 @@ const ManagerSingleSurveyPage = () => {
   const { id } = useParams();
   const [survey, setSurvey] = useState<AssignedSurvey>();
   const { getAssignedSurveys } = useSurvey();
+  // const { curentUser } = useContext(MainContext);
 
   useEffect(() => {
     (async () => {
@@ -86,7 +87,7 @@ const CreateKey = ({ surveyid }: { surveyid: number }) => {
         <ButtonLoading text="Luo koodi" />
       </form>
 
-      <ul style={{ backgroundColor: 'white' }}>
+      <ul>
         <h4>Käyttämättömät koodit {`(${surveyKeys.length})`}</h4>
         {surveyKeys.map((key) => (
           <li key={key}>{key}</li>

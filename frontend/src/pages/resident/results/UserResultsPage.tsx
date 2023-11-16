@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import useSurvey from '../../../hooks/SurveyHook';
 import { useParams } from 'react-router-dom';
-import { XAxis } from 'recharts';
+// import { XAxis } from 'recharts';
 import styles from '../resident.module.css';
 import { FaPersonHiking } from 'react-icons/fa6';
 import { BsFillBuildingFill } from 'react-icons/bs';
@@ -13,8 +13,8 @@ const UserResultsPage = () => {
   const { getResidentAnwers } = useSurvey();
   const { key } = useParams();
   const [results, setResults] = useState<ResidentResults>();
-  const test = 100;
-  const test2 = 10;
+  // const test = 100;
+  // const test2 = 10;
 
   useEffect(() => {
     if (!key) return;
