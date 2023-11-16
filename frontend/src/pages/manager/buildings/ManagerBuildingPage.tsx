@@ -47,7 +47,7 @@ const ManagerBuildingPage = () => {
                   navigate(
                     curentUser?.user_group === UserGroup.ADMIN
                       ? `/admin/surveys/${survey.survey_id}/assigned/${survey.assigned_survey_id}`
-                      : '/manager/surveys/' + survey.assigned_survey_id
+                      : `/manager/surveys/${survey.survey_id}/assigned/${survey.assigned_survey_id}`
                   )
                 }
               >

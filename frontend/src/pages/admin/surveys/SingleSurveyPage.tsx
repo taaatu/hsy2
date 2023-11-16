@@ -39,7 +39,7 @@ const SingleSurveyPage = () => {
   if (!survey) return <h1>Ei kyselyä</h1>;
 
   return (
-    <div>
+    <main>
       <h1>{survey.survey_header.survey_title}</h1>
       <SurveyPreview survey={survey} />
       <button className="delete" onClick={handleDelete}>
@@ -73,7 +73,7 @@ const SingleSurveyPage = () => {
           </div>
         ))}
       </LoadingList>
-    </div>
+    </main>
   );
 };
 

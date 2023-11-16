@@ -35,8 +35,8 @@ export const SurveyList = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Kyselyt</h1>
+    <div className="column">
+      <h1>Kyselypohjat</h1>
       <div className="sticky-header">
         <div
           style={{ marginBottom: '1em', gap: '1rem', flexWrap: 'wrap' }}

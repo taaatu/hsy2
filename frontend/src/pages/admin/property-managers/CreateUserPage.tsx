@@ -40,8 +40,13 @@ const CreateUserPage = () => {
         message="Isännöitsijä lisätty onnistuneesti"
         navRoute="/admin/managers"
       />
-      <h1>Lisää isännöitsijä</h1>
-      <form className="color3 column" onSubmit={handleSubmit(onSubmit)}>
+
+      <form
+        className="color3 column"
+        style={{ width: '50%', minWidth: '350px' }}
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <h4>Lisää isännöitsijä</h4>
         <label>
           Isännöitsijän nimi
           <input
@@ -87,7 +92,9 @@ const CreateUserPage = () => {
         {errors.root?.serverError && (
           <FormFieldError error={errors.root?.serverError} />
         )}
-        <ButtonLoading text="Lisää isännöitsijä" />
+        <div style={{ margin: 'auto' }}>
+          <ButtonLoading text="Lisää isännöitsijä" />
+        </div>
       </form>
     </main>
   );

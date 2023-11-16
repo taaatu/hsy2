@@ -38,7 +38,6 @@ const CreateSurveyPage = () => {
     handleSubmit,
     reset,
     getValues,
-    setError,
     formState: { errors },
   } = useForm<Survey>({
     defaultValues: {
@@ -83,7 +82,10 @@ const CreateSurveyPage = () => {
         message={succesMessage}
         navRoute="/admin/surveys"
       />
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={`${styles.form} color3`}
+      >
         <Tabs className={styles.tabsBar}>
           <Tab eventKey="survey" title="Kysely">
             <div className="column" style={{ maxWidth: '60ch', gap: '1rem' }}>
@@ -185,7 +187,7 @@ const CreateSurveyPage = () => {
                   name="survey_header.survey_status"
                   control={control}
                   rules={{ required: false }}
-                  render={({ field }) => (
+                  render={({ field }: any) => (
                     <input
                       style={{ height: '1rem', width: '1rem' }}
                       type="checkbox"
@@ -196,8 +198,11 @@ const CreateSurveyPage = () => {
                 Jaa kysely isännöitsijöille
               </label>
 
-              <SurveyPreview survey={getValues()} />
-              <ButtonLoading text="Luo kysely" />
+              <div className="flex-row">
+                <SurveyPreview survey={getValues()} />
+                <ButtonLoading text="Luo kysely" />
+              </div>
+
               <FormErrorList
                 errors={errors}
                 questions={getValues().questions}
