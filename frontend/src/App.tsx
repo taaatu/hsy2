@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 // import './App.css';
 // import ProtectedRoutes from './ProtectedRoutes';
 import { lazy } from 'react';
@@ -18,7 +18,7 @@ import {
   PropertyManagers,
   PropertyManagerPage,
   ProfilePage,
-  SinglePropertyPage,
+  // SinglePropertyPage,
   SingleSurveyPage,
   Logout,
   ManagerSurveysPage,
@@ -32,10 +32,10 @@ import { MainProvider } from './context/MainContext';
 import { UserGroup } from './interfaces/User';
 import { PagesWrapper } from './PagesWrapper';
 
-function App() {
+const App = () => {
   return (
     <>
-      <BrowserRouter>
+      <HashRouter>
         <MainProvider>
           <Routes>
             <Route element={<PagesWrapper />}>
@@ -106,9 +106,9 @@ function App() {
             </Route>
           </Routes>
         </MainProvider>
-      </BrowserRouter>
+      </HashRouter>
     </>
   );
-}
+};
 
 export default App;
