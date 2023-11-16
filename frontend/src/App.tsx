@@ -1,10 +1,10 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 // import './App.css';
 // import ProtectedRoutes from './ProtectedRoutes';
 import { lazy } from 'react';
 const ProtectedRoutes = lazy(() => import('./ProtectedRoutes'));
 import {
-  CreateSurvey,
+  CreateSurveyPage,
   EditSurveyPage,
   HomePage,
   LoginPage,
@@ -18,7 +18,7 @@ import {
   PropertyManagers,
   PropertyManagerPage,
   ProfilePage,
-  SinglePropertyPage,
+  // SinglePropertyPage,
   SingleSurveyPage,
   Logout,
   ManagerSurveysPage,
@@ -32,10 +32,10 @@ import { MainProvider } from './context/MainContext';
 import { UserGroup } from './interfaces/User';
 import { PagesWrapper } from './PagesWrapper';
 
-function App() {
+const App = () => {
   return (
     <>
-      <BrowserRouter>
+      <HashRouter>
         <MainProvider>
           <Routes>
             <Route element={<PagesWrapper />}>
@@ -59,7 +59,14 @@ function App() {
                 <Route path="surveys">
                   <Route index element={<SurveysPage />} />
                   <Route path=":surveyid" element={<SingleSurveyPage />} />
-                  <Route path="create/:surveyid?" element={<CreateSurvey />} />
+                  <Route
+                    path=":surveyid/assigned/:id"
+                    element={<ManagerSingleSurveyPage />}
+                  />
+                  <Route
+                    path="create/:surveyid?"
+                    element={<CreateSurveyPage />}
+                  />
                 </Route>
                 <Route path="managers">
                   <Route index element={<PropertyManagers />} />
@@ -99,9 +106,9 @@ function App() {
             </Route>
           </Routes>
         </MainProvider>
-      </BrowserRouter>
+      </HashRouter>
     </>
   );
-}
+};
 
 export default App;

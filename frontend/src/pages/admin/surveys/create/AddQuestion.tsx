@@ -1,12 +1,7 @@
 import styles from './CreateSurvey.module.css';
 import Card from 'react-bootstrap/Card';
 import { FaTrashAlt } from 'react-icons/fa';
-import {
-  Control,
-  UseFieldArrayRemove,
-  UseFormRegister,
-  useWatch,
-} from 'react-hook-form';
+import { Control, UseFieldArrayRemove, UseFormRegister } from 'react-hook-form';
 import { Survey } from '../../../../interfaces/Survey';
 
 type Props = {
@@ -16,11 +11,11 @@ type Props = {
   remove: UseFieldArrayRemove;
 };
 // Component for adding questions to survey
-const AddQuestion = ({ index, register, control, remove }: Props) => {
-  const output = useWatch({
-    name: 'questions',
-    control,
-  });
+const AddQuestion = ({ index, register, /* control, */ remove }: Props) => {
+  // const output = useWatch({
+  //   name: 'questions',
+  //   control,
+  // });
 
   return (
     <Card>

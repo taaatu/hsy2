@@ -35,7 +35,7 @@ const PropertyManagers = () => {
   }, []);
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} column`}>
       <h1>Isännöitsijät</h1>
       <div
         style={{ marginBottom: '1em', gap: '1rem', flexWrap: 'wrap' }}

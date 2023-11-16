@@ -34,10 +34,10 @@ const LoginPage = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <main className={styles.container}>
       <AppName />
       <form onSubmit={handleSubmit(onSubmit)} className={styles.loginForm}>
-        <label className="loginlabel">
+        <label className={styles.loginLabel}>
           <input
             className="medium line"
             type="email"
@@ -47,7 +47,7 @@ const LoginPage = () => {
           <FormFieldError error={errors.email} />
         </label>
 
-        <label className="loginlabel">
+        <label className={styles.loginLabel}>
           <input
             className="medium line"
             type="password"
@@ -75,7 +75,7 @@ const LoginPage = () => {
       </form>
 
       <HsyLogo />
-    </div>
+    </main>
   );
 };
 

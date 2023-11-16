@@ -1,0 +1,13 @@
+.data {
+    display: flex;
+    gap: 1rem;
+    max-width: 60%;
+
+}
+
+.data > * {
+    background-color: lightgray;
+    padding: 2rem;
+    flex: 1;
+    text-align: center;
+}

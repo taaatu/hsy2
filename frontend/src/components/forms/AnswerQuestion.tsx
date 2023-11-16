@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { Question } from '../../interfaces/Question';
 import { Answer } from '../../interfaces/Answer';
 
@@ -23,7 +23,7 @@ const AnswerQuestion = ({
   const changeAnswer = (answer: string) => {
     console.log('answer: ', answer);
     setAnswers(
-      answers.map((a, i) => {
+      answers.map((a, _) => {
         if (a.q_id === question.question_id) {
           return { ...a, selected_option: answer };
         }

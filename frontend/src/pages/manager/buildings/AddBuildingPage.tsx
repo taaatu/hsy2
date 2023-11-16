@@ -42,8 +42,21 @@ const AddBuildingPage = () => {
         message="Taloyhtiö lisätty onnistuneesti"
         navRoute="/manager/properties"
       />
-      <form className="color3 column" onSubmit={handleSubmit(onSubmit)}>
-        <h4>Taloyhtiö</h4>
+      <form
+        className="color3 column"
+        style={{ width: '50%', minWidth: '350px' }}
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <h4>Lisää taloyhtiö</h4>
+        <label>
+          Taloyhtiön nimi
+          <input
+            className="line"
+            {...register('name', { required: 'Nimi vaaditaan' })}
+            placeholder="Taloyhtiön nimi"
+          />
+          <FormFieldError error={errors.name} />
+        </label>
         <label>
           Osoite
           <input
@@ -78,19 +91,10 @@ const AddBuildingPage = () => {
           </select>
         </label>
 
-        <label>
-          Taloyhtiön nimi
-          <input
-            className="line"
-            {...register('name', { required: 'Nimi vaaditaan' })}
-            placeholder="Taloyhtiön nimi"
-          />
-          <FormFieldError error={errors.name} />
-        </label>
         {errors.root?.serverError && (
           <FormFieldError error={errors.root?.serverError} />
         )}
-        <button>Lisää taloyhtiö</button>
+        <button style={{ margin: 'auto' }}>Lisää taloyhtiö</button>
       </form>
     </main>
   );

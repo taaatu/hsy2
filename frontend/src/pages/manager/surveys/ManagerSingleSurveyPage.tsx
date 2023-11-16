@@ -10,14 +10,8 @@ import { SurveyResults } from './results/SurveyResults';
 const ManagerSingleSurveyPage = () => {
   const { id } = useParams();
   const [survey, setSurvey] = useState<AssignedSurvey>();
-  const [surveyKeys, setSurveyKeys] = useState<string[]>([]);
-  const { createSurveyKeys, getAssignedSurveys, getSurveyKeys } = useSurvey();
-
-  const handleCreateKey = async () => {
-    if (!survey) return;
-    await createSurveyKeys(survey.assigned_survey_id);
-    setSurveyKeys(await getSurveyKeys(survey.assigned_survey_id));
-  };
+  const { getAssignedSurveys } = useSurvey();
+  // const { curentUser } = useContext(MainContext);
 
   useEffect(() => {
     (async () => {
@@ -27,37 +21,79 @@ const ManagerSingleSurveyPage = () => {
       );
       if (!_survey) return;
       setSurvey(_survey);
-      setSurveyKeys(await getSurveyKeys(_survey?.assigned_survey_id));
     })();
   }, []);
 
+  if (survey)
+    return (
+      <main className="color3 margin1 column">
+        <h4>{survey?.survey_title}</h4>
+        <div>{survey?.building_name}</div>
+        <div>
+          {survey?.street}, {survey?.post_code}, {survey?.city}
+        </div>
+        <div>
+          Vastausaika: {survey?.start_time} - {survey?.end_time}
+        </div>
+        <Tabs>
+          <Tab eventKey="vastaukset" title="Vastaukset">
+            {survey?.assigned_survey_id && (
+              <SurveyResults surveyId={survey?.assigned_survey_id} />
+            )}
+          </Tab>
+          <Tab eventKey="kysely" title="Jaa kysely">
+            <CreateKey surveyid={survey?.assigned_survey_id} />
+          </Tab>
+        </Tabs>
+      </main>
+    );
+};
+
+const CreateKey = ({ surveyid }: { surveyid: number }) => {
+  const [surveyKeys, setSurveyKeys] = useState<string[]>([]);
+  const { createSurveyKeys, getSurveyKeys } = useSurvey();
+  const [keyAmount, setKeyAmount] = useState<number>(1);
+
+  const handleCreateKey = async (e: any) => {
+    e.preventDefault();
+    if (!surveyid) return;
+    await createSurveyKeys(surveyid, keyAmount);
+    setSurveyKeys(await getSurveyKeys(surveyid));
+  };
+
+  useEffect(() => {
+    (async () => {
+      setSurveyKeys(await getSurveyKeys(surveyid));
+    })();
+  }, [surveyid]);
+
   return (
-    <main className="color3 margin1">
-      <h4>{survey?.survey_title}</h4>
-      <div>{survey?.building_name}</div>
-      <div>
-        {survey?.street}, {survey?.post_code}, {survey?.city}
-      </div>
-      <div>
-        Vastausaika: {survey?.start_time} - {survey?.end_time}
-      </div>
-      <Tabs>
-        <Tab eventKey="vastaukset" title="Vastaukset">
-          {survey?.assigned_survey_id && (
-            <SurveyResults surveyId={survey?.assigned_survey_id} />
-          )}
-        </Tab>
-        <Tab eventKey="kysely" title="Jaa kysely">
-          <ButtonLoading text="Luo koodi" onClick={handleCreateKey} />
-          <ul style={{ backgroundColor: 'white' }}>
-            <h4>Käyttämättömät koodit {`(${surveyKeys.length})`}</h4>
-            {surveyKeys.map((key) => (
-              <li key={key}>{key}</li>
-            ))}
-          </ul>
-        </Tab>
-      </Tabs>
-    </main>
+    <>
+      <form onSubmit={handleCreateKey} className="flex-row">
+        <label>
+          Koodien määrä
+          <input
+            placeholder="Koodien määrä"
+            className="line"
+            style={{ width: '10ch' }}
+            defaultValue={keyAmount}
+            min={1}
+            max={100}
+            onChange={(e) => setKeyAmount(Number(e.target.value))}
+            type="number"
+          />
+        </label>
+
+        <ButtonLoading text="Luo koodi" />
+      </form>
+
+      <ul>
+        <h4>Käyttämättömät koodit {`(${surveyKeys.length})`}</h4>
+        {surveyKeys.map((key) => (
+          <li key={key}>{key}</li>
+        ))}
+      </ul>
+    </>
   );
 };
 

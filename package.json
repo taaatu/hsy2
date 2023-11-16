@@ -1,0 +1,10 @@
+{
+  "homepage": "https://taaatu.github.io/hsy2/",
+  "devDependencies": {
+    "gh-pages": "^6.0.0"
+  },
+  "scripts": {
+    "predeploy": "cd frontend && npm run build",
+    "deploy": "cd frontend && gh-pages -d dist"
+  }
+}

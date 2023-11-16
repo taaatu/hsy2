@@ -16,13 +16,21 @@ export const FormErrorList = ({ errors, questions }: Props) => {
       <FormFieldError error={errors.survey_header?.description} />
 
       {errors.questions &&
-        questions.map((question, index) => (
+        questions.map((_, index) => (
           <>
             <p className="error">Kysymys {index + 1}</p>
-            <FormFieldError error={errors.questions[index]?.question} />
-            <FormFieldError error={errors.questions[index]?.option_1} />
-            <FormFieldError error={errors.questions[index]?.option_2} />
-            <FormFieldError error={errors.questions[index]?.option_3} />
+            <FormFieldError
+              error={errors.questions && errors.questions[index]?.question}
+            />
+            <FormFieldError
+              error={errors.questions && errors.questions[index]?.option_1}
+            />
+            <FormFieldError
+              error={errors.questions && errors.questions[index]?.option_2}
+            />
+            <FormFieldError
+              error={errors.questions && errors.questions[index]?.option_3}
+            />
           </>
         ))}
     </>

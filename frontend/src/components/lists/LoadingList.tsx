@@ -19,7 +19,7 @@ export const LoadingList = ({ children }: Props) => {
 
 const ListSkeleton = () => (
   <>
-    {[...Array(10)].map((_, i) => (
+    {[...Array(10)].map(() => (
       <>
         <Placeholder as="p" animation="glow">
           <div className="list-item">

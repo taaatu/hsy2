@@ -10,4 +10,4 @@ interface Building {
 
 type BuildingInput = Omit<Building, 'building_id' | 'u_id'>;
 
-export { Building, BuildingInput };
+export type { Building, BuildingInput };

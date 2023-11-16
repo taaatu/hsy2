@@ -1,20 +1,23 @@
 import { useEffect, useState } from 'react';
-import AddQuestion from './AddQuestion';
-import { ANSWER_1, ANSWER_2, ANSWER_3 } from '../../../../variables/Constants';
+import AddQuestion from './AddQuestion.js';
+import {
+  ANSWER_1,
+  ANSWER_2,
+  ANSWER_3,
+} from '../../../../variables/Constants.js';
 import { useParams } from 'react-router-dom';
-import { Survey, SurveyStatus } from '../../../../interfaces/Survey';
-import { Question } from '../../../../interfaces/Question';
+import { Survey, SurveyStatus } from '../../../../interfaces/Survey.js';
+import { Question } from '../../../../interfaces/Question.js';
 import useSurvey from '../../../../hooks/SurveyHook.js';
 import { SurveyPreview } from '../../../../components/SurveyPreview.js';
-import { ButtonLoading } from '../../../../components/ButtonLoading';
+import { ButtonLoading } from '../../../../components/ButtonLoading.js';
 import styles from './CreateSurvey.module.css';
-import { Building } from '../../../../interfaces/Building';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import { SuccessAlertModal } from '../../../../components/SuccessAlertModal';
+import { SuccessAlertModal } from '../../../../components/SuccessAlertModal.js';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import { FormFieldError } from '../../../../components/FormFieldError';
-import { FormErrorList } from './FormErrorList';
+import { FormFieldError } from '../../../../components/FormFieldError.js';
+import { FormErrorList } from './FormErrorList.js';
 
 const defaultQuestion: Question = {
   question: '',
@@ -23,9 +26,8 @@ const defaultQuestion: Question = {
   option_3: ANSWER_3,
 };
 
-const CreateSurvey = () => {
+const CreateSurveyPage = () => {
   const { surveyid } = useParams();
-  const [selectedBuildings, setSelectedBuildings] = useState<Building[]>([]);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [succesMessage, setSuccesMessage] = useState('');
 
@@ -36,7 +38,6 @@ const CreateSurvey = () => {
     handleSubmit,
     reset,
     getValues,
-    setError,
     formState: { errors },
   } = useForm<Survey>({
     defaultValues: {
@@ -58,7 +59,7 @@ const CreateSurvey = () => {
         ? SurveyStatus.PUBLISHED
         : SurveyStatus.UNPUBLISHED;
     console.log('data: ', data);
-    const res = await createSurvey(data, selectedBuildings);
+    const res = await createSurvey(data);
     if (!res) return;
     setSuccesMessage(res);
     setShowSuccessModal(true);
@@ -75,13 +76,16 @@ const CreateSurvey = () => {
   }, []);
 
   return (
-    <div className={styles.createSurvey}>
+    <main className={styles.container}>
       <SuccessAlertModal
         show={showSuccessModal}
         message={succesMessage}
         navRoute="/admin/surveys"
       />
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={`${styles.form} color3`}
+      >
         <Tabs className={styles.tabsBar}>
           <Tab eventKey="survey" title="Kysely">
             <div className="column" style={{ maxWidth: '60ch', gap: '1rem' }}>
@@ -183,7 +187,7 @@ const CreateSurvey = () => {
                   name="survey_header.survey_status"
                   control={control}
                   rules={{ required: false }}
-                  render={({ field }) => (
+                  render={({ field }: any) => (
                     <input
                       style={{ height: '1rem', width: '1rem' }}
                       type="checkbox"
@@ -194,8 +198,11 @@ const CreateSurvey = () => {
                 Jaa kysely isännöitsijöille
               </label>
 
-              <SurveyPreview survey={getValues()} />
-              <ButtonLoading text="Luo kysely" />
+              <div className="flex-row">
+                <SurveyPreview survey={getValues()} />
+                <ButtonLoading text="Luo kysely" />
+              </div>
+
               <FormErrorList
                 errors={errors}
                 questions={getValues().questions}
@@ -204,8 +211,8 @@ const CreateSurvey = () => {
           </Tab>
         </Tabs>
       </form>
-    </div>
+    </main>
   );
 };
 
-export default CreateSurvey;
+export default CreateSurveyPage;

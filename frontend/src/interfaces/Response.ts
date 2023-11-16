@@ -10,4 +10,4 @@ interface TokenResponse {
   user: Omit<User, 'password'>;
 }
 
-export { MessageResponse, TokenResponse };
+export type { MessageResponse, TokenResponse };

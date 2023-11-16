@@ -1,8 +1,10 @@
-import lamp from '../../../assets/lamp.png';
-import chair from '../../../assets/chair.png';
-import plant from '../../../assets/plant.png';
-import mirror from '../../../assets/mirror.png';
-import bookshelf from '../../../assets/book-shelf.png';
+const lamp = new URL('../../../assets/lamp.png', import.meta.url).href;
+const chair = new URL('../../../assets/chair.png', import.meta.url).href;
+const plant = new URL('../../../assets/plant.png', import.meta.url).href;
+const mirror = new URL('../../../assets/mirror.png', import.meta.url).href;
+const bookshelf = new URL('../../../assets/book-shelf.png', import.meta.url)
+  .href;
+
 import {
   MESSAGE_1,
   MESSAGE_2,

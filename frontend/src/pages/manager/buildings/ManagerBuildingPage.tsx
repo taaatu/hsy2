@@ -1,11 +1,13 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import useBuilding from '../../../hooks/BuildingHook';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Building } from '../../../interfaces/Building';
 import { ModifyBuildingForm } from '../../../components/forms/ModifyBuildingForm';
 import useSurvey from '../../../hooks/SurveyHook';
 import { AssignedSurvey } from '../../../interfaces/Survey';
 import { LoadingList } from '../../../components/lists/LoadingList';
+import { MainContext } from '../../../context/MainContext';
+import { UserGroup } from '../../../interfaces/User';
 
 const ManagerBuildingPage = () => {
   const { buildingid } = useParams();
@@ -14,6 +16,7 @@ const ManagerBuildingPage = () => {
   const [surveys, setSurveys] = useState<AssignedSurvey[]>([]);
   const navigate = useNavigate();
   const { getAssignedSurveys } = useSurvey();
+  const { curentUser } = useContext(MainContext);
 
   useEffect(() => {
     if (!buildingid) return;
@@ -41,7 +44,11 @@ const ManagerBuildingPage = () => {
               </div>
               <button
                 onClick={() =>
-                  navigate('/manager/surveys/' + survey.assigned_survey_id)
+                  navigate(
+                    curentUser?.user_group === UserGroup.ADMIN
+                      ? `/admin/surveys/${survey.survey_id}/assigned/${survey.assigned_survey_id}`
+                      : `/manager/surveys/${survey.survey_id}/assigned/${survey.assigned_survey_id}`
+                  )
                 }
               >
                 Siirry
