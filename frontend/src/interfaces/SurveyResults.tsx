@@ -19,4 +19,4 @@ type QuestionStatistics = {
   number_resident_selected_option_3: number;
 };
 
-export { ResidentResults, AssignedSurveyResults, QuestionStatistics };
+export type { ResidentResults, AssignedSurveyResults, QuestionStatistics };

@@ -3,4 +3,4 @@ interface Answer {
   selected_option: string;
 }
 
-export { Answer };
+export type { Answer };

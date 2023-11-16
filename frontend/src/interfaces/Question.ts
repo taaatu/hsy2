@@ -6,4 +6,4 @@ interface Question {
   option_3: string;
 }
 
-export { Question };
+export type { Question };

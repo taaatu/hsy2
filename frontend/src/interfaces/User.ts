@@ -14,4 +14,5 @@ enum UserGroup {
 
 type LoginInput = Pick<User, 'email' | 'password'>;
 
-export { User, LoginInput, UserGroup };
+export { UserGroup };
+export type { User, LoginInput };

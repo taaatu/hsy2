@@ -36,4 +36,5 @@ type AssignedSurvey = {
   building_name: number;
 };
 
-export { Survey, SurveyHeader, AssignedSurvey, SurveyStatus };
+export { SurveyStatus };
+export type { Survey, SurveyHeader, AssignedSurvey };
