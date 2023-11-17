@@ -1,4 +1,4 @@
-const logo = new URL('../assets/hima2.webp', import.meta.url).href;
+const logo = new URL('../assets/hima3.webp', import.meta.url).href;
 
 const AppName = () => {
   return (
