@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { MessageResponse } from '../interfaces/Response';
-import { User } from '../interfaces/User';
+import { User, UserGroup } from '../interfaces/User';
 import useFetch from './DoFetch';
 import { useContext } from 'react';
 import { MainContext } from '../context/MainContext';
@@ -9,7 +9,7 @@ import CustomError from '../interfaces/CustomError';
 const useUser = () => {
   const { doFetch } = useFetch();
   const navigate = useNavigate();
-  const { setCurrentUser } = useContext(MainContext);
+  const { curentUser, setCurrentUser } = useContext(MainContext);
 
   const getUserList = async () => {
     try {
@@ -71,7 +71,9 @@ const useUser = () => {
       const response = await doFetch('user/userid/' + userid, 'DELETE');
       console.log('delete user: ', response);
       alert('Käyttäjä poistettu');
-      navigate('/');
+      curentUser?.user_group === UserGroup.ADMIN
+        ? navigate('/admin/managers')
+        : navigate('/');
     } catch (error) {
       alert('Käyttäjän poistaminen epäonnistui');
       console.error('delete user', error);

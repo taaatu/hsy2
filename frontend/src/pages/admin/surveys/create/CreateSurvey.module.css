@@ -77,4 +77,5 @@
     position: sticky;
     top: 10vh;
     z-index: 50;
+    border-radius: 0.5rem;
 }

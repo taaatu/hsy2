@@ -9,12 +9,13 @@ import {
   YAxis,
   Tooltip,
   CartesianGrid,
-  Area,
   Bar,
-  Line,
+  Label,
+  ResponsiveContainer,
 } from 'recharts';
 import {
   getPropertyColor,
+  getQuestionPoints,
   getSelectedOptionsCount,
 } from '../../../../utils/Functions';
 import { useEffect, useState } from 'react';
@@ -24,6 +25,7 @@ import {
 } from '../../../../interfaces/SurveyResults';
 import useSurvey from '../../../../hooks/SurveyHook';
 import styles from './Results.module.css';
+import { BuildingColor } from '../../../../interfaces/Building';
 
 type Props = {
   surveyId: number;
@@ -44,7 +46,7 @@ export const SurveyResults = ({ surveyId }: Props) => {
     return <h2 style={{ marginTop: '1rem' }}>Ei vastauksia</h2>;
 
   return (
-    <div className="padding1">
+    <div className="padding1 column">
       <div className={styles.data}>
         <div>
           <h5>Vastaajien määrä </h5>
@@ -67,71 +69,198 @@ export const SurveyResults = ({ surveyId }: Props) => {
       </div>
 
       <div className="flex-row">
-        <PieChart width={300} height={500}>
-          <Legend verticalAlign="top" height={30} />
-          <Pie
-            data={pieData(surveyResults.survey_questions_statistics)}
-            dataKey="value"
-            cx="50%"
-            cy="50%"
-            outerRadius={100}
-            fill="#8884d8"
-            label
-          >
-            {pieData(surveyResults.survey_questions_statistics).map(
-              (entry, index) => (
-                <Cell key={`pie-${index}`} fill={entry.color} />
-              )
-            )}
-          </Pie>
-        </PieChart>
-        <ComposedChart width={400} height={300} data={data01}>
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <CartesianGrid stroke="#f5f5f5" />
-          <Area type="monotone" dataKey="amt" fill="#8884d8" stroke="#8884d8" />
-          <Bar dataKey="pv" barSize={20} fill="#413ea0" />
-          <Line type="monotone" dataKey="uv" stroke="#ff7300" />
-        </ComposedChart>
+        <div
+          className="padding1"
+          style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 300 }}
+        >
+          <h5>Vastausjakauma</h5>
+          <ResponsiveContainer width={'100%'} height={400}>
+            <PieChart>
+              <Legend verticalAlign="top" height={20} />
+              <Tooltip />
+              <Pie
+                data={pieData(
+                  surveyResults.survey_questions_statistics,
+                  surveyResults.number_of_answers
+                )}
+                dataKey="value"
+                outerRadius={100}
+                fill="#8884d8"
+                label
+              >
+                {pieData(
+                  surveyResults.survey_questions_statistics,
+                  surveyResults.number_of_answers
+                ).map((entry, index) => (
+                  <Cell key={`pie-${index}`} fill={entry.color} />
+                ))}
+              </Pie>
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+        <div
+          className="padding1"
+          style={{ flex: 1, backgroundColor: 'lightgray', minWidth: 300 }}
+        >
+          <h5>Kysymyskohtainen vastausjakauma</h5>
+          <ResponsiveContainer width={'100%'} height={400}>
+            <ComposedChart
+              width={300}
+              height={500}
+              data={getQuestionPoints(
+                surveyResults.survey_questions_statistics
+              )}
+            >
+              <XAxis>
+                <Label
+                  value="Kysymysten numerot"
+                  offset={0}
+                  position="insideBottom"
+                />
+              </XAxis>
+              <YAxis
+                label={{
+                  value: 'Pisteiden määrä',
+                  angle: -90,
+                  position: 'insideLeft',
+                }}
+              />
+              <Tooltip />
+              <Legend />
+              <CartesianGrid stroke="#f5f5f5" />
+
+              <Bar
+                dataKey="points"
+                name="Pistemäärä"
+                barSize={20}
+                fill="#413ea0"
+              />
+            </ComposedChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </div>
   );
 };
 
-const pieData = (data: QuestionStatistics[]) => [
+const pieData = (data: QuestionStatistics[], answersCount: number) => [
   {
     name: 'Pidän tärkeänä tai toimin näin',
     value: getSelectedOptionsCount(data, 1),
-    color: 'red',
+    p: (getSelectedOptionsCount(data, 1) / (data.length * answersCount)) * 100,
+    color: BuildingColor.GREEN,
   },
   {
     name: 'Asialla ei ole merkitystä tai asia ei koske minua',
     value: getSelectedOptionsCount(data, 2),
-    color: 'blue',
+    p: (getSelectedOptionsCount(data, 1) / (data.length * answersCount)) * 100,
+    color: BuildingColor.YELLOW,
   },
   {
     name: 'En pidä tärkeänä tai en toimi näin',
     value: getSelectedOptionsCount(data, 3),
-    color: 'green',
+    p: (getSelectedOptionsCount(data, 1) / (data.length * answersCount)) * 100,
+    color: BuildingColor.RED,
   },
 ];
 
-const data01 = [
-  {
-    name: 'Pidän tärkeänä tai toiminin näin',
-    value: 600,
-    color: 'red',
-  },
-  {
-    name: 'Asialla ei ole merkitystä tai asia ei koske minua',
-    value: 300,
-    color: 'blue',
-  },
-  {
-    name: 'En pidä tärkeänä tai en toimi näin',
-    value: 300,
-    color: 'green',
-  },
-];
+// const data01 = [
+//   {
+//     name: 'Pidän tärkeänä tai toiminin näin',
+//     value: 600,
+//     color: BuildingColor.GREEN,
+//   },
+//   {
+//     name: 'Asialla ei ole merkitystä tai asia ei koske minua',
+//     value: 300,
+//     color: BuildingColor.YELLOW,
+//   },
+//   {
+//     name: 'En pidä tärkeänä tai en toimi näin',
+//     value: 300,
+//     color: BuildingColor.RED,
+//   },
+// ];
+
+// const data02 = [
+//   {
+//     name: 'Kysymys 1',
+//     value: 10,
+//   },
+//   {
+//     name: 'Kysymys 2',
+//     value: 15,
+//   },
+//   {
+//     name: 'Kysymys 3',
+//     value: 13,
+//   },
+//   {
+//     name: 'Kysymys 4',
+//     value: 11,
+//   },
+//   {
+//     name: 'Kysymys 5',
+//     value: 5,
+//   },
+//   {
+//     name: 'Kysymys 1',
+//     value: 10,
+//   },
+//   {
+//     name: 'Kysymys 2',
+//     value: 15,
+//   },
+//   {
+//     name: 'Kysymys 3',
+//     value: 13,
+//   },
+//   {
+//     name: 'Kysymys 4',
+//     value: 11,
+//   },
+//   {
+//     name: 'Kysymys 5',
+//     value: 5,
+//   },
+//   {
+//     name: 'Kysymys 1',
+//     value: 10,
+//   },
+//   {
+//     name: 'Kysymys 2',
+//     value: 15,
+//   },
+//   {
+//     name: 'Kysymys 3',
+//     value: 13,
+//   },
+//   {
+//     name: 'Kysymys 4',
+//     value: 11,
+//   },
+//   {
+//     name: 'Kysymys 5',
+//     value: 5,
+//   },
+//   {
+//     name: 'Kysymys 1',
+//     value: 10,
+//   },
+//   {
+//     name: 'Kysymys 2',
+//     value: 15,
+//   },
+//   {
+//     name: 'Kysymys 3',
+//     value: 13,
+//   },
+//   {
+//     name: 'Kysymys 4',
+//     value: 11,
+//   },
+//   {
+//     name: 'Kysymys 5',
+//     value: 5,
+//   },
+// ];
