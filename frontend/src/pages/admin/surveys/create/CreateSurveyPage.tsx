@@ -87,13 +87,13 @@ const CreateSurveyPage = () => {
         className={`${styles.form} color3`}
       >
         <Tabs className={styles.tabsBar}>
-          <Tab eventKey="survey" title="Kysely">
+          <Tab eventKey="survey" title="Tiedot">
             <div className="column" style={{ maxWidth: '60ch', gap: '1rem' }}>
               <label className="createsurveything">
                 Kyselyn nimi
                 <input
                   maxLength={40}
-                  className={styles.input}
+                  className="line"
                   type="text"
                   placeholder="Kyselyn nimi"
                   {...register('survey_header.survey_title', {
@@ -111,11 +111,15 @@ const CreateSurveyPage = () => {
                   <input
                     type="date"
                     placeholder="Alkaa"
-                    className={styles.input}
+                    className="line"
                     {...register('survey_header.start_time', {
                       required: {
                         value: true,
                         message: 'Alkamispäivä vaaditaan',
+                      },
+                      min: {
+                        value: new Date().toISOString().slice(0, 10),
+                        message: 'Alkamispäivä ei voi olla menneisyydessä',
                       },
                     })}
                   />
@@ -126,7 +130,7 @@ const CreateSurveyPage = () => {
                   <input
                     type="date"
                     placeholder="Päättyy"
-                    className={styles.input}
+                    className="line"
                     {...register('survey_header.end_time', {
                       required: {
                         value: true,

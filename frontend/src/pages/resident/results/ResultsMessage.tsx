@@ -30,9 +30,7 @@ export const ResultsMessage = ({ pointsPercentage }: Props) => {
       <h4 style={{ textAlign: 'center', fontWeight: 'bolder' }}>
         Olet {getMessage(pointsPercentage).itemName}
       </h4>
-      <p style={{ textAlign: 'center' }}>
-        {getMessage(pointsPercentage).message}
-      </p>
+      <p>{getMessage(pointsPercentage).message}</p>
     </div>
   );
 };
