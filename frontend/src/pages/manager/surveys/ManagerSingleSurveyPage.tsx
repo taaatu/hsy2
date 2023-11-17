@@ -90,7 +90,7 @@ const CreateKey = ({ surveyid }: { surveyid: number }) => {
       <ul>
         <h4>Käyttämättömät koodit {`(${surveyKeys.length})`}</h4>
         {surveyKeys.map((key) => (
-          <li key={key}>{key}</li>
+          <li className='kooditlista' key={key}>{key}</li>
         ))}
       </ul>
     </>
