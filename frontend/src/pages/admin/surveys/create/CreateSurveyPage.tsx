@@ -136,6 +136,11 @@ const CreateSurveyPage = () => {
                         value: true,
                         message: 'Päättymispäivä vaaditaan',
                       },
+                      min: {
+                        value: getValues().survey_header.start_time,
+                        message:
+                          'Päättymispäivä ei voi olla ennen alkamispäivää',
+                      },
                     })}
                   />
                   <FormFieldError error={errors.survey_header?.end_time} />
