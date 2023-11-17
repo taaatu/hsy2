@@ -1,20 +1,18 @@
 import { useEffect, useState } from 'react';
 import useSurvey from '../../../hooks/SurveyHook';
 import { useParams } from 'react-router-dom';
-// import { XAxis } from 'recharts';
 import styles from '../resident.module.css';
 import { FaPersonHiking } from 'react-icons/fa6';
 import { BsFillBuildingFill } from 'react-icons/bs';
 import { ResidentResults } from '../../../interfaces/SurveyResults';
 import { ResultsMessage } from './ResultsMessage';
 import { getPropertyColor } from '../../../utils/Functions';
+import { BuildingColor } from '../../../interfaces/Building';
 
 const UserResultsPage = () => {
   const { getResidentAnwers } = useSurvey();
   const { key } = useParams();
   const [results, setResults] = useState<ResidentResults>();
-  // const test = 100;
-  // const test2 = 10;
 
   useEffect(() => {
     if (!key) return;
@@ -36,14 +34,16 @@ const UserResultsPage = () => {
           Millaisessa taloyhtiössä asut?
         </h4>
 
-        <p style={{ textAlign: 'center' }}>Jotain tekstiä prosentin mukaan</p>
-        <div
-          style={{
-            height: '10px',
-            width: '10px',
-            backgroundColor: getPropertyColor(results?.average_percentage || 2),
-          }}
-        ></div>
+        <p className="padding1">
+          {buildingColorMessage(results?.average_percentage || 2)}
+        </p>
+        <div style={{ margin: 'auto', width: 'fit-content' }}>
+          <BsFillBuildingFill
+            size="2rem"
+            color={getPropertyColor(results?.average_percentage || 0)}
+          />
+        </div>
+
         <div className="padding1" style={{ textAlign: 'center' }}>
           Taloyhtiöstänne {results?.answer_count} on vastannut kyselyyn
         </div>
@@ -57,7 +57,6 @@ const UserResultsPage = () => {
           >
             <FaPersonHiking
               size="2rem"
-              color="purple"
               style={{
                 marginLeft: `${results?.own_percentage}%`,
                 position: 'absolute',
@@ -79,9 +78,9 @@ const UserResultsPage = () => {
             className="flex-row"
             style={{ gap: 0, justifyContent: 'space-between' }}
           >
-            <BsFillBuildingFill size={40} color="red" />
-            <BsFillBuildingFill size={40} color="yellow" />
-            <BsFillBuildingFill size={40} color="green" />
+            <BsFillBuildingFill size={40} color={BuildingColor.RED} />
+            <BsFillBuildingFill size={40} color={BuildingColor.YELLOW} />
+            <BsFillBuildingFill size={40} color={BuildingColor.GREEN} />
           </div>
         </div>
       </div>
@@ -90,3 +89,19 @@ const UserResultsPage = () => {
 };
 
 export default UserResultsPage;
+
+const buildingColorMessage = (percentage: number) => {
+  if (percentage < 33) {
+    return redMsg;
+  } else if (percentage >= 33 && percentage < 66) {
+    return yellowMsg;
+  } else if (percentage >= 66) {
+    return greenMsg;
+  }
+};
+
+const redMsg = `Taloyhtiönne tahtotila on matala. Tarvitsette suunnitelman jolla nostattaa tahtotilaa, jotta yhteisten päätösten tekeminen olisi helpompaa. Seuraava yhtiökokous on oiva tilaisuus selvittää seuraavat askeleet kohti tahtotilan kohotusta.`;
+
+const yellowMsg = `Taloyhtiönne tahtotila on keskiverto tasolla. Taloyhtiössänne löytyy monipuolisesti ajattelevia osakkaita. Osalle taloyhtiön viihtyisyys on tärkeämpi ja joillekin yleiskunto. Tahtotila kaipaisi kohennusta, josta on mahdollista keskustella seuraavassa yhtiökokouksessa.`;
+
+const greenMsg = `Taloyhtiönne tahtotila on korkea. Omaatte taloyhtiönä kollektiivisen näkemyksen. Olette suuntaamassa ja itse asiassa olettekin jo tehneet kovasti töitä tahtotilan eteen. Sen ylläpitämiseksi täytyy tehdä töitä ja seuraava yhtiökokous on oiva mahdollisuus suunnitella tulevaa.`;
