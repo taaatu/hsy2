@@ -1,1 +1,0 @@
-import{j as s,s as r}from"./index-d81204ee.js";import{g as o}from"./index.esm-733f9f11.js";const i=({placeholder:a,handleSearch:e})=>s.jsxs("div",{className:"color3 rounded",style:{position:"relative",maxWidth:"fit-content"},children:[s.jsx(o,{className:r.searchIcon}),s.jsx("input",{className:"search-bar line",placeholder:a,onChange:e})]});export{i as S};
