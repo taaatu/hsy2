@@ -74,3 +74,9 @@
   right:0.5rem;
   transform: translateY(-50%);
 }
+
+.searchBar {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+}
