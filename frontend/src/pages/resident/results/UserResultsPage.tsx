@@ -22,30 +22,32 @@ const UserResultsPage = () => {
     })();
   }, []);
 
+  if (!results) return <h1>Ei tuloksia koodilla</h1>;
+
   return (
     <main>
       <div
         className="color3 rounded"
         style={{ maxWidth: '550px', margin: 'auto' }}
       >
-        <ResultsMessage pointsPercentage={results?.own_percentage || 0} />
+        <ResultsMessage pointsPercentage={results.own_percentage} />
 
         <h4 style={{ fontWeight: 'bolder', textAlign: 'center' }}>
           Millaisessa taloyhtiössä asut?
         </h4>
 
         <p className="padding1">
-          {buildingColorMessage(results?.average_percentage || 2)}
+          {buildingColorMessage(results.average_percentage)}
         </p>
         <div style={{ margin: 'auto', width: 'fit-content' }}>
           <BsFillBuildingFill
-            size="2rem"
-            color={getPropertyColor(results?.average_percentage || 0)}
+            size={50}
+            color={getPropertyColor(results.average_percentage)}
           />
         </div>
 
         <div className="padding1" style={{ textAlign: 'center' }}>
-          Taloyhtiöstänne {results?.answer_count} on vastannut kyselyyn
+          Taloyhtiöstänne {results.answer_count} on vastannut kyselyyn
         </div>
 
         <div className={`${styles.lineBox} padding1`}>
@@ -58,17 +60,17 @@ const UserResultsPage = () => {
             <FaPersonHiking
               size="2rem"
               style={{
-                marginLeft: `${results?.own_percentage}%`,
+                marginLeft: `${results.own_percentage}%`,
                 position: 'absolute',
-                transform: `translate(-${results?.own_percentage}%)`,
+                transform: `translate(-${results.own_percentage}%)`,
               }}
             />
             <BsFillBuildingFill
               size="2rem"
               style={{
-                marginLeft: `${results?.average_percentage}%`,
+                marginLeft: `${results.average_percentage}%`,
                 position: 'absolute',
-                transform: `translate(-${results?.average_percentage}%)`,
+                transform: `translate(-${results.average_percentage}%)`,
               }}
             />
           </div>

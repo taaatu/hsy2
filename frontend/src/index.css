@@ -200,6 +200,10 @@ input.line {
   border-radius: 0;
 }
 
+textarea:focus, input:focus{
+  outline: none;
+}
+
 
 .flex-row {
   display: flex;
@@ -240,3 +244,13 @@ input.medium {
 .kooditlista{
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Mobile */
+@media only screen and (max-width: 30em) {
+  button {
+    font-size: small;
+  }
+  div {
+    font-size: small;
+  }
+} 

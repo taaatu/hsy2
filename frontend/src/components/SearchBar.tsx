@@ -7,10 +7,7 @@ type Props = {
 };
 
 export const SearchBar = ({ placeholder, handleSearch }: Props) => (
-  <div
-    className="color3 rounded"
-    style={{ position: 'relative', maxWidth: 'fit-content' }}
-  >
+  <div className={`color3 rounded ${styles.searchBar}`}>
     <FaSearch className={styles.searchIcon} />
     <input
       className="search-bar line"
