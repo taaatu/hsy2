@@ -115,7 +115,7 @@ const useSurvey = () => {
       console.log('Survey by key: ', response);
       return response as Survey;
     } catch (error: any) {
-      throw new Error(error.message);
+      console.error('Get survey by key', error.message);
     }
   };
 

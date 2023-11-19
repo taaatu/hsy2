@@ -6,7 +6,7 @@ import { FormFieldError } from '../FormFieldError';
 import useBuilding from '../../hooks/BuildingHook';
 import CustomError from '../../interfaces/CustomError';
 import { SuccessAlertModal } from '../SuccessAlertModal';
-import { useNavigate } from 'react-router-dom';
+import useNav from '../../hooks/NavHook';
 
 type Props = {
   building: Building;
@@ -15,7 +15,7 @@ type Props = {
 export const ModifyBuildingForm = ({ building }: Props) => {
   const [isModifying, setIsModifying] = useState<boolean>(false);
   const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
-  const navigate = useNavigate();
+  const { navigateBuildings } = useNav();
   const { modifyBuilding, deleteBuilding } = useBuilding();
   const {
     register,
@@ -34,7 +34,7 @@ export const ModifyBuildingForm = ({ building }: Props) => {
       });
       return;
     }
-    navigate('/manager/properties');
+    navigateBuildings();
   };
 
   const onSubmit = async (data: Building) => {
