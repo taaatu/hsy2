@@ -17,7 +17,9 @@ const {
     survey_get_by_key,
     survey_question_answer_post,
     survey_answer_get_by_key,
-    assigned_survey_answer_list_get
+    assigned_survey_delete,
+    assigned_survey_answer_list_get,
+    survey_answer_list_get
 } = require("../controllers/surveyController");
 
 
@@ -66,6 +68,11 @@ router
 router
     .route("/assignsurevey")
     .get(assigned_survey_list_get)
+    .delete(
+        body("as_id")
+            .isNumeric().withMessage('as_id must be a numeric value.'),
+        assigned_survey_delete
+    )
     .post(
         body("s_id")
             .isNumeric().withMessage('s_id must be a numeric value.'),
@@ -101,6 +108,10 @@ router
 );
 
 router
-    .route("/surveyanswerlist/:as_id")
+    .route("/assignedsurveyanswerlist/:as_id")
     .get(assigned_survey_answer_list_get)
+
+router
+    .route("/surveyanswerlist/:s_id")
+    .get(survey_answer_list_get)
 module.exports = router;

@@ -21,7 +21,13 @@ const {
     checkKeyStatus,
     getAllAssignedSurveyAnswersByKey,
     getSurveyQuestionByQuestionId,
-    getAssigndSurveyIdByKey
+    getAssignedSurveyById,
+    deleteAssignedSurveyById,
+    getAssigndSurveyIdByKey,
+    getAllAssignedSurveyIdBySurveyId,
+    getAllPropertyManagerEmail,
+    getAssignedSurveyInfoBySurveyKey,
+    
 } = require('../models/surveyModel');
 const {
     generateSixDigitNumber,
@@ -29,6 +35,7 @@ const {
     isCurrentDateInSurveyDataRange,
     isCurrentDateBeforeSurveyEndDate
 } = require('../utils/utils');
+const nodemailer = require("nodemailer");
 
 const survey_list_get = async (req, res, next) => {
     try {
@@ -43,12 +50,12 @@ const survey_list_get = async (req, res, next) => {
 const survey_delete = async (req, res, next) => {
     try {
         const survey = await getSurveyById(req.params.surveyId);
-        await deleteSurveyById(req.params.surveyId);
         if (!survey) {
             const err = httpError(`Survey not found by id ${req.params.surveyId}`, 404);
             next(err);
             return;
         } else {
+            await deleteSurveyById(req.params.surveyId);
             res.json({ message: `Survey deleted: ${req.params.surveyId}`, status: 200 });
         }
     } catch (error) {
@@ -70,7 +77,31 @@ const survey_post = async (req, res, next) => {
             for (let question of req.body.questions) {
                 await insertSurveyQuestionBySurveyId(id, question);
             }
+
+            if (req.body.survey_header.survey_status == "published") {        
+                const transporter = nodemailer.createTransport({
+                    service: process.env.MAILER_PROVIDER,
+                    auth: {
+                      user: process.env.MAILER_EMAIL,
+                      pass: process.env.MAILER_PASSWORD,
+                    },
+                });
+                const property_manager_email_list = [];
+                const email_list = await getAllPropertyManagerEmail();
+                console.log(email_list)
+                for (let email of email_list) {
+                    property_manager_email_list.push(email.email)
+                }
+                console.log(property_manager_email_list)
+                await transporter.sendMail({
+                    from: `HIMA<${process.env.MAILER_EMAIL}>`, 
+                    to: `${property_manager_email_list}`, 
+                    subject: "New survey has been published",
+                    text: `Hi,\n\nNew survey ${req.body.survey_header.survey_title} has been published. Please check the detail of new survey from Hima application.\n\n Best Regards,\nHSY admin`, 
+                });
+            }
         }
+        
         res.json({ survey_id: `${id}`, message: `Survey ${req.body.survey_header.survey_title} added`, status: 200 });
     } catch (error) {
         next(error);
@@ -80,6 +111,29 @@ const survey_post = async (req, res, next) => {
 const survey_publish_post = async (req, res, next) => {
     try {
         const result = await updateSurveyStatus(req.body.survey_id);
+        if (result) { 
+            const transporter = nodemailer.createTransport({
+                service: process.env.MAILER_PROVIDER,
+                auth: {
+                  user: process.env.MAILER_EMAIL,
+                  pass: process.env.MAILER_PASSWORD,
+                },
+            });
+            const property_manager_email_list = [];
+            const email_list = await getAllPropertyManagerEmail();
+            console.log(email_list)
+            for (let email of email_list) {
+                property_manager_email_list.push(email.email)
+            }
+            console.log(property_manager_email_list)
+            const survey = await getSurveyById(req.body.survey_id)
+            await transporter.sendMail({
+                from: `HIMA<${process.env.MAILER_EMAIL}>`, 
+                to: `${property_manager_email_list}`, 
+                subject: "New survey has been published",
+                text: `Hi,\n\n New survey ${survey.survey_title} has been published. Please check the detail of new survey from Hima application.\n\n Best Regards,\nHSY admin`, 
+            });
+        }
         res.json({message: `survey ${req.body.survey_id} has been successfully published!`, status: 200 });
     } catch (error) {
         next(error);
@@ -154,6 +208,29 @@ const survey_get_by_key = async (req, res, next) => {
             } else {
                 throw httpError("Fail to fetch survey, because current data is not in the range between survey start data and survey end data.", 400);
             }
+        }
+    } catch (error) {
+        next(error);
+    };
+};
+
+const assigned_survey_delete = async (req, res, next) => {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            console.error('assigned_survey_delete validation', errors.array());
+            const err = httpError(errors.errors[0].msg, 400);
+            next(err);
+            return;
+        }
+        const survey = await getAssignedSurveyById(req.body.as_id);
+        if (!survey) {
+            const err = httpError(`Survey not found by id ${req.body.as_id}`, 404);
+            next(err);
+            return;
+        } else {
+            await deleteAssignedSurveyById(req.body.as_id);
+            res.json({ message: `Assigned survey deleted: ${req.body.as_id}`, status: 200 });
         }
     } catch (error) {
         next(error);
@@ -347,7 +424,7 @@ const assigned_survey_answer_list_get = async (req, res, next) => {
         }
 
         const total_point = survey_point_list.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-        const rounded_average_point = (total_point / survey_point_list.length).toFixed(2);
+        const rounded_average_point = Number((total_point / survey_point_list.length).toFixed(2));
         const average_percentage = (total_point / (number_of_questions * survey_point_list.length)) * 100;
         const formatted_average_percentage = Number(average_percentage.toFixed(1));
 
@@ -368,6 +445,91 @@ const assigned_survey_answer_list_get = async (req, res, next) => {
     };
 };
 
+const survey_answer_list_get = async (req, res, next) => {
+    try {
+        const key_status = "used"
+        const assigned_survey_id_list = await getAllAssignedSurveyIdBySurveyId(req.params.s_id);
+        const assigned_survey_key_list = []
+        for (let assigned_survey_id of assigned_survey_id_list) { 
+            const answered_survey_keys = await getAllKeyByAssignedSurveyId(assigned_survey_id.assigned_survey_id, key_status);
+            for (let answerd_survey_key of answered_survey_keys) {
+                assigned_survey_key_list.push(answerd_survey_key)
+            }
+        }
+        const survey_answer_list = [];
+        const survey_statistics_list = [];
+        const survey_point_list = [];
+        const merged_statics = [];
+        const number_of_answers = assigned_survey_key_list.length
+        let number_of_questions = 0
+
+
+        for (let answered_survey_key of assigned_survey_key_list) {
+            const assigned_survey_info = await getAssignedSurveyInfoByKey(key_status, answered_survey_key.survey_key);
+            const survey = await getSurveyById(assigned_survey_info.s_id);
+            const saved_answers = await getAllAssignedSurveyAnswersByKey(answered_survey_key.survey_key);
+            const assign_survey_info = await getAssignedSurveyInfoBySurveyKey(answered_survey_key.survey_key);
+            let survey_points = 0
+            let percentage = 0
+            number_of_questions = saved_answers.length
+
+            for (let savedAnswer of saved_answers) {
+                let number_option_1 = 0
+                let number_option_2 = 0
+                let number_option_3 = 0
+                const survey_question = await getSurveyQuestionByQuestionId(savedAnswer.q_id);
+                if (survey_question.option_1 == savedAnswer.selected_option) {
+                    survey_points += 1
+                    number_option_1 += 1
+                } else if (survey_question.option_2 == savedAnswer.selected_option) {
+                    survey_points += 0.5
+                    number_option_2 += 1
+                } else {
+                    number_option_3 += 1
+                }
+                const survey_question_statistics = {
+                    question: savedAnswer.question,
+                    number_resident_selected_option_1: number_option_1,
+                    number_resident_selected_option_2: number_option_2,
+                    number_resident_selected_option_3: number_option_3
+                }
+                survey_statistics_list.push(survey_question_statistics)
+            }
+            percentage = (survey_points / number_of_questions) * 100;
+            const formatted_percentage = Number(percentage.toFixed(2));
+            const combinedSurveyInfo = Object.assign({}, survey, assign_survey_info);
+            const survey_answer = {
+                survey_head: combinedSurveyInfo,
+                survey_answers: saved_answers,
+                survey_points: survey_points,
+                percentage: formatted_percentage
+            }
+            survey_answer_list.push(survey_answer)
+            survey_point_list.push(survey_points)
+        }
+
+        const total_point = survey_point_list.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+        const rounded_average_point = Number((total_point / survey_point_list.length).toFixed(2));
+        const average_percentage = (total_point / (number_of_questions * survey_point_list.length)) * 100;
+        const formatted_average_percentage = Number(average_percentage.toFixed(1));
+
+        survey_statistics_list.forEach((survey_statistics) => {
+            const existing_survey_statistics = merged_statics.find((mergedItem) => mergedItem.question === survey_statistics.question);
+            if (existing_survey_statistics) {
+                existing_survey_statistics.number_resident_selected_option_1 += survey_statistics.number_resident_selected_option_1;
+                existing_survey_statistics.number_resident_selected_option_2 += survey_statistics.number_resident_selected_option_2;
+                existing_survey_statistics.number_resident_selected_option_3 += survey_statistics.number_resident_selected_option_3;
+            } else {
+                merged_statics.push(survey_statistics);
+            }
+        });
+
+        res.json({ number_of_answers: number_of_answers, survey_point_list: survey_point_list, average_percentage: formatted_average_percentage, average_survey_point: rounded_average_point, survey_questions_statistics: merged_statics, survey_answers: survey_answer_list });
+    } catch (error) {
+        next(error);
+    };
+};
+
   
 module.exports = {
     survey_list_get,
@@ -382,5 +544,7 @@ module.exports = {
     survey_get_by_key,
     survey_question_answer_post,
     survey_answer_get_by_key,
-    assigned_survey_answer_list_get
+    assigned_survey_delete,
+    assigned_survey_answer_list_get,
+    survey_answer_list_get
 };

@@ -297,6 +297,75 @@ const getAssigndSurveyIdByKey = async (key) => {
     }
 };
 
+const getAllAssignedSurveyIdBySurveyId = async (surveyId) => {
+    try {
+        const [rows] = await promisePool.query(
+            "SELECT assigned_survey_id FROM assigned_survey WHERE s_id = ?",
+            [surveyId]
+        );
+        return rows;
+    } catch (e) {
+        console.error('model get all assigned survey id by survey id', e.message);
+        throw httpError(e.message, 400);
+    }
+};
+
+const getAllPropertyManagerEmail = async () => {
+    try {
+        const [rows] = await promisePool.query(
+            "SELECT email FROM user WHERE user_group = 1"
+        );
+        return rows;
+    } catch (e) {
+        console.error('model get all property managers email', e.message);
+        throw httpError(e.message, 400);
+    }
+};
+
+const getAssignedSurveyInfoBySurveyKey = async (surveyKey) => {
+    try {
+        const [rows] = await promisePool.query(
+            "SELECT assigned_survey_id, street, post_code, city, name FROM \
+            (SELECT * FROM assigned_survey AS new_1 JOIN assigned_survey_key ON new_1.assigned_survey_id = \
+            assigned_survey_key.as_id WHERE assigned_survey_key.survey_key = ? ) AS new_2 \
+            JOIN building ON building.building_id = new_2.b_id",
+            [surveyKey]
+        );
+        return rows[0];
+    } catch (e) {
+        console.error('model get all assigned survey info by survey key', e.message);
+        throw httpError(e.message, 400);
+    }
+};
+
+const getAssignedSurveyById = async (assignedSurveyId) => {
+    try {
+        const [rows] = await promisePool.execute(
+            "SELECT * FROM assigned_survey WHERE assigned_survey_id = ?",
+            [assignedSurveyId]
+        );
+        console.log("Get by survey id result?", rows);
+        return rows[0];
+    } catch (e) {
+        console.error("model get survey by id", e.message);
+        throw httpError(e.message, 400);
+    }
+};
+
+const deleteAssignedSurveyById = async (assignedSurveyId) => {
+    try {
+        const [rows] = await promisePool.execute(
+            "DELETE FROM assigned_survey WHERE assigned_survey_id = ?",
+            [assignedSurveyId]
+        );
+        console.log("model delete assigned survey", rows);
+        return true;
+    } catch (e) {
+        console.error("model delete assigned survey", e.message);
+        throw httpError(e.message, 400);
+    }
+};
+
 
 
 module.exports = {
@@ -318,5 +387,11 @@ module.exports = {
     getAllAssignedSurveyAnswersByKey,
     getSurveyQuestionByQuestionId,
     updateSurveyStatus,
-    getAssigndSurveyIdByKey
+    getAssignedSurveyById,
+    deleteAssignedSurveyById,
+    getAssigndSurveyIdByKey,
+    getAllAssignedSurveyIdBySurveyId,
+    getAllPropertyManagerEmail,
+    getAssignedSurveyInfoBySurveyKey,
+    
 }; 
