@@ -42,9 +42,7 @@ a:hover {
 }
 
 h1 {
-  /* font-size: 3.2em; */
-  /* font-size: min(2em, 3.2em); */
-  font-size: clamp(1.8rem, 2.5vw, 2.8rem);
+  font-size: 3.2em;
   line-height: 1.1;
 }
 
