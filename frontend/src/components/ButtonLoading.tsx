@@ -4,7 +4,7 @@ import Spinner from 'react-bootstrap/Spinner';
 
 type Props = {
   text: string;
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   classname?: any;
 };
 

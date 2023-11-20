@@ -1,15 +1,22 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import useSurvey from '../../../hooks/SurveyHook';
-import { AssignedSurvey, Survey } from '../../../interfaces/Survey';
+import {
+  AssignedSurvey,
+  Survey,
+  SurveyStatus,
+} from '../../../interfaces/Survey';
 import { SurveyPreview } from '../../../components/SurveyPreview';
 import { LoadingList } from '../../../components/lists/LoadingList';
+import { ButtonLoading } from '../../../components/ButtonLoading';
 
 const SingleSurveyPage = () => {
   const { surveyid } = useParams();
   const { getSurveyById, deleteSurvey, getAssignedSurveys } = useSurvey();
   const [survey, setSurvey] = useState<Survey>();
   const [assignedSurveys, setAssignedSurveys] = useState<AssignedSurvey[]>([]);
+  const [update, setUpdate] = useState(0);
+  const handleUpdate = () => setUpdate(update + 1);
 
   const navigate = useNavigate();
 
@@ -34,25 +41,36 @@ const SingleSurveyPage = () => {
       );
       setAssignedSurveys(_filtered);
     })();
-  }, []);
+  }, [update]);
 
   if (!survey) return <h1>Ei kyselyä</h1>;
 
   return (
     <main>
       <h1>{survey.survey_header.survey_title}</h1>
-      <SurveyPreview survey={survey} />
-      <button className="delete" onClick={handleDelete}>
-        Poista kysely
-      </button>
-      <button
-        className="colored"
-        onClick={() =>
-          navigate('/admin/surveys/create/' + survey.survey_header.survey_id)
-        }
-      >
-        Luo kopio
-      </button>
+      <div className="flex-row">
+        <SurveyPreview survey={survey} />
+
+        <button
+          className="colored"
+          onClick={() =>
+            navigate('/admin/surveys/create/' + survey.survey_header.survey_id)
+          }
+        >
+          Luo kopio
+        </button>
+        {survey.survey_header.survey_status === SurveyStatus.UNPUBLISHED && (
+          <ShareSurveyButton
+            surveyid={survey.survey_header.survey_id}
+            handleUpdate={handleUpdate}
+          />
+        )}
+
+        <button className="delete" onClick={handleDelete}>
+          Poista kysely
+        </button>
+      </div>
+
       <h1>Assigned surveys list</h1>
       <LoadingList>
         {assignedSurveys.map((survey) => (
@@ -75,6 +93,25 @@ const SingleSurveyPage = () => {
       </LoadingList>
     </main>
   );
+};
+
+const ShareSurveyButton = ({
+  surveyid,
+  handleUpdate,
+}: {
+  surveyid?: number;
+  handleUpdate: () => void;
+}) => {
+  const { publishSurvey } = useSurvey();
+
+  const onClick = async (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    if (!surveyid) return alert('No survey id');
+    await publishSurvey(surveyid);
+    handleUpdate();
+  };
+
+  return <ButtonLoading text="Jaa kysely" onClick={onClick} />;
 };
 
 export default SingleSurveyPage;

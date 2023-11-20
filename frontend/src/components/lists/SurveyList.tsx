@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { SurveyHeader } from '../../interfaces/Survey';
+import { SurveyHeader, SurveyStatus } from '../../interfaces/Survey';
 import { LoadingList } from './LoadingList';
 import styles from './Lists.module.css';
 import { useContext, useEffect, useState } from 'react';
@@ -37,33 +37,54 @@ export const SurveyList = () => {
   return (
     <div className="column">
       <h1>Kyselypohjat</h1>
-      <div className="sticky-header">
-        <div
-          style={{ marginBottom: '1em', gap: '1rem', flexWrap: 'wrap' }}
-          className="flex-row center-align"
-        >
-          <SearchBar placeholder="Hae kyselyitä" handleSearch={handleSearch} />
-          {curentUser?.user_group === UserGroup.ADMIN ? (
-            <button
-              onClick={() => navigate(`/admin/surveys/create`)}
-              className="colored"
-            >
-              Luo uusi kysely
-            </button>
-          ) : null}
-        </div>
-      </div>
+
       <LoadingList>
+        <div className="sticky-header rounded color3">
+          <div
+            style={{ marginBottom: '1em', gap: '1rem', flexWrap: 'wrap' }}
+            className="flex-row center-align padding1"
+          >
+            <SearchBar
+              placeholder="Hae kyselyitä"
+              handleSearch={handleSearch}
+            />
+            {curentUser?.user_group === UserGroup.ADMIN ? (
+              <button
+                onClick={() => navigate(`/admin/surveys/create`)}
+                className="colored"
+              >
+                Luo uusi kysely
+              </button>
+            ) : null}
+          </div>
+          <div className={`bold padding1 ${styles.buildingsHeader}`}>
+            <div>Nimi</div>
+            <div>Jaettu</div>
+            <div className={styles.btnContainer}></div>
+          </div>
+        </div>
+
         {filteredSurveys.map((survey) => (
           <div key={survey.survey_id} className={styles.listItem}>
-            <div>{survey.survey_title}</div>
-            <button
-              onClick={() =>
-                navigate(`/${navEndpoint}/surveys/${survey.survey_id}`)
-              }
-            >
-              Siirry
-            </button>
+            <div style={{ flex: 1 }}>{survey.survey_title}</div>
+            {curentUser?.user_group === UserGroup.ADMIN ? (
+              <>
+                <div style={{ flex: 1 }}>
+                  {survey.survey_status === SurveyStatus.PUBLISHED
+                    ? 'Kyllä'
+                    : 'Ei'}
+                </div>
+              </>
+            ) : null}
+            <div className={styles.btnContainer}>
+              <button
+                onClick={() =>
+                  navigate(`/${navEndpoint}/surveys/${survey.survey_id}`)
+                }
+              >
+                Siirry
+              </button>
+            </div>
           </div>
         ))}
       </LoadingList>

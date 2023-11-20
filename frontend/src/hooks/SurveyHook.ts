@@ -59,6 +59,19 @@ const useSurvey = () => {
     }
   };
 
+  const publishSurvey = async (surveyId: number) => {
+    try {
+      const response = await doFetch(`survey/surveystatusupdate`, 'POST', {
+        survey_id: surveyId,
+      });
+      console.log('Publish survey: ', response);
+      alert('Kysely julkaistu');
+    } catch (error: any) {
+      console.error('Publish survey', error.message);
+      alert('Kyselyn jakaminen epäonnistui');
+    }
+  };
+
   const assignSurveyToBuildings = async (
     buildings: Building[],
     surveyid: number
@@ -144,7 +157,10 @@ const useSurvey = () => {
 
   const getAssignedSurveyResults = async (id: number) => {
     try {
-      const response = await doFetch(`survey/surveyanswerlist/${id}`, 'GET');
+      const response = await doFetch(
+        `survey/assignedsurveyanswerlist/${id}`,
+        'GET'
+      );
       console.log('Assigned survey results: ', response);
       return response as AssignedSurveyResults;
     } catch (error: any) {
@@ -178,6 +194,7 @@ const useSurvey = () => {
     getSurveys,
     getSurveyById,
     createSurvey,
+    publishSurvey,
     createSurveyKeys,
     getAssignedSurveys,
     getSurveyByKey,
