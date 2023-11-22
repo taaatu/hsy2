@@ -16,3 +16,18 @@
     align-items: center;
     border-bottom: 1px solid lightgray;
 }
+
+.data {
+    display: flex;
+    gap: 1rem;
+    max-width: 60%;
+    flex-wrap: wrap;
+
+}
+
+.data > * {
+    background-color: lightgray;
+    padding: 2rem;
+    flex: 1;
+    text-align: center;
+}

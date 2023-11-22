@@ -2,7 +2,7 @@
     display: flex;
     gap: 1rem;
     max-width: 60%;
-
+    flex-wrap: wrap;
 }
 
 .data > * {

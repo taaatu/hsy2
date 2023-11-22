@@ -9,6 +9,9 @@ import {
 import { SurveyPreview } from '../../../components/SurveyPreview';
 import { LoadingList } from '../../../components/lists/LoadingList';
 import { ButtonLoading } from '../../../components/ButtonLoading';
+import Tabs from 'react-bootstrap/Tabs';
+import { Tab } from 'react-bootstrap';
+import { SurveyBaseResults } from './SurveyBaseResults';
 
 const SingleSurveyPage = () => {
   const { surveyid } = useParams();
@@ -43,10 +46,10 @@ const SingleSurveyPage = () => {
     })();
   }, [update]);
 
-  if (!survey) return <h1>Ei kyselyä</h1>;
+  if (!survey || !surveyid) return <h1>Ei kyselyä</h1>;
 
   return (
-    <main>
+    <main className="color3 margin1 column">
       <h1>{survey.survey_header.survey_title}</h1>
       <div className="flex-row">
         <SurveyPreview survey={survey} />
@@ -70,27 +73,33 @@ const SingleSurveyPage = () => {
           Poista kysely
         </button>
       </div>
-
-      <h1>Assigned surveys list</h1>
-      <LoadingList>
-        {assignedSurveys.map((survey) => (
-          <div key={survey.assigned_survey_id} className="list-item">
-            <h4 style={{ flex: 1 }}>{survey.survey_title}</h4>
-            <div style={{ flex: 1 }}>
-              {survey.street}, {survey.post_code}, {survey.city}
-            </div>
-            <button
-              onClick={() =>
-                navigate(
-                  `/manager/surveys/${surveyid}/assigned/${survey.assigned_survey_id}`
-                )
-              }
-            >
-              Siirry
-            </button>
-          </div>
-        ))}
-      </LoadingList>
+      <Tabs>
+        <Tab eventKey="results" title="Tulokset">
+          <SurveyBaseResults surveyid={Number(surveyid)} />
+        </Tab>
+        <Tab eventKey="assigned" title="Taloyhtiöt">
+          <h1>Assigned surveys list</h1>
+          <LoadingList>
+            {assignedSurveys.map((survey) => (
+              <div key={survey.assigned_survey_id} className="list-item">
+                <h4 style={{ flex: 1 }}>{survey.survey_title}</h4>
+                <div style={{ flex: 1 }}>
+                  {survey.street}, {survey.post_code}, {survey.city}
+                </div>
+                <button
+                  onClick={() =>
+                    navigate(
+                      `/manager/surveys/${surveyid}/assigned/${survey.assigned_survey_id}`
+                    )
+                  }
+                >
+                  Siirry
+                </button>
+              </div>
+            ))}
+          </LoadingList>
+        </Tab>
+      </Tabs>
     </main>
   );
 };

@@ -8,6 +8,7 @@ import { useContext } from 'react';
 import { MainContext } from '../context/MainContext';
 import {
   AssignedSurveyResults,
+  BaseSurveyResults,
   ResidentResults,
 } from '../interfaces/SurveyResults';
 
@@ -155,6 +156,16 @@ const useSurvey = () => {
     }
   };
 
+  const getSurveyBaseResults = async (id: number) => {
+    try {
+      const response = await doFetch(`survey/surveyanswerlist/${id}`, 'GET');
+      console.log('Survey base results: ', response);
+      return response as BaseSurveyResults;
+    } catch (error: any) {
+      console.error('Get survey base results: ', error.message);
+    }
+  };
+
   const getAssignedSurveyResults = async (id: number) => {
     try {
       const response = await doFetch(
@@ -202,6 +213,7 @@ const useSurvey = () => {
     getSurveyKeys,
     getResidentAnwers,
     assignSurveyToBuildings,
+    getSurveyBaseResults,
     getAssignedSurveyResults,
     deleteSurvey,
   };
