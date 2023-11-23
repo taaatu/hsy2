@@ -1,3 +1,4 @@
+/** Error with status and message */
 export default class CustomError extends Error {
   status = 500;
 

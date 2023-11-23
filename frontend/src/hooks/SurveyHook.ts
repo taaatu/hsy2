@@ -8,6 +8,7 @@ import { useContext } from 'react';
 import { MainContext } from '../context/MainContext';
 import {
   AssignedSurveyResults,
+  BaseSurveyResults,
   ResidentResults,
 } from '../interfaces/SurveyResults';
 
@@ -56,6 +57,19 @@ const useSurvey = () => {
     } catch (error: any) {
       alert('Kyselyn luominen epäonnistui');
       throw new Error(error.message);
+    }
+  };
+
+  const publishSurvey = async (surveyId: number) => {
+    try {
+      const response = await doFetch(`survey/surveystatusupdate`, 'POST', {
+        survey_id: surveyId,
+      });
+      console.log('Publish survey: ', response);
+      alert('Kysely julkaistu');
+    } catch (error: any) {
+      console.error('Publish survey', error.message);
+      alert('Kyselyn jakaminen epäonnistui');
     }
   };
 
@@ -142,9 +156,22 @@ const useSurvey = () => {
     }
   };
 
-  const getAssignedSurveyResults = async (id: number) => {
+  const getSurveyBaseResults = async (id: number) => {
     try {
       const response = await doFetch(`survey/surveyanswerlist/${id}`, 'GET');
+      console.log('Survey base results: ', response);
+      return response as BaseSurveyResults;
+    } catch (error: any) {
+      console.error('Get survey base results: ', error.message);
+    }
+  };
+
+  const getAssignedSurveyResults = async (id: number) => {
+    try {
+      const response = await doFetch(
+        `survey/assignedsurveyanswerlist/${id}`,
+        'GET'
+      );
       console.log('Assigned survey results: ', response);
       return response as AssignedSurveyResults;
     } catch (error: any) {
@@ -178,6 +205,7 @@ const useSurvey = () => {
     getSurveys,
     getSurveyById,
     createSurvey,
+    publishSurvey,
     createSurveyKeys,
     getAssignedSurveys,
     getSurveyByKey,
@@ -185,6 +213,7 @@ const useSurvey = () => {
     getSurveyKeys,
     getResidentAnwers,
     assignSurveyToBuildings,
+    getSurveyBaseResults,
     getAssignedSurveyResults,
     deleteSurvey,
   };

@@ -55,7 +55,7 @@ Viestintä
 Hyödynnä yhteisön viestintä alustoja jakamaan vinkkejä ja tietoa kestävistä elämäntavoista, edistäen yhteistä sitoutumista ympäristövastuuseen.
 `;
 
-export const MESSAGE_5 = `Asumistottumuksesi ovat kulahtaneet ja et toimi taloyhtiön hyvinvointi mielessä. Toisin sanoen olet taloyhtiön nuhjaantunut nojatuoli, jonka ympärillä hienokin olohuone on vajavainen..
+export const MESSAGE_5 = `Asumistottumuksesi ovat kulahtaneet ja et toimi taloyhtiön hyvinvointi mielessä. Toisin sanoen olet taloyhtiön nuhjaantunut nojatuoli, jonka ympärillä hienokin olohuone on vajavainen.
 
 Rispaantunut nojatuoli kaipaa vahvasti uudistamista joten, tässä muutama vinkki miten voisit kehittää asumistottumisiasi aiemmasta:
 

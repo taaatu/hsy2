@@ -1,31 +1,11 @@
 import { BsFillBuildingFill } from 'react-icons/bs';
-import {
-  PieChart,
-  Legend,
-  Pie,
-  Cell,
-  ComposedChart,
-  XAxis,
-  YAxis,
-  Tooltip,
-  CartesianGrid,
-  Bar,
-  Label,
-  ResponsiveContainer,
-} from 'recharts';
-import {
-  getPropertyColor,
-  getQuestionPoints,
-  getSelectedOptionsCount,
-} from '../../../../utils/Functions';
+import { getPropertyColor } from '../../../../utils/Functions';
 import { useEffect, useState } from 'react';
-import {
-  AssignedSurveyResults,
-  QuestionStatistics,
-} from '../../../../interfaces/SurveyResults';
+import { AssignedSurveyResults } from '../../../../interfaces/SurveyResults';
 import useSurvey from '../../../../hooks/SurveyHook';
 import styles from './Results.module.css';
-import { BuildingColor } from '../../../../interfaces/Building';
+import { SurveyPieChart } from '../../../../components/charts/SurveyPieChart';
+import { SurveyBarChart } from '../../../../components/charts/SurveyBarChart';
 
 type Props = {
   surveyId: number;
@@ -69,100 +49,33 @@ export const SurveyResults = ({ surveyId }: Props) => {
       </div>
 
       <div className="flex-row">
-        <div
-          className="padding1"
-          style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 300 }}
-        >
-          <h5>Vastausjakauma</h5>
-          <ResponsiveContainer width={'100%'} height={400}>
-            <PieChart>
-              <Legend verticalAlign="top" height={20} />
-              <Tooltip />
-              <Pie
-                data={pieData(
-                  surveyResults.survey_questions_statistics,
-                  surveyResults.number_of_answers
-                )}
-                dataKey="value"
-                outerRadius={100}
-                fill="#8884d8"
-                label
-              >
-                {pieData(
-                  surveyResults.survey_questions_statistics,
-                  surveyResults.number_of_answers
-                ).map((entry, index) => (
-                  <Cell key={`pie-${index}`} fill={entry.color} />
-                ))}
-              </Pie>
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
-        <div
-          className="padding1"
-          style={{ flex: 1, backgroundColor: 'lightgray', minWidth: 300 }}
-        >
-          <h5>Kysymyskohtainen vastausjakauma</h5>
-          <ResponsiveContainer width={'100%'} height={400}>
-            <ComposedChart
-              width={300}
-              height={500}
-              data={getQuestionPoints(
-                surveyResults.survey_questions_statistics
-              )}
-            >
-              <XAxis>
-                <Label
-                  value="Kysymysten numerot"
-                  offset={0}
-                  position="insideBottom"
-                />
-              </XAxis>
-              <YAxis
-                label={{
-                  value: 'Pisteiden määrä',
-                  angle: -90,
-                  position: 'insideLeft',
-                }}
-              />
-              <Tooltip />
-              <Legend />
-              <CartesianGrid stroke="#f5f5f5" />
-
-              <Bar
-                dataKey="points"
-                name="Pistemäärä"
-                barSize={20}
-                fill="#413ea0"
-              />
-            </ComposedChart>
-          </ResponsiveContainer>
-        </div>
+        <SurveyPieChart results={surveyResults} />
+        <SurveyBarChart results={surveyResults} />
       </div>
     </div>
   );
 };
 
-const pieData = (data: QuestionStatistics[], answersCount: number) => [
-  {
-    name: 'Pidän tärkeänä tai toimin näin',
-    value: getSelectedOptionsCount(data, 1),
-    p: (getSelectedOptionsCount(data, 1) / (data.length * answersCount)) * 100,
-    color: BuildingColor.GREEN,
-  },
-  {
-    name: 'Asialla ei ole merkitystä tai asia ei koske minua',
-    value: getSelectedOptionsCount(data, 2),
-    p: (getSelectedOptionsCount(data, 1) / (data.length * answersCount)) * 100,
-    color: BuildingColor.YELLOW,
-  },
-  {
-    name: 'En pidä tärkeänä tai en toimi näin',
-    value: getSelectedOptionsCount(data, 3),
-    p: (getSelectedOptionsCount(data, 1) / (data.length * answersCount)) * 100,
-    color: BuildingColor.RED,
-  },
-];
+// const pieData = (data: QuestionStatistics[], answersCount: number) => [
+//   {
+//     name: 'Pidän tärkeänä tai toimin näin',
+//     value: getSelectedOptionsCount(data, 1),
+//     p: (getSelectedOptionsCount(data, 1) / (data.length * answersCount)) * 100,
+//     color: BuildingColor.GREEN,
+//   },
+//   {
+//     name: 'Asialla ei ole merkitystä tai asia ei koske minua',
+//     value: getSelectedOptionsCount(data, 2),
+//     p: (getSelectedOptionsCount(data, 1) / (data.length * answersCount)) * 100,
+//     color: BuildingColor.YELLOW,
+//   },
+//   {
+//     name: 'En pidä tärkeänä tai en toimi näin',
+//     value: getSelectedOptionsCount(data, 3),
+//     p: (getSelectedOptionsCount(data, 1) / (data.length * answersCount)) * 100,
+//     color: BuildingColor.RED,
+//   },
+// ];
 
 // const data01 = [
 //   {
