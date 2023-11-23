@@ -26,7 +26,7 @@ export const getSelectedOptionsCount = (
 export const getQuestionPoints = (data: QuestionStatistics[]) => {
   const points = data.map((question, i) => {
     const _p =
-      question.number_resident_selected_option_3 * 1 +
+      question.number_resident_selected_option_1 * 1 +
       question.number_resident_selected_option_2 * 0.5;
     return { name: 'Kysymys' + i, points: _p };
   });
