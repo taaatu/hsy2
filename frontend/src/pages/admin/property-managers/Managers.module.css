@@ -32,3 +32,25 @@
 label{
     font-weight: bold;
 }
+
+.listHeaders {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1em;
+}
+
+.btnContainer {
+    width: 10%;
+}
+
+.btnContainer button {
+    float: right;
+}
+
+.listHeaders > * {
+    flex: 1;
+}
+
+.listHeaders > .btnContainer {
+    flex: 0 1 auto;
+}

@@ -35,7 +35,7 @@ export const SurveyBaseResults = ({ surveyid }: Props) => {
           <h4>{results.average_survey_point}</h4>
         </div>
         <div>
-          <h5>Taloyhtiön tahtotila </h5>
+          <h5>Yleinen tahtotila</h5>
           <h4>{results.average_percentage} %</h4>
           {results.average_percentage && (
             <BsFillBuildingFill

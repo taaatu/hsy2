@@ -79,10 +79,11 @@ export const AnswerSurveyForm = ({
             ))}
           </>
         )}
-
-        <div style={{ alignSelf: 'center' }}>
-          <ButtonLoading text="Lähetä vastaukset" />
-        </div>
+        {isPreview ? null : (
+          <div style={{ alignSelf: 'center' }}>
+            <ButtonLoading text="Lähetä vastaukset" />
+          </div>
+        )}
       </form>
     </div>
   );

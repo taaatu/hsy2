@@ -46,7 +46,7 @@ const ManagerBaseSurveyPage = () => {
       <LoadingList>
         {assignedSurveys.map((survey) => (
           <div key={survey.assigned_survey_id} className="list-item">
-            <h4 style={{ flex: 1 }}>{survey.survey_title}</h4>
+            <div style={{ flex: 1 }}>{survey.survey_title}</div>
             <div style={{ flex: 1 }}>
               {survey.street}, {survey.post_code}, {survey.city}
             </div>
