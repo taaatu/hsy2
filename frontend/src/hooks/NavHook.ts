@@ -12,7 +12,10 @@ const useNav = () => {
 
   const navigateBuildings = () => navigate(`${userRoute}/properties`);
 
-  return { navigateBuildings };
+  const navigateAssignedSurvey = (surveyid: number, assignedSurveyId: number) =>
+    navigate(`${userRoute}/surveys/${surveyid}/assigned/${assignedSurveyId}`);
+
+  return { navigateBuildings, navigateAssignedSurvey };
 };
 
 export default useNav;

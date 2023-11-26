@@ -1,22 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Building } from '../../../interfaces/Building';
 import useBuilding from '../../../hooks/BuildingHook';
 import Modal from 'react-bootstrap/Modal';
 import { SearchBar } from '../../../components/SearchBar';
 import useSurvey from '../../../hooks/SurveyHook';
 import { AssignedSurvey } from '../../../interfaces/Survey';
+import { MainContext } from '../../../context/MainContext';
 
 type Props = {
   surveyid: number;
   assignedSurveys: AssignedSurvey[];
-  handleUpdate: () => void;
 };
 
-export const SelectProperties = ({
-  surveyid,
-  assignedSurveys,
-  handleUpdate,
-}: Props) => {
+export const SelectProperties = ({ surveyid, assignedSurveys }: Props) => {
   const { getAllBuildings } = useBuilding();
   const { assignSurveyToBuildings } = useSurvey();
   const [buildings, setBuildings] = useState<Building[]>([]);
@@ -24,6 +20,7 @@ export const SelectProperties = ({
   const [modelOpen, setModelOpen] = useState<boolean>(false);
   const [selectedBuildings, setSelectedBuildings] = useState<Building[]>([]);
   const [selectAll, setSelectAll] = useState(false);
+  const { setUpdate, update } = useContext(MainContext);
 
   const filteredBuildings = buildings.filter((building) => {
     return (
@@ -71,7 +68,7 @@ export const SelectProperties = ({
   const handleSubmit = async () => {
     await assignSurveyToBuildings(selectedBuildings, surveyid);
     handleCloseModal();
-    handleUpdate();
+    setUpdate(update + 1);
     setSelectedBuildings([]);
   };
 
