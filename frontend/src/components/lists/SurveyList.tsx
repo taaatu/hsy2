@@ -59,7 +59,10 @@ export const SurveyList = () => {
           </div>
           <div className={`bold padding1 ${styles.buildingsHeader}`}>
             <div>Nimi</div>
-            <div>Jaettu</div>
+            {curentUser?.user_group === UserGroup.ADMIN ? (
+              <div>Jaettu</div>
+            ) : null}
+
             <div className={styles.btnContainer}></div>
           </div>
         </div>

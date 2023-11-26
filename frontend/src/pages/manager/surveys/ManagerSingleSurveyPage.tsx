@@ -1,17 +1,19 @@
 import { useParams } from 'react-router-dom';
 import useSurvey from '../../../hooks/SurveyHook';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AssignedSurvey } from '../../../interfaces/Survey';
 import { ButtonLoading } from '../../../components/ButtonLoading';
 import Tabs from 'react-bootstrap/esm/Tabs';
 import { Tab } from 'react-bootstrap';
 import { SurveyResults } from './results/SurveyResults';
+import { MainContext } from '../../../context/MainContext';
+import { UserGroup } from '../../../interfaces/User';
 
 const ManagerSingleSurveyPage = () => {
   const { id } = useParams();
   const [survey, setSurvey] = useState<AssignedSurvey>();
   const { getAssignedSurveys } = useSurvey();
-  // const { curentUser } = useContext(MainContext);
+  const { curentUser } = useContext(MainContext);
 
   useEffect(() => {
     (async () => {
@@ -35,16 +37,24 @@ const ManagerSingleSurveyPage = () => {
         <div>
           Vastausaika: {survey?.start_time} - {survey?.end_time}
         </div>
-        <Tabs>
-          <Tab eventKey="vastaukset" title="Vastaukset">
+        {curentUser?.user_group === UserGroup.MANAGER ? (
+          <Tabs>
+            <Tab eventKey="vastaukset" title="Vastaukset">
+              {survey?.assigned_survey_id && (
+                <SurveyResults surveyId={survey?.assigned_survey_id} />
+              )}
+            </Tab>
+            <Tab eventKey="kysely" title="Jaa kysely">
+              <CreateKey surveyid={survey?.assigned_survey_id} />
+            </Tab>
+          </Tabs>
+        ) : (
+          <>
             {survey?.assigned_survey_id && (
               <SurveyResults surveyId={survey?.assigned_survey_id} />
             )}
-          </Tab>
-          <Tab eventKey="kysely" title="Jaa kysely">
-            <CreateKey surveyid={survey?.assigned_survey_id} />
-          </Tab>
-        </Tabs>
+          </>
+        )}
       </main>
     );
 };
@@ -90,7 +100,9 @@ const CreateKey = ({ surveyid }: { surveyid: number }) => {
       <ul>
         <h4>Käyttämättömät koodit {`(${surveyKeys.length})`}</h4>
         {surveyKeys.map((key) => (
-          <li className='kooditlista' key={key}>{key}</li>
+          <li className="kooditlista" key={key}>
+            {key}
+          </li>
         ))}
       </ul>
     </>

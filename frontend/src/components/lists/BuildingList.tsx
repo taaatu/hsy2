@@ -43,7 +43,18 @@ export const BuildingList = ({ userid }: Props) => {
   return (
     <LoadingList>
       <div className="sticky-header color3 rounded padding1">
-        <SearchBar placeholder="Hae taloyhtiötä" handleSearch={handleSearch} />
+        <div className="flex-row">
+          <SearchBar
+            placeholder="Hae taloyhtiötä"
+            handleSearch={handleSearch}
+          />
+          {curentUser?.user_group !== UserGroup.MANAGER ? null : (
+            <button className="colored" onClick={() => navigate('add')}>
+              Lisää taloyhtiö
+            </button>
+          )}
+        </div>
+
         <div className={`bold ${styles.buildingsHeader}`}>
           <div>Osoite</div>
           <div>Nimi</div>

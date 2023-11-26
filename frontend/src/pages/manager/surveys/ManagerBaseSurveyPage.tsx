@@ -1,21 +1,16 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { AssignedSurvey, Survey } from '../../../interfaces/Survey';
 import useSurvey from '../../../hooks/SurveyHook';
 import { SurveyPreview } from '../../../components/SurveyPreview';
 import { SelectProperties } from './SelectProperties';
-import { LoadingList } from '../../../components/lists/LoadingList';
+import { AssignedSurveyList } from '../../../components/lists/AssignedSurveyList';
 
 const ManagerBaseSurveyPage = () => {
   const { surveyid } = useParams();
   const { getSurveyById, getAssignedSurveys } = useSurvey();
   const [survey, setSurvey] = useState<Survey>();
-  const navigate = useNavigate();
-  // --------------------------------------------------------
   const [assignedSurveys, setAssignedSurveys] = useState<AssignedSurvey[]>([]);
-  const [update, setUpdate] = useState(0);
-
-  const handleUpdate = () => setUpdate(update + 1);
 
   useEffect(() => {
     (async () => {
@@ -27,7 +22,7 @@ const ManagerBaseSurveyPage = () => {
       );
       setAssignedSurveys(_filtered);
     })();
-  }, [update]);
+  }, []);
 
   if (!survey) return <h1>Ei kyselyä</h1>;
 
@@ -37,31 +32,11 @@ const ManagerBaseSurveyPage = () => {
         <SelectProperties
           surveyid={Number(surveyid)}
           assignedSurveys={assignedSurveys}
-          handleUpdate={handleUpdate}
         />
 
         <SurveyPreview survey={survey} />
       </div>
-
-      <LoadingList>
-        {assignedSurveys.map((survey) => (
-          <div key={survey.assigned_survey_id} className="list-item">
-            <h4 style={{ flex: 1 }}>{survey.survey_title}</h4>
-            <div style={{ flex: 1 }}>
-              {survey.street}, {survey.post_code}, {survey.city}
-            </div>
-            <button
-              onClick={() =>
-                navigate(
-                  `/manager/surveys/${surveyid}/assigned/${survey.assigned_survey_id}`
-                )
-              }
-            >
-              Siirry
-            </button>
-          </div>
-        ))}
-      </LoadingList>
+      <AssignedSurveyList surveyid={Number(surveyid)} />
     </main>
   );
 };
