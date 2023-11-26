@@ -13,7 +13,9 @@ describe('template spec', () => {
   });
 
   it('admin add property manager', () => {
-    cy.visit('http://localhost:5173/login');
+    cy.visit('http://localhost:5173/');
+    cy.get('#login-link').click();
+
     cy.get('input[name="email"]').type(Cypress.env('ADMIN_EMAIL'), {
       log: false,
     });
@@ -23,7 +25,7 @@ describe('template spec', () => {
     cy.get('button').click();
     cy.url().should('include', '/admin');
     cy.get('.nav-managers').click();
-    cy.get('a[href="/admin/managers/add"]').click();
+    cy.get('#add-managers-link').click();
     cy.url().should('include', '/admin/managers/add');
     cy.get('input[name="email"]').type(testUser.email);
     cy.get('input[name="password"]').type(testUser.password);
@@ -35,13 +37,14 @@ describe('template spec', () => {
   });
 
   it('login with test user and modify profile', () => {
-    cy.visit('http://localhost:5173/login');
+    cy.visit('http://localhost:5173/');
+    cy.get('#login-link').click();
     cy.get('input[name="email"]').type(testUser.email);
     cy.get('input[name="password"]').type(testUser.password);
     cy.get('button').click();
     cy.url().should('include', '/manager');
     cy.get('.nav-profile').click();
-    cy.get('a[href="/manager/profile"]').click();
+    cy.get('#profile-link').click();
     cy.url().should('include', '/manager/profile');
 
     // Modify profile
@@ -58,7 +61,8 @@ describe('template spec', () => {
   });
 
   it('login with modified test user', () => {
-    cy.visit('http://localhost:5173/login');
+    cy.visit('http://localhost:5173/');
+    cy.get('#login-link').click();
     cy.get('input[name="email"]').type(testUser.email);
     cy.get('input[name="password"]').type(testUser.password);
     cy.get('button').click();
@@ -66,7 +70,7 @@ describe('template spec', () => {
 
     // Remove test user
     cy.get('.nav-profile').click();
-    cy.get('a[href="/manager/profile"]').click();
+    cy.get('#profile-link').click();
     cy.get('button.delete').click();
   });
 });
