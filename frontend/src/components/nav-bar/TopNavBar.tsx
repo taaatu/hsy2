@@ -75,7 +75,11 @@ const AdminLinks = () => (
         Isännöitsijät
       </NavDropdown.Item>
       <NavDropdown.Divider />
-      <NavDropdown.Item as={Link} to={'/admin/managers/add'}>
+      <NavDropdown.Item
+        id="add-managers-link"
+        as={Link}
+        to={'/admin/managers/add'}
+      >
         Lisää isännöitsijä
       </NavDropdown.Item>
     </NavDropdown>
@@ -87,7 +91,7 @@ const AdminLinks = () => (
         </>
       }
     >
-      <NavDropdown.Item as={Link} to={'/admin/profile'}>
+      <NavDropdown.Item id="profile-link" as={Link} to={'/admin/profile'}>
         Omat tiedot
       </NavDropdown.Item>
       <NavDropdown.Divider />
@@ -138,7 +142,7 @@ const ManagerLinks = () => (
         </>
       }
     >
-      <NavDropdown.Item as={Link} to={'/manager/profile'}>
+      <NavDropdown.Item id="profile-link" as={Link} to={'/manager/profile'}>
         Omat tiedot
       </NavDropdown.Item>
       <NavDropdown.Divider />

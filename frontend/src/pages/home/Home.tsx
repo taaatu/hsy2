@@ -28,6 +28,7 @@ export const HomePage = () => {
         <button style={{ marginTop: '1rem' }}>Siirry kyselyyn</button>
         <Link
           to="/login"
+          id="login-link"
           style={{
             color: 'black',
             textDecoration: 'underline',
