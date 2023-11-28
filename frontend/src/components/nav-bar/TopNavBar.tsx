@@ -48,17 +48,22 @@ const AdminLinks = () => (
     </NavDropdown>
     <NavDropdown
       id={styles.navDropdown}
+      className="nav-surveys"
       title={
         <>
           <FaClipboardList /> <p>Kyselyt</p>
         </>
       }
     >
-      <NavDropdown.Item as={Link} to={'/admin/surveys'}>
+      <NavDropdown.Item id="surveys-link" as={Link} to={'/admin/surveys'}>
         Kyselyt
       </NavDropdown.Item>
       <NavDropdown.Divider />
-      <NavDropdown.Item as={Link} to={'/admin/surveys/create'}>
+      <NavDropdown.Item
+        id="create-survey-link"
+        as={Link}
+        to={'/admin/surveys/create'}
+      >
         Luo kysely
       </NavDropdown.Item>
     </NavDropdown>

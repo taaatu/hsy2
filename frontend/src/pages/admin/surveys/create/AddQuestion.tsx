@@ -18,11 +18,12 @@ const AddQuestion = ({ index, register, /* control, */ remove }: Props) => {
   // });
 
   return (
-    <Card>
+    <Card id={`question-${index + 1}`}>
       <Card.Header as="h4">Kysymys {index + 1}</Card.Header>
       <Card.Body>
         <textarea
           placeholder="Kysymys"
+          id="question"
           className={styles.input}
           {...register(`questions.${index}.question`, {
             required: {
@@ -36,7 +37,7 @@ const AddQuestion = ({ index, register, /* control, */ remove }: Props) => {
             <span className={styles.dot} />
             <input
               className={`${styles.optionInput} line`}
-              type="text"
+              id={`question-${index + 1}-option-1`}
               placeholder="Vastaus 1"
               {...register(`questions.${index}.option_1`, {
                 required: {
@@ -51,7 +52,7 @@ const AddQuestion = ({ index, register, /* control, */ remove }: Props) => {
             <span className={styles.dot} />
             <input
               className={`${styles.optionInput} line`}
-              type="text"
+              id={`question-${index + 1}-option-2`}
               placeholder="Vastaus 2"
               {...register(`questions.${index}.option_2`, {
                 required: {
@@ -66,7 +67,7 @@ const AddQuestion = ({ index, register, /* control, */ remove }: Props) => {
             <span className={styles.dot} />
             <input
               className={`${styles.optionInput} line`}
-              type="text"
+              id={`question-${index + 1}-option-3`}
               placeholder="Vastaus 3"
               {...register(`questions.${index}.option_3`, {
                 required: {
@@ -79,26 +80,6 @@ const AddQuestion = ({ index, register, /* control, */ remove }: Props) => {
           </div>
         </div>
       </Card.Body>
-
-      {/* Painotus
-        <div className={styles.selectWeight}>
-          {[1, 2, 3, 4, 5].map((weight) => (
-            <div key={weight}>
-              {weight}
-              <input
-                type="radio"
-                name={`weight-${question.id}`}
-                value={weight}
-                onChange={(e) => handleInputChange(e, 'weight')}
-              />
-            </div>
-          ))}
-        </div> */}
-      {/* <input type="radio" name="question" value={1} required /> 1
-          <input type="radio" name="question" value={1} required /> 2
-          <input type="radio" name="question" value={1} required checked /> 3
-          <input type="radio" name="question" value={1} required /> 4
-          <input type="radio" name="question" value={1} required /> 5 */}
       <Card.Footer>
         <button onClick={() => remove(index)} className="delete">
           <FaTrashAlt />

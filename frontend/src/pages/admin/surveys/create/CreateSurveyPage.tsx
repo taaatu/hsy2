@@ -93,6 +93,7 @@ const CreateSurveyPage = () => {
                 Kyselyn nimi
                 <input
                   maxLength={40}
+                  id="survey-title"
                   className="line"
                   type="text"
                   placeholder="Kyselyn nimi"
@@ -110,6 +111,7 @@ const CreateSurveyPage = () => {
                   Alkaa
                   <input
                     type="date"
+                    id="start-time"
                     placeholder="Alkaa"
                     className="line"
                     {...register('survey_header.start_time', {
@@ -129,6 +131,7 @@ const CreateSurveyPage = () => {
                   Päättyy
                   <input
                     type="date"
+                    id="end-time"
                     placeholder="Päättyy"
                     className="line"
                     {...register('survey_header.end_time', {
@@ -151,6 +154,7 @@ const CreateSurveyPage = () => {
                 Kuvaus
                 <textarea
                   placeholder="Kuvaus"
+                  id="survey-description"
                   {...register('survey_header.description', {
                     required: {
                       value: true,
@@ -181,6 +185,7 @@ const CreateSurveyPage = () => {
 
               <button
                 type="button"
+                id="add-question-btn"
                 className="colored"
                 onClick={() => append(defaultQuestion)}
               >
@@ -209,7 +214,7 @@ const CreateSurveyPage = () => {
 
               <div className="flex-row">
                 <SurveyPreview survey={getValues()} />
-                <ButtonLoading text="Luo kysely" />
+                <ButtonLoading text="Luo kysely" id="create-survey-btn" />
               </div>
 
               <FormErrorList

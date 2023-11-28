@@ -69,7 +69,9 @@ export const SurveyList = () => {
 
         {filteredSurveys.map((survey) => (
           <div key={survey.survey_id} className={styles.listItem}>
-            <div style={{ flex: 1 }}>{survey.survey_title}</div>
+            <div id="survey-title" style={{ flex: 1 }}>
+              {survey.survey_title}
+            </div>
             {curentUser?.user_group === UserGroup.ADMIN ? (
               <>
                 <div style={{ flex: 1 }}>
