@@ -63,7 +63,7 @@ const pieData = (data: QuestionStatistics[], answersCount: number) => [
     name: 'Asialla ei ole merkitystä tai asia ei koske minua',
     value: getSelectedOptionsCount(data, 2),
     p: (getSelectedOptionsCount(data, 1) / (data.length * answersCount)) * 100,
-    color: BuildingColor.YELLOW,
+    color: BuildingColor.BLUE,
   },
   {
     name: 'En pidä tärkeänä tai en toimi näin',

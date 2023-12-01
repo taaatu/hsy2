@@ -2,9 +2,8 @@ import { BuildingColor } from '../interfaces/Building';
 import { QuestionStatistics } from '../interfaces/SurveyResults';
 
 export const getPropertyColor = (pointPercentage: number) => {
-  console.log('pointPercentage: ', pointPercentage);
   if (pointPercentage < 33) return BuildingColor.RED;
-  if (pointPercentage < 66) return BuildingColor.YELLOW;
+  if (pointPercentage < 66) return BuildingColor.BLUE;
   return BuildingColor.GREEN;
 };
 
