@@ -131,7 +131,7 @@ const survey_publish_post = async (req, res, next) => {
                 from: `HIMA<${process.env.MAILER_EMAIL}>`, 
                 to: `${property_manager_email_list}`, 
                 subject: "New survey has been published",
-                text: `Hi,\n\n New survey ${survey.survey_title} has been published. Please check the detail of new survey from Hima application.\n\n Best Regards,\nHSY admin`, 
+                text: `Hei,\n\n Uusi kyselypohja ${survey.survey_title} on julkaistu. Voit löytää uuden kyselypohjan HIMA-sovelluksesta.\n\nTerveisin,\nHSY ylläpitäjä`, 
             });
         }
         res.json({message: `survey ${req.body.survey_id} has been successfully published!`, status: 200 });
