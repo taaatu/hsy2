@@ -366,6 +366,19 @@ const deleteAssignedSurveyById = async (assignedSurveyId) => {
     }
 };
 
+const updateSurveyEndDate = async (endTime, surveyId) => {
+    try {
+        const [rows] = await promisePool.execute(
+            "UPDATE survey SET end_time = ? WHERE survey_id = ?",
+            [endTime, surveyId]
+        );
+        return rows.affectedRows === 1;
+    } catch (e) {
+        console.error("model update survey end time", e.message);
+        throw httpError(e.message, 400);
+    }
+}; 
+
 
 
 module.exports = {
@@ -393,5 +406,5 @@ module.exports = {
     getAllAssignedSurveyIdBySurveyId,
     getAllPropertyManagerEmail,
     getAssignedSurveyInfoBySurveyKey,
-    
+    updateSurveyEndDate
 }; 

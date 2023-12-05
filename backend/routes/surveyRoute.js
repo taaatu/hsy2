@@ -19,13 +19,22 @@ const {
     survey_answer_get_by_key,
     assigned_survey_delete,
     assigned_survey_answer_list_get,
-    survey_answer_list_get
+    survey_answer_list_get,
+    survey_end_time_update
 } = require("../controllers/surveyController");
 
 
 router
     .route("/")
     .get(survey_list_get)
+    .put(
+        body("s_id")
+            .isNumeric().withMessage("User ID must be a number!"),
+        body("end_time")
+            .notEmpty().withMessage('End time is required!')
+            .matches(/^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\d{4}$/).withMessage('End time must be in DD-MM-YYYY format!'),
+        survey_end_time_update
+    )
     .post(
         body("survey_header.u_id")
             .isNumeric().withMessage("User ID must be a number!"),
@@ -50,7 +59,8 @@ router
         body("questions[*].option_3")
             .notEmpty().withMessage("Qestion option_1 can't be empty!"),
         survey_post
-);
+    );
+      
     
 router
     .route("/surveystatusupdate")
@@ -58,7 +68,7 @@ router
         body("survey_id")
             .isNumeric().withMessage("Survey ID must be a number!"),
         survey_publish_post
-);
+    );
 
 router
     .route("/surveybyid/:surveyId")
@@ -86,7 +96,7 @@ router
     .post(
         body("as_id").isNumeric().withMessage('as_id must be a numeric value.'),
         assigned_survey_key_post
-);
+    );
 router
     .route("/assignsureveykey/:as_id/:key_status")
     .get(assigned_survey_key_list_get)
@@ -105,7 +115,7 @@ router
         body("answers[*].s_key")
             .matches(/^\d{6}$/).withMessage('Survey Key must be a 6 digits number.'),
         survey_question_answer_post
-);
+    );
 
 router
     .route("/assignedsurveyanswerlist/:as_id")

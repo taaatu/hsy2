@@ -27,7 +27,7 @@ const {
     getAllAssignedSurveyIdBySurveyId,
     getAllPropertyManagerEmail,
     getAssignedSurveyInfoBySurveyKey,
-    
+    updateSurveyEndDate
 } = require('../models/surveyModel');
 const {
     generateSixDigitNumber,
@@ -530,6 +530,27 @@ const survey_answer_list_get = async (req, res, next) => {
     };
 };
 
+const survey_end_time_update = async (req, res, next) => {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            console.error('survey_end_time_update validation', errors.array());
+            const err = httpError(errors.errors[0].msg, 400);
+            next(err);
+            return;
+        }
+        const survey = await getSurveyById(req.body.s_id);
+        if (survey) {
+            await updateSurveyEndDate(req.body.end_time, req.body.s_id);
+            res.json({ message: `Survey ${survey.survey_title}'s end time has updated from ${req.body.end_time} to ${survey.end_time}` });
+        } else {
+            throw new Error("Survey not found");
+        }
+    } catch (error) {
+        next(error);
+    };
+};
+
   
 module.exports = {
     survey_list_get,
@@ -546,5 +567,6 @@ module.exports = {
     survey_answer_get_by_key,
     assigned_survey_delete,
     assigned_survey_answer_list_get,
-    survey_answer_list_get
+    survey_answer_list_get,
+    survey_end_time_update
 };
