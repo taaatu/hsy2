@@ -81,7 +81,7 @@ const UserResultsPage = () => {
             style={{ gap: 0, justifyContent: 'space-between' }}
           >
             <BsFillBuildingFill size={40} color={BuildingColor.RED} />
-            <BsFillBuildingFill size={40} color={BuildingColor.YELLOW} />
+            <BsFillBuildingFill size={40} color={BuildingColor.BLUE} />
             <BsFillBuildingFill size={40} color={BuildingColor.GREEN} />
           </div>
         </div>

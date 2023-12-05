@@ -9,9 +9,9 @@ interface Building {
 }
 
 enum BuildingColor {
-  GREEN = '#228b22',
-  YELLOW = '#fff700',
-  RED = 'red',
+  GREEN = '#4fb06d',
+  BLUE = '#2e5a88',
+  RED = 'tomato',
 }
 
 type BuildingInput = Omit<Building, 'building_id' | 'u_id'>;

@@ -1,13 +1,13 @@
 import { Question } from '../../src/interfaces/Question';
 import { SurveyHeader } from '../../src/interfaces/Survey';
-import { User } from '../../src/interfaces/User';
+// import { User } from '../../src/interfaces/User';
 
-const testUser: User = {
-  email: 'testuser@test.com',
-  password: 'Test1234',
-  full_name: 'John Doe',
-  company: 'Test Company',
-};
+// const testUser: User = {
+//   email: 'testuser@test.com',
+//   password: 'Test1234',
+//   full_name: 'John Doe',
+//   company: 'Test Company',
+// };
 
 export const testSurveyHeader: Partial<SurveyHeader> = {
   survey_title: 'Test Survey ' + Math.floor(Math.random() * 90000) + 10000,
