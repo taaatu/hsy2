@@ -2,9 +2,8 @@ import { BuildingColor } from '../interfaces/Building';
 import { QuestionStatistics } from '../interfaces/SurveyResults';
 
 export const getPropertyColor = (pointPercentage: number) => {
-  console.log('pointPercentage: ', pointPercentage);
   if (pointPercentage < 33) return BuildingColor.RED;
-  if (pointPercentage < 66) return BuildingColor.YELLOW;
+  if (pointPercentage < 66) return BuildingColor.BLUE;
   return BuildingColor.GREEN;
 };
 
@@ -24,11 +23,19 @@ export const getSelectedOptionsCount = (
 };
 
 export const getQuestionPoints = (data: QuestionStatistics[]) => {
-  const points = data.map((question, i) => {
-    const _p =
+  return data.map((question) => {
+    const points =
       question.number_resident_selected_option_1 * 1 +
       question.number_resident_selected_option_2 * 0.5;
-    return { name: 'Kysymys' + i, points: _p };
+    return { question: question.question, points: points };
   });
-  return points;
+};
+
+export const getTopQuestionsByPoints = (data: QuestionStatistics[]) => {
+  const points = getQuestionPoints(data);
+  const sortedPoints = points.sort((a, b) => b.points - a.points);
+  return {
+    top: sortedPoints.slice(0, 3),
+    bottom: sortedPoints.reverse().slice(0, 3),
+  };
 };
