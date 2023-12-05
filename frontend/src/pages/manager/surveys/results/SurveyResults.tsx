@@ -5,7 +5,7 @@ import { AssignedSurveyResults } from '../../../../interfaces/SurveyResults';
 import useSurvey from '../../../../hooks/SurveyHook';
 import styles from './Results.module.css';
 import { SurveyPieChart } from '../../../../components/charts/SurveyPieChart';
-import { SurveyBarChart } from '../../../../components/charts/SurveyBarChart';
+import { QuestionsByPoints } from '../../../../components/charts/QuestionsByPoints';
 
 type Props = {
   surveyId: number;
@@ -50,7 +50,8 @@ export const SurveyResults = ({ surveyId }: Props) => {
 
       <div className="flex-row">
         <SurveyPieChart results={surveyResults} />
-        <SurveyBarChart results={surveyResults} />
+        {/* <SurveyBarChart results={surveyResults} /> */}
+        <QuestionsByPoints results={surveyResults} />
       </div>
     </div>
   );

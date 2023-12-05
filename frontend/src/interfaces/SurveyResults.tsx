@@ -21,6 +21,7 @@ type BaseSurveyResults = {
 };
 
 type QuestionStatistics = {
+  question: string;
   number_resident_selected_option_1: number;
   number_resident_selected_option_2: number;
   number_resident_selected_option_3: number;

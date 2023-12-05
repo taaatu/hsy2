@@ -5,7 +5,7 @@ import { SurveyPieChart } from '../../../components/charts/SurveyPieChart';
 import { BsFillBuildingFill } from 'react-icons/bs';
 import { getPropertyColor } from '../../../utils/Functions';
 import styles from './Surveys.module.css';
-import { SurveyBarChart } from '../../../components/charts/SurveyBarChart';
+import { QuestionsByPoints } from '../../../components/charts/QuestionsByPoints';
 
 type Props = {
   surveyid: number;
@@ -48,7 +48,8 @@ export const SurveyBaseResults = ({ surveyid }: Props) => {
 
       <div className="flex-row">
         <SurveyPieChart results={results} />
-        <SurveyBarChart results={results} />
+        {/* <SurveyBarChart results={results} /> */}
+        <QuestionsByPoints results={results} />
       </div>
     </div>
   );
