@@ -1,6 +1,12 @@
 # HSY survey app
 
-test
+Survey creation app for HSY. 
+## Tech stack
+* Frontend
+  * React
+  * TypeScript
+* Backend
+  * NodeJS
 ## Features
 * Resident
   * Access survey with a key
