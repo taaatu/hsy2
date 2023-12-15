@@ -1,6 +1,6 @@
-# HSY survey app
+# HSY survey app - HIMA
 
-Survey creation app for HSY. 
+This is a student project for Metropolia's innovation project course. The task was to develop a survey tool for HSY, which is used for collecting data from the residents, that will determine the state of the property regarding how sustainable they are. The survey tool is a web application name HIMA and it is displayed in Finnish.
 ## Tech stack
 * Frontend
   * React
